@@ -1,39 +1,15 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "APIGene",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#626AE9",
+    "light": "#626AE9",
+    "dark": "#626AE9"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
-          }
-        ]
-      },
       {
         "tab": "API Reference",
         "groups": [
@@ -44,59 +20,125 @@
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "API Specs",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/spec/spec-create-from-file",
+              "api-reference/spec/spec-create-from-url",
+              "api-reference/spec/spec-get",
+              "api-reference/spec/specs-list",
+              "api-reference/spec/spec-update",
+              "api-reference/spec/spec-scopes",
+              "api-reference/spec/spec-get-schema",
+              "api-reference/spec/spec-use-cases",
+              "api-reference/spec/spec-insights",
+              "api-reference/spec/spec-summary",
+              "api-reference/spec/spec-delete",
+              "api-reference/spec/spec-reindex",
+              "api-reference/spec/spec-reindex-status",
+              "api-reference/spec/spec-create-agentic-metadata",
+              "api-reference/spec/spec-get-agentic-metadata-common-parameteres",
+              "api-reference/spec/spec-update-agentic-metadata",
+              "api-reference/spec/spec-operations",
+              "api-reference/spec/spec-operation-user-input-template",
+              "api-reference/spec/spec-operation-schema",
+              "api-reference/spec/spec-operation-examples",
+              "api-reference/spec/spec-operation-add-examples"
+            ]
+          },
+          {
+            "group": "Spec Authentication",
+            "pages": [
+              "api-reference/auth/callback",
+              "api-reference/auth/login-status",
+              "api-reference/auth/login",
+              "api-reference/auth/logout"
+            ]
+          },
+          {
+            "group": "Spec Interaction",
+            "pages": [
+              "api-reference/interaction/get-summary",
+              "api-reference/interaction/interaction-create",
+              "api-reference/interaction/list-interactions"
+            ]
+          },
+          {
+            "group": "AI Connectors",
+            "pages": [
+              "api-reference/gpt/gpt-create-from-api",
+              "api-reference/gpt/gpt-create",
+              "api-reference/gpt/gpt-delete",
+              "api-reference/gpt/gpt-install",
+              "api-reference/gpt/gpt-generate-token",
+              "api-reference/gpt/gpt-revoke-token",
+              "api-reference/gpt/gpt-uninstall",
+              "api-reference/gpt/gpt-update",
+              "api-reference/gpt/gpts-explore",
+              "api-reference/gpt/gpts-list"
+            ]
+          },
+          {
+            "group": "AI Connector Actions",
+            "pages": [
+              "api-reference/gpt-public/trigger-a-login-operation",
+              "api-reference/gpt-public/gpt-public-action",
+              "api-reference/gpt-public/gpt-public-task",
+              "api-reference/gpt-public/get-gpt-public-openapi"
+            ]
+          },
+          {
+            "group": "AI Task",
+            "pages": [
+              "api-reference/task/task-create",
+              "api-reference/task/task-list",
+              "api-reference/task/task-get",
+              "api-reference/task/task-update",
+              "api-reference/task/task-generate",
+              "api-reference/task/task-background-run",
+              "api-reference/task/task-get-scheduled-runs-results",
+              "api-reference/task/task-delete"
+            ]
+          },
+          {
+            "group": "AI Context",
+            "pages": [
+              "api-reference/context/context-create",
+              "api-reference/context/context-list",
+              "api-reference/context/context-get",
+              "api-reference/context/context-update",
+              "api-reference/context/context-delete"
+            ]
+          },
+          {
+            "group": "Organization",
+            "pages": [
+              "api-reference/org/org-create",
+              "api-reference/org/org-get-details",
+              "api-reference/org/org-add-user",
+              "api-reference/org/org-remove-user",
+              "api-reference/org/org-generate-token",
+              "api-reference/org/org-delete"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/logo.png",
+    "dark": "/logo/logo.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:yaniv@apigene.ai"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "href": "http://apigene.ai/"
     }
   }
 }
