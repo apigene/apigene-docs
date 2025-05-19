@@ -11,12 +11,33 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "guides/getting-started",
+              "guides/add-ai-application"
+            ]
+          },
+          {
+            "group": "AI Connectors",
+            "pages": [
+              "guides/connectors/overview",
+              "guides/connectors/create-connector",
+              "guides/connectors/create-gpt-application",
+              "guides/connectors/connect-mcp-client"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "API Reference",
         "groups": [
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/api-authentication"
             ]
           },
           {
