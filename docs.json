@@ -17,13 +17,8 @@
             "group": "Introduction",
             "pages": [
               "guides/getting-started",
+              "guides/copilot",
               "guides/add-ai-application"
-            ]
-          },
-          {
-            "group": "Copilot",
-            "pages": [
-              "guides/copilot"
             ]
           },
           {
