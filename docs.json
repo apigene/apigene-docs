@@ -58,7 +58,7 @@
             ]
           },
           {
-            "group": "GPT",
+            "group": "AI Connectrs",
             "pages": [
               "api-reference/gpt/gpt-create-from-api",
               "api-reference/gpt/gpt-create",
