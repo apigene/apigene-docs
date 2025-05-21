@@ -105,6 +105,14 @@
               "api-reference/org/org-generate-token",
               "api-reference/org/org-delete"
             ]
+          },
+          {
+            "group": "Tenant",
+            "pages": [
+              "api-reference/tenant/tenant-setup",
+              "api-reference/tenant/add-acount",
+              "api-reference/tenant/get-tenant-info"
+            ]
           }
         ]
       }
