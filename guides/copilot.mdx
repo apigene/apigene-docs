@@ -1,0 +1,227 @@
+# 🧠 Copilot Overview Documentation
+
+## Introduction
+
+This product is designed to **transform how users interact with workplace applications**. By leveraging **natural language interfaces** and **AI-driven workflows**, it eliminates the need for switching between apps, reduces operational friction, and enhances productivity.
+
+With deep integrations, task orchestration, personal and organizational context awareness, and enterprise-grade governance, our copilot empowers teams to automate, interact, and analyze across systems – all within a unified experience.
+
+---
+
+## ✨ Key Capabilities Overview
+
+---
+
+### 1. 🧑‍💻 Conversational Interface
+
+#### Description
+The primary user experience is built around a **copilot-style chat interface**. Users can interact with connected applications by simply typing requests in natural language. The system uses `@mention` syntax to bring specific apps into context.
+
+#### Features
+- **@mention Integration** – Use `@` to invoke any connected application.
+- **Contextual Conversations** – Follow-up questions can refer to previous responses.
+- **Cross-App Commands** – Chain actions across apps (e.g., retrieve data from Ashby and post results to Slack).
+- **Zero-switching UX** – All actions occur within a single interface.
+
+#### Example Use Case
+1. `@Ashby list all candidates`
+2. `Select top 3 for frontend engineering`
+3. `@Slack send shortlist to #hiring-managers`
+
+---
+
+### 2. ⚙️ AI-Driven Tasks
+
+#### Description
+The task engine enables users to **create, save, and execute multi-step workflows** across systems using natural language.
+
+#### Capabilities
+- **Multi-Step Execution** – Combine multiple app calls into a single flow.
+- **Data Aggregation** – Fetch, filter, and group data from structured sources.
+- **AI-Powered Logic** – Use AI to interpret data and make decisions (e.g., select most relevant candidates).
+- **Visualization** – Automatically generate charts (e.g., pie charts) based on task outputs.
+
+#### Example Task
+> "List all expenses from Expensify, group by category, and display in a pie chart."
+
+#### Scheduled Tasks
+- Mark a task as **agentic** to make it run repeatedly.
+- Useful for daily reports, weekly syncs, or hourly monitoring.
+
+#### Task Attributes
+- **Category** – E.g., Finance, HR, Support
+- **Scope** – Private, Public, or Team-specific
+- **Scheduling** – One-time or recurring
+
+---
+
+### 3. 🗂 Task Management System
+
+#### Description
+A dedicated UI enables users and admins to manage tasks efficiently.
+
+#### UI Features
+- **Natural Language Editor** – Express complex logic without coding.
+- **Task Library** – View and reuse saved tasks.
+- **Sharing Controls** – Define who can view, edit, or run tasks.
+- **Policy Enforcement** – Ensure consistent task behavior across departments.
+
+#### Collaboration Features
+- Task sharing across team members.
+- Version control and history logs.
+- Public vs. Private visibility settings.
+
+---
+
+## 🔌 Application Integration & Configuration
+
+---
+
+### 4. 📚 Application Directory
+
+#### Description
+Users can install and manage app integrations from a built-in application marketplace.
+
+#### Supported Apps
+- Wide range of SaaS tools: HR, Finance, CRM, IT, DevOps, and more.
+- Each app supports specific **API schemas** and **auth methods**.
+
+#### Adding Applications
+- Choose from the **curated directory**.
+- Add custom or homegrown apps via:
+  - **File-based Schema Import** (e.g., OpenAPI/Swagger)
+  - **URL-based Schema Import**
+- Auto-generate connector logic from schema definition.
+
+#### Supported Authentication
+- API Keys
+- OAuth 2.0
+- Bearer Tokens
+- Custom headers and secrets
+
+---
+
+## 🧩 Context Injection System
+
+---
+
+### 5. 🏢 Organizational Context
+
+#### Description
+Define rules, KPIs, and business constraints that modify app behavior during runtime.
+
+#### Example Context Use Cases
+- "When querying Salesforce, prioritize accounts tagged 'high-value'."
+- "Flag violations if expense > $5,000 and no approval found."
+
+#### Configuration
+- Context rules are assigned per application.
+- Supports YAML/JSON-based config or via UI wizard.
+- Can be versioned and audited.
+
+---
+
+### 6. 👤 Personal Context
+
+#### Description
+Users can enrich the copilot with personal preferences or goals.
+
+#### Benefits
+- Personalized responses.
+- Smart defaults in task execution.
+- Role-based behavioral tuning.
+
+#### Examples
+- Time zone preferences
+- Reporting styles
+- Email formatting defaults
+
+---
+
+## 🛡️ Security, Governance & Monitoring
+
+---
+
+### 7. 🔐 Fine-Grained Application Controls
+
+#### Admin Capabilities
+- Define which operations are **allowed, restricted, or hidden**.
+- Customize behavior per role (e.g., Analyst, Manager, Admin).
+- Disable sensitive API endpoints from being exposed.
+
+#### Example Policy
+> Allow HR team to access candidate listings, but restrict job offer generation.
+
+---
+
+### 8. 📈 Audit Trail & Monitoring
+
+#### Full Traffic Logging
+- Every request, response, and action is logged.
+- Enables investigation, compliance checks, and rollback.
+
+#### Dashboard Metrics
+- **Usage Breakdown**:
+  - By user
+  - By app
+  - By task
+  - By time period
+- **Task Success Rate**
+- **API Latency Reports**
+- **Security Alerts**
+
+#### Export Options
+- Export logs as CSV, JSON, or stream to SIEM tools (e.g., Splunk, Datadog).
+
+---
+
+### 9. 🧑‍💼 Role-Based Governance
+
+- Task visibility scoped by roles.
+- Application access can be managed at org/unit/user level.
+- Copilot interactions governed by organizational compliance rules.
+
+---
+
+## 📊 Visual Reporting
+
+- Create **visual insights from task outputs**.
+- Automatically generate:
+  - Pie Charts
+  - Bar Graphs
+  - Line Graphs
+  - Tables with sorting & filtering
+
+- Embed visualizations into:
+  - Dashboards
+  - Slack/Teams posts
+  - Email digests
+
+---
+
+## 🎯 Summary
+
+| Feature Area          | Capabilities |
+|-----------------------|--------------|
+| Conversational UI     | Natural language, @mentions, multi-app chaining |
+| Task Engine           | Predefined, multi-step, recurring, agentic tasks |
+| App Integrations      | Marketplace, custom schema support, secure auth |
+| Context Awareness     | Org-wide KPIs, rules, and personal preferences |
+| Security & Governance | API access controls, auditing, role management |
+| Visualization         | Automated insights via charts & dashboards |
+
+---
+
+## ✅ Get Started
+
+1. Connect your first application via the directory or schema upload.
+2. Create a simple task to interact with the app.
+3. Explore dashboards for usage insights.
+4. Set up security policies and task sharing settings.
+5. Inject organization or personal context to tailor responses.
+
+---
+
+## 💬 Feedback
+
+We’re always looking to improve. Please reach out with feedback, suggestions, or questions as you explore the platform!
