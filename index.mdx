@@ -1,71 +1,51 @@
 ---
-title: Introduction
-description: "Welcome to the home of your new documentation"
+title: 'Getting started with Apigene'
+description: 'Getting started with Apigene'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.png"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.png"
-  alt="Hero Dark"
-/>
+Apigene is a secure bridge for connecting your business applications to AI assistants.
 
-## Setting up
+### Watch the Getting Started Video
 
-The first step to world-class documentation is setting up your editing environments.
+<div style="position: relative; padding-bottom: 58.189655172413794%; height: 0;">
+  <iframe
+    src="https://www.loom.com/embed/ee16a4584520412abb4cd7f699f8b7a2?sid=48e951bd-812f-4032-9008-c93dc201f2f3"
+    frameborder="0"
+    webkitallowfullscreen
+    mozallowfullscreen
+    allowfullscreen
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+  ></iframe>
+</div>
 
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
-</CardGroup>
+Through our API, you can build white label applications that let users interact with their favorite applications from their AI assistants.
 
-## Make it yours
+### What is an AI application
+An AI application is a business application that has been installed on Apigene. 
 
-Update your docs to your brand and add valuable content for the best user conversion.
+After converting a business application to an AI application, you can interact with the application using our AI copilot, or create AI connectors and interact with the application using AI assistants like ChatGPT, Claude, Cursor, Windsurf, etc.
 
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+#### Create a new AI application
+
+Business applications are converted to AI applications by installing their OpenAPI specification file on Apigene. 
+
+You can do this by uploading the SPEC file `YAML` or `JSON` file, or by importing the SPEC file from the URL of the OpenAPI specification url.
+
+Follow the instructions [here](/guides/add-ai-application) to set up your first AI application.
+
+### Interact with your AI application
+
+There are two ways to interact with your AI application. 
+
+- Apigene Copilot - Interact with your application using the Apigene copilot.
+- AI Connectors - Convert your API application to an AI connector and connect it to AI assistants like ChatGPT, Claude, Cursor, Windsurf, etc.
+
+### AI connectors
+To connect your AI applications to AI assistants like ChatGPT or Claude, you need to create an AI connector for the apps. 
+
+Apigene AI connectors allow for two modes of connection to AI assistants.
+
+- Connection via Spec files - This is used for Open AI GPT applications.
+- MCP Connection via MCP local or MCP remote
+
+Learn more about AI connectors [here](/guides/connectors/overview).
