@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "APIGene",
+  "name": "Apigene",
   "colors": {
     "primary": "#626AE9",
     "light": "#626AE9",
@@ -23,10 +23,7 @@
           {
             "group": "AI Connectors",
             "pages": [
-              "guides/connectors/overview",
-              "guides/connectors/create-connector",
-              "guides/connectors/create-gpt-application",
-              "guides/connectors/connect-mcp-client"
+              "guides/connectors/overview"
             ]
           }
         ]
