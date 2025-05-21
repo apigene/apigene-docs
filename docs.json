@@ -150,13 +150,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:yaniv@apigene.ai"
+        "href": "mailto:support@apigene.ai"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "http://apigene.ai/"
+      "label": "Sign in",
+      "href": "https://app.apigene.ai/"
     }
   }
 }
