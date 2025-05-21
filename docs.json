@@ -46,43 +46,19 @@
               "api-reference/spec/spec-get",
               "api-reference/spec/specs-list",
               "api-reference/spec/spec-update",
-              "api-reference/spec/spec-scopes",
-              "api-reference/spec/spec-get-schema",
-              "api-reference/spec/spec-use-cases",
-              "api-reference/spec/spec-insights",
-              "api-reference/spec/spec-summary",
-              "api-reference/spec/spec-delete",
-              "api-reference/spec/spec-reindex",
-              "api-reference/spec/spec-reindex-status",
-              "api-reference/spec/spec-create-agentic-metadata",
-              "api-reference/spec/spec-get-agentic-metadata-common-parameteres",
-              "api-reference/spec/spec-update-agentic-metadata",
-              "api-reference/spec/spec-operations",
-              "api-reference/spec/spec-operation-user-input-template",
-              "api-reference/spec/spec-operation-schema",
-              "api-reference/spec/spec-operation-examples",
-              "api-reference/spec/spec-operation-add-examples"
+              "api-reference/spec/spec-delete"
             ]
           },
           {
-            "group": "Spec Authentication",
+            "group": "Interaction",
             "pages": [
-              "api-reference/auth/callback",
-              "api-reference/auth/login-status",
-              "api-reference/auth/login",
-              "api-reference/auth/logout"
-            ]
-          },
-          {
-            "group": "Spec Interaction",
-            "pages": [
-              "api-reference/interaction/get-summary",
               "api-reference/interaction/interaction-create",
+              "api-reference/interaction/get-summary",
               "api-reference/interaction/list-interactions"
             ]
           },
           {
-            "group": "AI Connectors",
+            "group": "MCP / GPT",
             "pages": [
               "api-reference/gpt/gpt-create-from-api",
               "api-reference/gpt/gpt-create",
@@ -97,16 +73,7 @@
             ]
           },
           {
-            "group": "AI Connector Actions",
-            "pages": [
-              "api-reference/gpt-public/trigger-a-login-operation",
-              "api-reference/gpt-public/gpt-public-action",
-              "api-reference/gpt-public/gpt-public-task",
-              "api-reference/gpt-public/get-gpt-public-openapi"
-            ]
-          },
-          {
-            "group": "AI Task",
+            "group": "Task",
             "pages": [
               "api-reference/task/task-create",
               "api-reference/task/task-list",
@@ -119,7 +86,7 @@
             ]
           },
           {
-            "group": "AI Context",
+            "group": "Context",
             "pages": [
               "api-reference/context/context-create",
               "api-reference/context/context-list",
