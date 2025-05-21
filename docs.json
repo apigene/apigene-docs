@@ -58,18 +58,18 @@
             ]
           },
           {
-            "group": "AI Connectrs",
+            "group": "GPT / MCP",
             "pages": [
-              "api-reference/gpt/gpt-create-from-api",
-              "api-reference/gpt/gpt-create",
-              "api-reference/gpt/gpt-delete",
-              "api-reference/gpt/gpt-install",
-              "api-reference/gpt/gpt-generate-token",
-              "api-reference/gpt/gpt-revoke-token",
-              "api-reference/gpt/gpt-uninstall",
-              "api-reference/gpt/gpt-update",
-              "api-reference/gpt/gpts-explore",
-              "api-reference/gpt/gpts-list"
+              "api-reference/gpt-mcp/gpt-create-from-api",
+              "api-reference/gpt-mcp/gpt-create",
+              "api-reference/gpt-mcp/gpt-delete",
+              "api-reference/gpt-mcp/gpt-install",
+              "api-reference/gpt-mcp/gpt-generate-token",
+              "api-reference/gpt-mcp/gpt-revoke-token",
+              "api-reference/gpt-mcp/gpt-uninstall",
+              "api-reference/gpt-mcp/gpt-update",
+              "api-reference/gpt-mcp/gpts-explore",
+              "api-reference/gpt-mcp/gpts-list"
             ]
           },
           {
