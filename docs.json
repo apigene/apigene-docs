@@ -110,7 +110,7 @@
             "group": "Tenant",
             "pages": [
               "api-reference/tenant/tenant-setup",
-              "api-reference/tenant/add-acount",
+              "api-reference/tenant/add_account",
               "api-reference/tenant/get-tenant-info"
             ]
           }
