@@ -16,9 +16,26 @@
           {
             "group": "Introduction",
             "pages": [
-              "guides/getting-started",
-              "guides/copilot",
-              "guides/add-ai-application"
+              "guides/getting-started"
+             
+            ]
+          },
+          {
+            "group": "Copilot",
+            "pages": [
+              "guides/copilot/copilot",
+              "guides/copilot/task",
+              "guides/copilot/context"
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
+              "guides/admin/add-ai-application",
+              "guides/admin/configuring",
+              "guides/admin/actions",
+              "guides/admin/context",
+              "guides/admin/settings"
             ]
           },
           {
