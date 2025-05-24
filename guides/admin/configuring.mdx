@@ -3,6 +3,115 @@ title: 'Configure your API'
 description: 'Configure your API'
 ---
 
-<Note>
-Configure your API
-</Note>
+# Overview
+
+Apigene makes it easy to connect, secure, and manage APIs for your organization. This guide walks you through the process of adding a new API, configuring security, setting access controls, managing server URLs, and adding common parameters.
+
+---
+
+## 1. Adding a New API
+
+You can add a new API to Apigene in two ways:
+
+### **A. Install from File**
+- Click the **New App** button in the API management page.
+- Choose the option to upload an OpenAPI/Swagger file from your computer.
+- Select your file and proceed. Apigene will parse the file and extract all available endpoints and metadata.
+
+### **B. Install from URL**
+- Click the **New App** button.
+- Choose the option to provide a URL.
+- Enter the URL to a publicly accessible OpenAPI/Swagger specification.
+- Apigene will fetch and parse the API definition automatically.
+
+After installation, you will be guided through a step-by-step configuration wizard.
+
+---
+
+## 2. General API Configuration
+
+### **API Name, Version, and Domain**
+- The API name and version are auto-filled from the specification and are read-only.
+- You can edit the domain to reflect the business or technical domain of the API.
+
+### **Summary**
+- Optionally, provide or edit a summary to describe the API’s purpose for your team.
+
+### **Server URL**
+- Set the base URL where the API is hosted (e.g., `https://api.example.com/v1`).
+- You can select from suggested URLs (if available) or enter a custom one.
+- **Validation:** The URL must start with `http://` or `https://`. Invalid URLs will be flagged, and you must correct them before proceeding.
+
+---
+
+## 3. Adding Security Tokens
+
+### **Security Info Editor**
+- In the **Security** section, you can configure how Apigene authenticates with the API.
+- Supported security schemes include:
+  - **API Key** (in header, query, or cookie)
+  - **Bearer Token** (e.g., OAuth2, JWT)
+  - **Basic Auth**
+  - **Custom Headers**
+- For each scheme, specify:
+  - The parameter name (e.g., `Authorization`, `X-API-Key`)
+  - The value or token (you can use environment variables for sensitive data)
+  - Where the token should be sent (header, query, etc.)
+- You can add multiple security schemes if the API supports them.
+
+**Tip:** Keep your tokens secure. Use environment variables or Apigene’s secret management features if available.
+
+---
+
+## 4. Setting Operation Access Control
+
+### **Operation Access Control Panel**
+- After general configuration, proceed to the **Operation Access Control** step.
+- Here, you can:
+  - **Enable/Disable** specific API operations (endpoints) for your organization.
+  - Set **access permissions** for each operation (e.g., restrict to certain user roles or teams).
+  - View and filter operations by HTTP method (GET, POST, etc.), tags, or path.
+  - See a description and schema for each operation to understand its purpose and requirements.
+
+**How to use:**
+- Use the checkboxes to enable or disable operations.
+- Use dropdowns or chips to assign access roles or tags.
+- Click on an operation to view its detailed schema and parameters.
+
+---
+
+## 5. Adding Common Parameters
+
+- In the configuration steps, you can define **common parameters** that should be included in every request to the API.
+- Examples: organization ID, locale, or any custom header/query parameter.
+- Specify the parameter name, value, and where it should be injected (header, query, etc.).
+- These parameters will be automatically included in all API calls made through Apigene.
+
+---
+
+## 6. Finalizing and Saving
+
+- After completing all configuration steps, review your settings.
+- Click **Finish** or **Save** to apply the configuration.
+- Apigene will reindex the API and make it available for use in automations, tasks, and the API playground.
+
+---
+
+## 7. Best Practices
+
+- **Keep security tokens up to date** and rotate them regularly.
+- **Restrict access** to sensitive operations using the access control panel.
+- **Test your API** in the Apigene playground before using it in production workflows.
+- **Document** any custom parameters or security requirements for your team.
+
+---
+
+## 8. Troubleshooting
+
+- If your API does not appear after installation, check the server URL and security settings.
+- For authentication errors, verify that your tokens and credentials are correct and have the necessary permissions.
+- If you encounter issues with specific operations, review their schemas and required parameters in the access control panel.
+
+---
+
+By following these steps, you can securely and efficiently integrate any API into Apigene, control access, and ensure your team has the tools they need to build powerful automations.
