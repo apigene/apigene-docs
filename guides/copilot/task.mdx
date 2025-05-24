@@ -3,6 +3,142 @@ title: 'Tasks'
 description: 'Tasks'
 ---
 
-<Note>
-Tasks
-</Note>
+## Overview
+Apigene Tasks is a powerful automation feature that allows users to create, manage, and execute automated workflows across different APIs. Tasks can be scheduled to run automatically or executed manually, making it easy to automate repetitive operations and integrate different services.
+
+## Key Features
+
+### 1. Task Creation and Management
+- **Create Tasks**: Users can create new tasks with custom names, categories, and configurations
+- **Edit Tasks**: Existing tasks can be modified, including their schedule, visibility, and actions
+- **Delete Tasks**: Tasks can be removed when no longer needed
+- **Duplicate Tasks**: Create copies of existing tasks for similar workflows
+- **Task Categories**: Organize tasks into predefined categories:
+  - Sales
+  - Marketing
+  - Product & R&D
+  - HR
+  - Operation
+  - Finance
+  - Support
+  - Other
+
+### 2. Task Visibility
+- **Private Tasks**: Only visible to the creator (default)
+- **Public Tasks**: Visible to all users in the organization
+
+### 3. Task Scheduling
+Tasks can be scheduled in three different modes:
+- **Manual**: No automatic scheduling, tasks run only when manually triggered
+- **Daily**: Run automatically at a specified time every day
+- **Weekly**: Run automatically on a specific day of the week at a specified time
+
+### 4. Task Actions
+Each task consists of one or more actions that define the workflow:
+- **API Integration**: Connect with different APIs (including Apigene's own API)
+- **Custom Input**: Define specific inputs for each action
+- **Multiple Actions**: Chain multiple actions together in a single task
+- **API Domain Support**: Support for both Apigene and external API domains
+
+### 5. Task State Management
+- **Enabled/Disabled**: Tasks can be enabled or disabled without deletion
+- **Execution History**: View past runs for scheduled tasks
+- **Next Run Time**: Display of the next scheduled execution time
+
+## Usage Guide
+
+### Creating a New Task
+1. Click the "New Task" button
+2. Enter a task name
+3. Choose a category (optional)
+4. Configure task actions:
+   - Select the API to use
+   - Define the input for each action
+   - Add multiple actions as needed
+5. Set task visibility (private/public)
+6. Configure scheduling:
+   - Choose between manual, daily, or weekly execution
+   - For daily/weekly tasks, select the execution time
+   - For weekly tasks, select the day of the week
+7. Save the task
+
+### Managing Tasks
+1. **View Tasks**:
+   - Access the tasks list to see all available tasks
+   - Filter tasks by category
+   - Search tasks by name or API domain
+   - View task details including next run time and status
+
+2. **Edit Tasks**:
+   - Click the edit icon on any task
+   - Modify task properties
+   - Update actions or scheduling
+   - Save changes
+
+3. **Task Execution**:
+   - Manual tasks can be executed on demand
+   - Scheduled tasks run automatically based on their configuration
+   - View execution history for scheduled tasks
+
+4. **Task Organization**:
+   - Use categories to organize tasks
+   - Filter tasks by visibility (private/public)
+   - Search tasks by name or API domain
+
+### Task Actions
+Each task action includes:
+- API selection (Apigene or external API)
+- Domain URL (for external APIs)
+- User input configuration
+- Action chaining for complex workflows
+
+### Scheduling Options
+1. **Manual Schedule**:
+   - No automatic execution
+   - Run tasks manually when needed
+
+2. **Daily Schedule**:
+   - Set specific time (HH:MM format)
+   - Task runs automatically at the specified time every day
+
+3. **Weekly Schedule**:
+   - Select day of the week
+   - Set specific time (HH:MM format)
+   - Task runs automatically on the selected day and time
+
+## Best Practices
+1. **Task Naming**:
+   - Use descriptive names for easy identification
+   - Include key information in the task name
+
+2. **Categories**:
+   - Assign appropriate categories for better organization
+   - Use consistent categorization across tasks
+
+3. **Scheduling**:
+   - Consider time zones when scheduling tasks
+   - Avoid scheduling too many tasks at the same time
+   - Use manual scheduling for one-off tasks
+
+4. **Visibility**:
+   - Keep sensitive operations as private tasks
+   - Share useful tasks with the team using public visibility
+
+5. **Task Management**:
+   - Regularly review and clean up unused tasks
+   - Monitor task execution history
+   - Update tasks as API requirements change
+
+## Limitations
+- Tasks can only be created and managed by authenticated users
+- Private tasks are only accessible to their creators
+- Scheduled tasks require proper time zone configuration
+- Task execution history is only available for scheduled tasks
+
+## Security Considerations
+- Private tasks ensure sensitive operations remain restricted
+- API credentials are managed securely
+- Task execution is logged for audit purposes
+- Access control is enforced based on task visibility
+
+This documentation provides a comprehensive overview of the Task feature in Apigene. Users can leverage these capabilities to automate their workflows and integrate different services efficiently.
