@@ -5,23 +5,23 @@ description: 'The Apigene Copilot'
 
 # Introduction
 
-Apigene copilot is designed to **transform how users interact with workplace applications**. By leveraging **natural language interfaces** and **AI-driven workflows**, it eliminates the need for switching between apps, reduces operational friction, and enhances productivity.
+The Apigene copilot is designed to **transform how you interact with your workplace applications**. 
+
+By leveraging **natural language interfaces** and **AI-driven workflows**, the Apigene copilot eliminates the need for switching between apps, reduces operational friction, and enhances productivity.
 
 With deep integrations, task orchestration, personal and organizational context awareness, and enterprise-grade governance, our copilot empowers teams to automate, interact, and analyze across systems – all within a unified experience.
 
----
+## Key Capabilities
 
-## ✨ Key Capabilities Overview
+### Conversational Interface
 
----
+The primary user experience is built around a **copilot-style chat interface**. 
 
-### 1. 🧑‍💻 Conversational Interface
-
-#### Description
-
-The primary user experience is built around a **copilot-style chat interface**. Users can interact with connected applications by simply typing requests in natural language. The system uses `@mention` syntax to bring specific apps into context.
+You can interact with connected applications by simply typing requests in natural language. The system uses `@mention` syntax to bring specific apps into context.
 
 #### Features
+
+Key features of the conversational interface include -
 
 - **@mention Integration** – Use `@` to invoke any connected application.
 - **Contextual Conversations** – Follow-up questions can refer to previous responses.
@@ -34,66 +34,69 @@ The primary user experience is built around a **copilot-style chat interface**. 
 2. `Select top 3 for frontend engineering`
 3. `@Slack send shortlist to #hiring-managers`
 
----
+### AI-Driven Tasks
 
-### 2. ⚙️ AI-Driven Tasks
+The Apigene copilot has an AI-driven task engine that enables you to **create, save, and execute multi-step workflows** across your systems using natural language.
 
-#### Description
+You can learn more about Apigene Tasks [here](/guides/copilot/task).
 
-The task engine enables users to **create, save, and execute multi-step workflows** across systems using natural language.
+#### Features
 
-#### Capabilities
+Key features of the Task engine include -
 
 - **Multi-Step Execution** – Combine multiple app calls into a single flow.
 - **Data Aggregation** – Fetch, filter, and group data from structured sources.
 - **AI-Powered Logic** – Use AI to interpret data and make decisions (e.g., select most relevant candidates).
 - **Visualization** – Automatically generate charts (e.g., pie charts) based on task outputs.
 
-#### Example Task
+#### Example Tasks
 
 > "List all expenses from Expensify, group by category, and display in a pie chart."
 
-#### Scheduled Tasks
+##### Scheduled Tasks
 
 - Mark a task as **agentic** to make it run repeatedly.
 - Useful for daily reports, weekly syncs, or hourly monitoring.
 
-#### Task Attributes
+##### Task Attributes
 
 - **Category** – E.g., Finance, HR, Support
 - **Scope** – Private, Public, or Team-specific
 - **Scheduling** – One-time or recurring
 
----
+You can also create **visual insights from task outputs**.
 
-### 3. 🗂 Task Management System
+You can automatically generate:
 
-#### Description
+  - Pie Charts
+  - Bar Graphs
+  - Line Graphs
+  - Tables with sorting & filtering
 
-A dedicated UI enables users and admins to manage tasks efficiently.
+And embed visualizations into:
 
-#### UI Features
+  - Dashboards
+  - Slack/Teams posts
+  - Email digests
+
+#### Task Management System
+
+Apigene also provides a dedicated UI for users and admins to manage tasks efficiently.
+
+##### UI Features
 
 - **Natural Language Editor** – Express complex logic without coding.
 - **Task Library** – View and reuse saved tasks.
 - **Sharing Controls** – Define who can view, edit, or run tasks.
 - **Policy Enforcement** – Ensure consistent task behavior across departments.
 
-#### Collaboration Features
+##### Collaboration Features
 
 - Task sharing across team members.
 - Version control and history logs.
 - Public vs. Private visibility settings.
 
----
-
-## 🔌 Application Integration & Configuration
-
----
-
-### 4. 📚 Application Directory
-
-#### Description
+### Application Integration & Configuration
 
 Users can install and manage app integrations from a built-in application marketplace.
 
@@ -117,56 +120,50 @@ Users can install and manage app integrations from a built-in application market
 - Bearer Tokens
 - Custom headers and secrets
 
----
 
-## 🧩 Context Injection System
+### Context Injection System
 
----
+Apigene lets you inject two types of context to your copilot.
 
-### 5. 🏢 Organizational Context
+1. [Organizational Context](/guides/copilot/copilot#organizational-context)
+2. [Personal Context](/guides/copilot/copilot#personal-context)
 
-#### Description
 
-Define rules, KPIs, and business constraints that modify app behavior during runtime.
+#### Organizational Context
 
-#### Example Context Use Cases
+The organizational context feature lets you define rules, KPIs, and business constraints that modify your copilot's behavior during runtime.
+
+##### Example Context Use Cases
 
 - "When querying Salesforce, prioritize accounts tagged 'high-value'."
 - "Flag violations if expense \> \$5,000 and no approval found."
 
-#### Configuration
+##### Configuration
 
 - Context rules are assigned per application.
 - Supports YAML/JSON-based config or via UI wizard.
 - Can be versioned and audited.
 
----
 
-### 6. 👤 Personal Context
+#### Personal Context
 
-#### Description
+You can enrich the copilot with personal preferences or goals.
 
-Users can enrich the copilot with personal preferences or goals.
-
-#### Benefits
+##### Benefits
 
 - Personalized responses.
 - Smart defaults in task execution.
 - Role-based behavioral tuning.
 
-#### Examples
+##### Examples
 
 - Time zone preferences
 - Reporting styles
 - Email formatting defaults
 
----
+### Security, Governance & Monitoring
 
-## 🛡️ Security, Governance & Monitoring
-
----
-
-### 7. 🔐 Fine-Grained Application Controls
+The Apigene copilot lets you define Fine-Grained Application Controls policies to determine how the copilot interacts with your organization's data.
 
 #### Admin Capabilities
 
@@ -178,16 +175,12 @@ Users can enrich the copilot with personal preferences or goals.
 
 > Allow HR team to access candidate listings, but restrict job offer generation.
 
----
 
-### 8. 📈 Audit Trail & Monitoring
+#### Audit Trail & Monitoring
 
-#### Full Traffic Logging
+Every request, response, and action with the Apigene copilot is logged. This enables investigation, compliance checks, and rollback.
 
-- Every request, response, and action is logged.
-- Enables investigation, compliance checks, and rollback.
-
-#### Dashboard Metrics
+You can also view your usage metrics in a dashboard. You can view the following data -
 
 - **Usage Breakdown**:
   - By user
@@ -198,42 +191,11 @@ Users can enrich the copilot with personal preferences or goals.
 - **API Latency Reports**
 - **Security Alerts**
 
-#### Export Options
+
+##### Export Options
 
 - Export logs as CSV, JSON, or stream to SIEM tools (e.g., Splunk, Datadog).
 
----
+#### Role-Based Governance
 
-### 9. 🧑‍💼 Role-Based Governance
-
-- Task visibility scoped by roles.
-- Application access can be managed at org/unit/user level.
-- Copilot interactions governed by organizational compliance rules.
-
----
-
-## 📊 Visual Reporting
-
-- Create **visual insights from task outputs**.
-- Automatically generate:
-  - Pie Charts
-  - Bar Graphs
-  - Line Graphs
-  - Tables with sorting & filtering
-- Embed visualizations into:
-  - Dashboards
-  - Slack/Teams posts
-  - Email digests
-
----
-
-## 🎯 Summary
-
-| Feature Area          | Capabilities                                     |
-| --------------------- | ------------------------------------------------ |
-| Conversational UI     | Natural language, @mentions, multi-app chaining  |
-| Task Engine           | Predefined, multi-step, recurring, agentic tasks |
-| App Integrations      | Marketplace, custom schema support, secure auth  |
-| Context Awareness     | Org-wide KPIs, rules, and personal preferences   |
-| Security & Governance | API access controls, auditing, role management   |
-| Visualization         | Automated insights via charts & dashboards       |
+You can manage your application's access at a organization, team, and user level. Your copilot interactions governed by organizational compliance rules, and task visibility scoped by roles.
