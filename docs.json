@@ -34,14 +34,15 @@
               "guides/admin/add-ai-application",
               "guides/admin/configuring",
               "guides/admin/actions",
-              "guides/admin/context",
               "guides/admin/settings"
             ]
           },
           {
             "group": "AI Connectors",
             "pages": [
-              "guides/connectors/overview"
+              "guides/connectors/overview",
+              "guides/connectors/connect-mcp-client",
+              "guides/connectors/connect-gpt-application"
             ]
           }
         ]

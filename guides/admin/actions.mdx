@@ -3,112 +3,49 @@ title: 'API Actions'
 description: 'API Actions'
 ---
 
-# Apigene Actions Documentation
+The **Actions** page provides a comprehensive view of all user-initiated activities across your connected applications. The page allows you to monitor, search, and analyze every action performed, including user inputs, API responses, status codes, and more. 
 
-## Overview
+The page is an essential tool for auditing, debugging, and understanding how users interact with your APIs and automations.
 
-The **Actions** feature in Apigene provides a comprehensive view of all user-initiated activities across your connected applications. This dashboard allows you to monitor, search, and analyze every action performed, including user inputs, API responses, status codes, and more. It is an essential tool for auditing, debugging, and understanding how users interact with your APIs and automations.
+To access the **Actions** page.
 
----
+1. Access your [Apigene](https://app.apigene.ai) account
+2. Navigate to **Actions** to access the page
 
-## Key Capabilities
+The page has three sections:
 
-### 1. Action Log Table
+1. [Action Log Table](/guides/admin/actions#action-log-table)
+2. [Search bar](/guides/admin/actions#search-bar)
+3. [Action Details Panel](/guides/admin/actions#action-details-panel)
 
-- **Comprehensive Listing**: View a paginated table of all actions performed by users or automations.
-- **Columns include**:
-  - **User ID**: The identifier of the user who performed the action.
-  - **Application**: The name of the connected app or API.
-  - **User Input**: The input or command provided by the user.
-  - **Created At**: Timestamp of when the action was performed.
-  - **Duration**: How long the action took to complete.
-  - **Status Code**: HTTP status code returned by the API.
-  - **Response Length**: Size of the API response.
+### Action Log Table
 
-### 2. Search and Filtering
+The Actions log table provides a comprehensive listing of all actions performed by users or automations.
 
-- **Search by Application Name**: Quickly filter actions by typing the name of the application.
-- **Instant Results**: Results update as you type, and you can press Enter to search.
-- **No Results Handling**: Friendly messages guide you if no actions match your search.
+The table displays the following data:
 
-### 3. Sorting and Pagination
+- `User ID`: The identifier of the user who performed the action
+- `Application`: The name of the connected app or API
+- `User Input`: The input or command provided by the user
+- `Created At`: Timestamp of when the action was performed
+- `Duration`: How long the action took to complete
+- `Status Code`: HTTP status code returned by the API
+- `Response Length`: Size of the API response
 
-- **Sortable Columns**: Click on any column header to sort actions by that field (ascending or descending).
-- **Pagination Controls**: Choose how many actions to display per page (10, 25, or 50) and navigate between pages.
+<Note>
+- Click on any column header to sort actions by that field (ascending or descending).
+- Pagination Controls: Choose how many actions to display per page (10, 25, or 50) and navigate between pages.
+</Note>
 
-### 4. Action Details Panel
+### Search bar
 
-- **Detailed View**: Click any action row to view its full details in the right-hand panel.
-- **User Input**: See the exact input that triggered the action.
-- **API Response**: Inspect the full JSON response, including status, headers, and body, in a collapsible, easy-to-read format.
+Use the Search bar to search for actions by Application Name.
 
-### 5. Live Data and Refresh
+### Action Details Panel
 
-- **Reload Button**: Instantly refresh the list of actions to see the latest activity.
-- **Live Updates**: The dashboard is designed to keep you up to date with the most recent actions.
+The **Action Details Panel** provides a detailed view of an action.
 
----
+Click on any action to view its full information in the panel. You can view information like:
 
-## How to Use the Actions Dashboard
-
-### Accessing the Actions Page
-
-1. Navigate to the **Actions** page from the main menu in the Apigene web portal.
-
-### Searching and Filtering
-
-- Use the search bar at the top to filter actions by application name.
-- Press Enter or click the search icon to apply the filter.
-- To clear the search, delete the text and press Enter again.
-
-### Sorting and Pagination
-
-- Click any column header (e.g., "Created At", "Status Code") to sort the table by that field.
-- Use the pagination controls at the bottom to navigate through pages and adjust the number of actions per page.
-
-### Viewing Action Details
-
-- Click on any action row to select it.
-- The right-hand panel will display:
-  - The user input that triggered the action.
-  - The full API response, including status code, headers, and response body, formatted as JSON.
-
-### Refreshing the Data
-
-- Click the **Reload** button (circular arrow icon) to fetch the latest actions from your connected applications.
-
----
-
-## Example Use Cases
-
-- **Audit Trail**: Track who did what and when across all your APIs and automations.
-- **Debugging**: Quickly identify failed actions, inspect error responses, and troubleshoot issues.
-- **Usage Analysis**: Understand which applications and endpoints are most frequently used.
-- **Security Monitoring**: Detect unusual or unauthorized actions by reviewing the action log.
-
----
-
-## Best Practices
-
-- Regularly review the Actions dashboard to monitor system health and user activity.
-- Use search and filters to focus on specific applications or users.
-- Leverage the detailed view to debug failed or unexpected actions.
-- Export or screenshot action details for compliance or support purposes.
-
----
-
-## Security and Privacy
-
-- Only authorized users can access the Actions dashboard.
-- Sensitive data in user inputs and API responses is protected according to your organization’s security policies.
-
----
-
-## Limitations
-
-- The Actions dashboard displays only actions performed through Apigene-connected applications.
-- Some response details may be truncated for very large payloads.
-
----
-
-By using the Actions feature, you gain full visibility into your API ecosystem, empowering you to maintain, secure, and optimize your integrations with confidence.
+- User Input: See the exact input that triggered the action.
+- API Response: Inspect the full JSON response, including status, headers, and body, in a collapsible, easy-to-read format.
