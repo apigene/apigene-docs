@@ -40,7 +40,9 @@
           {
             "group": "AI Connectors",
             "pages": [
-              "guides/connectors/overview"
+              "guides/connectors/overview",
+              "guides/connectors/connect-mcp-client",
+              "guides/connectors/connect-gpt-application"
             ]
           }
         ]
