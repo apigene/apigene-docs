@@ -72,22 +72,55 @@
             "pages": [
               "api-reference/interaction/interaction-create",
               "api-reference/interaction/get-summary",
-              "api-reference/interaction/list-interactions"
+              "api-reference/interaction/list-interactions",
+              "api-reference/interaction/get-interaction-detail"
             ]
           },
           {
-            "group": "GPT / MCP",
+            "group": "MCP",
             "pages": [
-              "api-reference/gpt-mcp/gpt-create-from-api",
-              "api-reference/gpt-mcp/gpt-create",
-              "api-reference/gpt-mcp/gpt-delete",
-              "api-reference/gpt-mcp/gpt-install",
-              "api-reference/gpt-mcp/gpt-generate-token",
-              "api-reference/gpt-mcp/gpt-revoke-token",
-              "api-reference/gpt-mcp/gpt-uninstall",
-              "api-reference/gpt-mcp/gpt-update",
-              "api-reference/gpt-mcp/gpts-explore",
-              "api-reference/gpt-mcp/gpts-list"
+              "api-reference/mcp/mcp-app-get-actions",
+              "api-reference/mcp/mcp-apps-list",
+              "api-reference/mcp/mcp-apps-search-actions",
+              "api-reference/mcp/mcp-app-execute-action",
+              "api-reference/mcp/mcp-get-context",
+              "api-reference/mcp/mcp-get-instructions",
+              "api-reference/mcp/mcp-list-contexts"
+            ]
+          },
+          {
+            "group": "MCP Server",
+            "pages": [
+              "api-reference/mcp-server/mcp-server-create",
+              "api-reference/mcp-server/mcp-servers-list",
+              "api-reference/mcp-server/mcp-server-get",
+              "api-reference/mcp-server/mcp-server-update",
+              "api-reference/mcp-server/mcp-server-delete",
+              "api-reference/mcp-server/mcp-create-from-api"
+            ]
+          },
+          {
+            "group": "Agent",
+            "pages": [
+              "api-reference/agent/agent-create",
+              "api-reference/agent/agents-list",
+              "api-reference/agent/agent-get",
+              "api-reference/agent/agent-update",
+              "api-reference/agent/agent-delete"
+            ]
+          },
+          {
+            "group": "Audit",
+            "pages": [
+              "api-reference/audit/audit-logs",
+              "api-reference/audit/resource-audit-history"
+            ]
+          },
+          {
+            "group": "System",
+            "pages": [
+              "api-reference/system/health-check",
+              "api-reference/system/get-version"
             ]
           },
           {

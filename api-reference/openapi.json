@@ -11,6 +11,62 @@
       }
    },
    "paths":{
+      "/api/health":{
+         "get":{
+            "tags":[
+               "System"
+            ],
+            "summary":"Health Check",
+            "operationId":"health_check_api_health_get",
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               }
+            },
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ]
+         }
+      },
+      "/api/version":{
+         "get":{
+            "tags":[
+               "System"
+            ],
+            "summary":"Get Version",
+            "operationId":"get_version_api_version_get",
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               }
+            },
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ]
+         }
+      },
       "/api/spec_from_url/":{
          "post":{
             "tags":[
@@ -1339,7 +1395,7 @@
                "Interaction"
             ],
             "summary":"List Interactions",
-            "description":"List interactions.\n\nThis endpoint allows you to list interactions based on specified criteria.\n\nParameters:\n- api_name: Name of the API (optional).\n- page: Page number for pagination (default: 1).\n- limit: Maximum number of interactions per page (default: 50).\n- sort_by: Field to sort interactions by (optional).\n- sort_order: Sorting order ('asc' or 'desc') (default: 'asc').\n- filters: Additional filters for querying interactions (optional).\n- current_user: Current user for authentication (required for admin role).\n\nReturns:\n- List of interactions.\n\nRaises:\n- HTTPException(401): If the user is not authorized.",
+            "description":"List interactions metadata (optimized for table display).\n\nThis endpoint returns only metadata for interactions to improve performance.\nUse /interaction/{interaction_id} to get full interaction details.\n\nParameters:\n- api_name: Name of the API (optional).\n- page: Page number for pagination (default: 1).\n- limit: Maximum number of interactions per page (default: 50).\n- sort_by: Field to sort interactions by (optional).\n- sort_order: Sorting order ('asc' or 'desc') (default: 'asc').\n- filters: Additional filters for querying interactions (optional).\n- current_user: Current user for authentication (required for admin role).\n\nReturns:\n- List of interaction metadata (without large response data).\n\nRaises:\n- HTTPException(401): If the user is not authorized.",
             "operationId":"list_interactions",
             "security":[
                {
@@ -1444,6 +1500,56 @@
                      "application/json":{
                         "schema":{
                            "$ref":"#/components/schemas/InteractionCountResponse"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/interaction/{interaction_id}":{
+         "get":{
+            "tags":[
+               "Interaction"
+            ],
+            "summary":"Get Interaction Detail",
+            "description":"Get detailed interaction data by ID.\n\nThis endpoint returns the full interaction data including request/response details.\nUse this endpoint when you need to view the complete interaction information.\n\nParameters:\n- interaction_id: Unique identifier of the interaction.\n- current_user: Current user for authentication (required for admin role).\n\nReturns:\n- Full interaction data including request/response details.\n\nRaises:\n- HTTPException(404): If the interaction is not found.\n- HTTPException(401): If the user is not authorized.",
+            "operationId":"get_interaction_detail",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"interaction_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Interaction Id"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/Interaction"
                         }
                      }
                   }
@@ -1945,13 +2051,13 @@
             }
          }
       },
-      "/api/org/organization/{org_name}/generate_token":{
+      "/api/org/{org_name}/generate_token":{
          "post":{
             "tags":[
                "Org"
             ],
             "summary":"Org Generate Token",
-            "description":"Endpoint for organization admins to generate an access token scoped to their organization.\n\nArgs:\n    org_name (str): The name (or ID) of the organization for which the token is being generated.\n\nReturns:\n    dict: A dictionary containing the `org_token`.\n\nRaises:\n    HTTPException 403: If the current user is not authorized to manage the specified organization.",
+            "description":"Endpoint for organization admins to generate an access token scoped to their organization.\n\nArgs:\n    org_name (str): The name (or ID) of the organization for which the token is being generated.\n    expiry_duration (Optional[int]): Token expiry duration in seconds. If not provided, uses default expiry.\n\nReturns:\n    dict: A dictionary containing the `org_token`.\n\nRaises:\n    HTTPException 403: If the current user is not authorized to manage the specified organization.",
             "operationId":"org_generate_token",
             "security":[
                {
@@ -1969,6 +2075,24 @@
                      "type":"string",
                      "title":"Org Name"
                   }
+               },
+               {
+                  "name":"expiry_duration",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"integer"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Token expiry duration in seconds (optional)",
+                     "title":"Expiry Duration"
+                  },
+                  "description":"Token expiry duration in seconds (optional)"
                }
             ],
             "responses":{
@@ -2045,7 +2169,7 @@
             }
          }
       },
-      "/api/org/org/settings":{
+      "/api/org/settings":{
          "get":{
             "tags":[
                "Org"
@@ -2107,7 +2231,7 @@
             }
          }
       },
-      "/api/org/org/settings/update":{
+      "/api/org/settings/update":{
          "post":{
             "tags":[
                "Org"
@@ -2155,13 +2279,13 @@
             ]
          }
       },
-      "/api/gpt/{gpt_name}/delete":{
+      "/api/gpt/{genai_app}/delete":{
          "delete":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Delete",
-            "description":"Endpoint to delete a specific GPT instance by name for the current tenant.\n\nArgs:\n    gpt_name (str): The unique name identifier of the GPT to be deleted.\n\nReturns:\n    dict: A message confirming the deletion of the GPT instance.",
+            "description":"Endpoint to delete a specific GPT instance by name for the current tenant.\n\nArgs:\n    genai_app (str): The unique name identifier of the GPT to be deleted.\n\nReturns:\n    dict: A message confirming the deletion of the GPT instance.",
             "operationId":"gpt_delete",
             "security":[
                {
@@ -2172,12 +2296,12 @@
             ],
             "parameters":[
                {
-                  "name":"gpt_name",
+                  "name":"genai_app",
                   "in":"path",
                   "required":true,
                   "schema":{
                      "type":"string",
-                     "title":"Gpt Name"
+                     "title":"Genai App"
                   }
                }
             ],
@@ -2208,7 +2332,7 @@
       "/api/gpts/list":{
          "get":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpts List",
             "description":"Endpoint to list GPTs based on inclusion flags for private and public GPTs.\n\nArgs:\n    include_private_gpts (bool): Whether to include private GPTs in the response.\n    include_public_gpts (bool): Whether to include public GPTs in the response.\n    tenant (Tenant): Tenant dependency injection for accessing database operations.\n\nReturns:\n    List[dict]: A list of GPT details.",
@@ -2269,7 +2393,7 @@
       "/api/gpts/explore":{
          "get":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpts Explore",
             "description":"Endpoint to explore all public GPTs available for installation.\n\nArgs:\n    tenant (Tenant): Tenant dependency injection for accessing database operations.\n\nReturns:\n    List[dict]: A list of GPT details.",
@@ -2298,7 +2422,7 @@
       "/api/gpt/create_all":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Create All",
             "description":"Endpoint to create GPTs for all available APIs associated with the current tenant.\n\nArgs:\n\nReturns:\n    dict: A summary message indicating the number of successful and failed GPT creation attempts.",
@@ -2327,7 +2451,7 @@
       "/api/gpt/create_from_api":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Create From Api",
             "description":"Endpoint to create a GPT instance from a given API name.\nGenerates GPT metadata, description, and instructions based on the API's OpenAPI specification.\n\nArgs:\n    api_name (str): The unique name of the API from which to generate the GPT.\n\nReturns:\n    dict: The created GPT metadata.",
@@ -2377,7 +2501,7 @@
       "/api/gpt/create":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Create",
             "description":"Endpoint to create a new GPT instance using a provided payload of GPT metadata and configuration.\n\nArgs:\n    payload (GPT): The GPT configuration payload including name, description, APIs, category, and more.\n\nReturns:\n    GPT: The newly created GPT instance.",
@@ -2423,10 +2547,10 @@
             ]
          }
       },
-      "/api/gpt/{gpt_name}/get":{
+      "/api/gpt/{genai_app}/get":{
          "get":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Retrieve Custom GPT Details",
             "description":"This endpoint retrieves the details of a specified custom GPT model based on the provided GPT name. It fetches the GPT's instructions, description, and accessible APIs.",
@@ -2440,12 +2564,12 @@
             ],
             "parameters":[
                {
-                  "name":"gpt_name",
+                  "name":"genai_app",
                   "in":"path",
                   "required":true,
                   "schema":{
                      "type":"string",
-                     "title":"Gpt Name"
+                     "title":"Genai App"
                   }
                }
             ],
@@ -2476,7 +2600,7 @@
       "/api/gpt/update":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Update",
             "description":"Endpoint to update an existing GPT instance's description and associated APIs.\n\nArgs:\n    payload (GPT): The updated GPT configuration payload.\n\nReturns:\n    dict: A message indicating success, failure, or if no changes were detected.",
@@ -2525,7 +2649,7 @@
       "/api/gpt/redirect/{token}":{
          "get":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"redirect the shorten url to full authorization url",
             "description":"Endpoint to redirect a shortened tokenized URL to its corresponding full authorization URL.\n\nArgs:\n    token (str): The shortened tokenized url.\n\nReturns:\n    RedirectResponse: A redirect to the original, full authorization URL.",
@@ -2572,13 +2696,13 @@
             ]
          }
       },
-      "/api/gpt/{gpt_name}/generate_token":{
+      "/api/gpt/{genai_app}/generate_token":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Generate Token",
-            "description":"Endpoint to generate a new access token for a specified GPT instance.\nAny previously generated token for the same GPT and organization will be deleted and replaced.\n\nArgs:\n    gpt_name (str): The name of the GPT for which the token is to be generated.\n\nReturns:\n    dict: A dictionary containing the generated token, token ID, GPT name, and associated organization ID.",
+            "description":"Endpoint to generate a new access token for a specified GPT instance.\nAny previously generated token for the same GPT and organization will be deleted and replaced.\n\nArgs:\n    genai_app (str): The name of the GPT for which the token is to be generated.\n\nReturns:\n    dict: A dictionary containing the generated token, token ID, GPT name, and associated organization ID.",
             "operationId":"gpt_generate_token",
             "security":[
                {
@@ -2589,12 +2713,12 @@
             ],
             "parameters":[
                {
-                  "name":"gpt_name",
+                  "name":"genai_app",
                   "in":"path",
                   "required":true,
                   "schema":{
                      "type":"string",
-                     "title":"Gpt Name"
+                     "title":"Genai App"
                   }
                }
             ],
@@ -2622,13 +2746,13 @@
             }
          }
       },
-      "/api/gpt/{gpt_name}/revoke_token":{
+      "/api/gpt/{genai_app}/revoke_token":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Revoke Token",
-            "description":"Endpoint to revoke the access token associated with a given GPT instance.\n\nArgs:\n    gpt_name (str): The name of the GPT whose token is to be revoked.\n\nReturns:\n    dict: A message indicating that the token has been successfully revoked.",
+            "description":"Endpoint to revoke the access token associated with a given GPT instance.\n\nArgs:\n    genai_app (str): The name of the GPT whose token is to be revoked.\n\nReturns:\n    dict: A message indicating that the token has been successfully revoked.",
             "operationId":"gpt_revoke_token",
             "security":[
                {
@@ -2639,12 +2763,12 @@
             ],
             "parameters":[
                {
-                  "name":"gpt_name",
+                  "name":"genai_app",
                   "in":"path",
                   "required":true,
                   "schema":{
                      "type":"string",
-                     "title":"Gpt Name"
+                     "title":"Genai App"
                   }
                }
             ],
@@ -2672,13 +2796,13 @@
             }
          }
       },
-      "/api/gpt/{gpt_name}/read_token":{
+      "/api/gpt/{genai_app}/read_token":{
          "get":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Read Token",
-            "description":"Endpoint to reade the access token associated with a given GPT instance.\n\nArgs:\n    gpt_name (str): The name of the GPT whose token is to be revoked.\n\nReturns:\n    dict: A dictionary containing the generated token, token ID, GPT name, and associated organization ID.",
+            "description":"Endpoint to reade the access token associated with a given GPT instance.\n\nArgs:\n    genai_app (str): The name of the GPT whose token is to be revoked.\n\nReturns:\n    dict: A dictionary containing the generated token, token ID, GPT name, and associated organization ID.",
             "operationId":"gpt_read_token_id",
             "security":[
                {
@@ -2689,12 +2813,12 @@
             ],
             "parameters":[
                {
-                  "name":"gpt_name",
+                  "name":"genai_app",
                   "in":"path",
                   "required":true,
                   "schema":{
                      "type":"string",
-                     "title":"Gpt Name"
+                     "title":"Genai App"
                   }
                }
             ],
@@ -2722,13 +2846,13 @@
             }
          }
       },
-      "/api/gpt/{gpt_name}/install":{
+      "/api/gpt/{genai_app}/install":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Install",
-            "description":"Endpoint to install a GPT instance and its associated API specifications for the current organization.\n\nArgs:\n    gpt_name (str): The name of the GPT to install.\n\nReturns:\n    dict: A message indicating whether the installation was successful.",
+            "description":"Endpoint to install a GPT instance and its associated API specifications for the current organization.\n\nArgs:\n    genai_app (str): The name of the GPT to install.\n\nReturns:\n    dict: A message indicating whether the installation was successful.",
             "operationId":"gpt_install",
             "security":[
                {
@@ -2739,12 +2863,12 @@
             ],
             "parameters":[
                {
-                  "name":"gpt_name",
+                  "name":"genai_app",
                   "in":"path",
                   "required":true,
                   "schema":{
                      "type":"string",
-                     "title":"Gpt Name"
+                     "title":"Genai App"
                   }
                }
             ],
@@ -2772,13 +2896,13 @@
             }
          }
       },
-      "/api/gpt/{gpt_name}/uninstall":{
+      "/api/gpt/{genai_app}/uninstall":{
          "post":{
             "tags":[
-               "GPT / MCP"
+               "GPT"
             ],
             "summary":"Gpt Uninstall",
-            "description":"Endpoint to uninstall a GPT instance from the current organization.\n\nArgs:\n    gpt_name (str): The name of the GPT to uninstall.\n\nReturns:\n    dict: A message confirming successful uninstallation.",
+            "description":"Endpoint to uninstall a GPT instance from the current organization.\n\nArgs:\n    genai_app (str): The name of the GPT to uninstall.\n\nReturns:\n    dict: A message confirming successful uninstallation.",
             "operationId":"gpt_uninstall",
             "security":[
                {
@@ -2789,12 +2913,12 @@
             ],
             "parameters":[
                {
-                  "name":"gpt_name",
+                  "name":"genai_app",
                   "in":"path",
                   "required":true,
                   "schema":{
                      "type":"string",
-                     "title":"Gpt Name"
+                     "title":"Genai App"
                   }
                }
             ],
@@ -3147,6 +3271,434 @@
                   ]
                }
             ]
+         }
+      },
+      "/api/integration/{gpt_name}/get":{
+         "get":{
+            "tags":[
+               "Integration"
+            ],
+            "summary":"Integration Get",
+            "description":"Endpoint to retrieve detailed information about a specific GPT integration.\nRestricted to root-level users.\n\nArgs:\n    gpt_name (str): The name of the GPT (and integration) whose details are being requested.\n\nReturns:\n    dict: A dictionary containing the integration's details including name, state, metadata, and website content.\n\nRaises:\n    HTTPException 404: If the integration with the specified name does not exist.\n    HTTPException 500: If any internal error occurs while retrieving the integration.",
+            "operationId":"integration_get",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"gpt_name",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Gpt Name"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/integration/{gpt_name}/create":{
+         "post":{
+            "tags":[
+               "Integration"
+            ],
+            "summary":"Integration Create",
+            "description":"Endpoint to create a new integration for a GPT.\n\nArgs:\n    gpt_name (str): The name of the GPT model to integrate.\n\nReturns:\n    IntegrationModel: The created integration record, including website metadata.\n\nRaises:\n    HTTPException 400:\n        - If an integration with the given name already exists.\n        - If the GPT has no description available (required for the integration overview).\n    HTTPException 404: If no GPT is found with the provided name.\n    HTTPException 500: If any unexpected error occurs during creation.",
+            "operationId":"integration_create",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"gpt_name",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Gpt Name"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/IntegrationModel"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/integrations/list":{
+         "get":{
+            "tags":[
+               "Integration"
+            ],
+            "summary":"Integrations List",
+            "description":"Endpoint to retrieve a list of GPT integrations.\nRestricted to root-level users. Supports optional filtering by integration state.\n\nArgs:\n    state (Optional[State]): Optional query parameter to filter integrations by state\n                             (e.g., `DRAFT`, `PUBLISHED`, etc.).\n\nReturns:\n    List[dict]: A list of integration records matching the query.\n\nRaises:\n    HTTPException 500: If an error occurs during retrieval.",
+            "operationId":"integrations_list",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"state",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "$ref":"#/components/schemas/State"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "title":"State"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/integrations/published":{
+         "get":{
+            "tags":[
+               "Integration"
+            ],
+            "summary":"Integrations Published",
+            "description":"Endpoint to retrieve all published integrations, enriched with GPT metadata.\n\nReturns a list of published integrations with additional fields such as categories, icons, and summaries\npulled from the GPTs collection for display or marketplace listing purposes.\n\nArgs:\n\nReturns:\n    List[dict]: A list of published integrations with enriched metadata.\n\nRaises:\n    HTTPException 500: If any error occurs during integration or GPT metadata retrieval.",
+            "operationId":"integrations_published",
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               }
+            },
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ]
+         }
+      },
+      "/api/integration/{gpt_name}/change_state":{
+         "patch":{
+            "tags":[
+               "Integration"
+            ],
+            "summary":"Integration Change State",
+            "description":"Endpoint to change the state of a specific GPT integration.\nAllows admin users to transition an integration to a new lifecycle state (e.g., DRAFT, PUBLISHED).\n\nArgs:\n    gpt_name (str): The name of the integration (typically aligned with a GPT name).\n    new_state (States): The new target state to apply to the integration (default is `DRAFT`).\n\nReturns:\n    dict: A success message confirming the state change.\n\nRaises:\n    HTTPException 404: If the integration with the specified name does not exist.\n    HTTPException 500: If any error occurs during the update process.",
+            "operationId":"integration_change_state",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"gpt_name",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Gpt Name"
+                  }
+               },
+               {
+                  "name":"new_state",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"Integration state.",
+                     "default":"draft",
+                     "title":"New State"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/integration/{gpt_name}/delete":{
+         "delete":{
+            "tags":[
+               "Integration"
+            ],
+            "summary":"Integration Delete",
+            "description":"Endpoint to delete a specific GPT integration.\nOnly unpublished integrations can be deleted.\nRestricted to root-level users.\n\nArgs:\n    gpt_name (str): The name of the integration (typically a GPT name).\n\nReturns:\n    dict: A message indicating successful deletion of the integration.\n\nRaises:\n    HTTPException 404: If the integration with the specified name does not exist.\n    HTTPException 400: If the integration is in a `PUBLISHED` state and cannot be deleted.\n    HTTPException 500: If an error occurs during the deletion process.",
+            "operationId":"integration_delete",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"gpt_name",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Gpt Name"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/integration/{gpt_name}/generate_details":{
+         "post":{
+            "tags":[
+               "Integration"
+            ],
+            "summary":"Integration Generate Details",
+            "description":"Endpoint to generate integration website content for a specific GPT.\nUses GPT metadata (summary and description) and a GenAI model to create marketing or documentation content.\n\nArgs:\n    gpt_name (str): The name of the GPT for which integration content should be generated.\n\nReturns:\n    dict: A dictionary of generated integration information, such as headline, pitch, and features.\n\nRaises:\n    HTTPException 404: If the specified GPT does not exist in the tenant.\n    HTTPException 500: If content generation fails due to a runtime error.",
+            "operationId":"generate_integration_info",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"gpt_name",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Gpt Name"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/integration/create_all":{
+         "post":{
+            "tags":[
+               "System"
+            ],
+            "summary":"Integration Create All",
+            "description":"Endpoint to create integrations for all available GPTs in the system.\n\nArgs:\n\nReturns:\n    dict: A summary message with the count of successful and failed integration creations.\n\nRaises:\n    HTTPException 404: If no GPTs are found to create integrations for.\n    HTTPException 500: If an unexpected error occurs during the creation process.",
+            "operationId":"integration_create_all",
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               }
+            },
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ]
+         }
+      },
+      "/api/integration/change_state_all":{
+         "post":{
+            "tags":[
+               "System"
+            ],
+            "summary":"Integration Change State All",
+            "description":"Endpoint to bulk update the state of all GPT integrations in the system.\n\nArgs:\n    new_state (States): The target state to which all integrations should be transitioned (default: `DRAFT`).\n\nReturns:\n    dict: A message summarizing the number of successful and failed integration state changes.\n\nRaises:\n    HTTPException 404: If no integrations are found in the global database.\n    HTTPException 500: If an error occurs during the operation.",
+            "operationId":"integration_change_state_all",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"new_state",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"Integration state.",
+                     "default":"draft",
+                     "title":"New State"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
          }
       },
       "/api/context":{
@@ -4088,10 +4640,1474 @@
                }
             ]
          }
+      },
+      "/api/mcp/app_get_actions":{
+         "get":{
+            "tags":[
+               "MCP"
+            ],
+            "summary":"App Get Actions",
+            "description":"List the available actions for a given app.",
+            "operationId":"mcp_app_get_actions",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"genai_app",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the GenAI app.",
+                     "title":"Genai App"
+                  },
+                  "description":"The name of the GenAI app."
+               },
+               {
+                  "name":"app_name",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The app to list actions for.",
+                     "title":"App Name"
+                  },
+                  "description":"The app to list actions for."
+               },
+               {
+                  "name":"app_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"The type of the app ('mcp' or 'agent').",
+                     "default":"mcp",
+                     "title":"App Type"
+                  },
+                  "description":"The type of the app ('mcp' or 'agent')."
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp/apps_search_actions":{
+         "get":{
+            "tags":[
+               "MCP"
+            ],
+            "summary":"Apps Search Actions",
+            "description":"Search across all agentic metadata for the most relevant actions based on the query parameters.",
+            "operationId":"mcp_apps_search_actions",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"genai_app",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the GenAI app.",
+                     "title":"Genai App"
+                  },
+                  "description":"The name of the GenAI app."
+               },
+               {
+                  "name":"query",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Search query.",
+                     "title":"Query"
+                  },
+                  "description":"Search query."
+               },
+               {
+                  "name":"action_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Type of action.",
+                     "title":"Action Type"
+                  },
+                  "description":"Type of action."
+               },
+               {
+                  "name":"resource",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Resource type.",
+                     "title":"Resource"
+                  },
+                  "description":"Resource type."
+               },
+               {
+                  "name":"min_rating",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"integer"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Minimum rating.",
+                     "title":"Min Rating"
+                  },
+                  "description":"Minimum rating."
+               },
+               {
+                  "name":"max_rating",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"integer"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Maximum rating.",
+                     "title":"Max Rating"
+                  },
+                  "description":"Maximum rating."
+               },
+               {
+                  "name":"required_input",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Required input.",
+                     "title":"Required Input"
+                  },
+                  "description":"Required input."
+               },
+               {
+                  "name":"max_results",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"integer"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Maximum results.",
+                     "default":5,
+                     "title":"Max Results"
+                  },
+                  "description":"Maximum results."
+               },
+               {
+                  "name":"app_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"The type of the app ('mcp' or 'agent').",
+                     "default":"mcp",
+                     "title":"App Type"
+                  },
+                  "description":"The type of the app ('mcp' or 'agent')."
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp/app_execute_action":{
+         "post":{
+            "tags":[
+               "MCP"
+            ],
+            "summary":"App Execute Action",
+            "description":"Triggers an interaction for a custom MCP model using the provided input and operation ID. Returns the MCP-generated response.",
+            "operationId":"mcp_app_execute_action",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"genai_app",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the GenAI app.",
+                     "title":"Genai App"
+                  },
+                  "description":"The name of the GenAI app."
+               },
+               {
+                  "name":"app_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"The type of the app ('mcp' or 'agent').",
+                     "default":"mcp",
+                     "title":"App Type"
+                  },
+                  "description":"The type of the app ('mcp' or 'agent')."
+               }
+            ],
+            "requestBody":{
+               "required":true,
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/MCPActionInput"
+                     }
+                  }
+               }
+            },
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/MCPActionResponse"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp/get_instructions":{
+         "get":{
+            "tags":[
+               "MCP"
+            ],
+            "summary":"Get Instructions",
+            "description":"Returns the formatted agent instructions for the specified GenAI app.\nThis includes the app description, internal guidelines, and list of available apps with their capabilities.",
+            "operationId":"mcp_get_instructions",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"genai_app",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the GenAI app.",
+                     "title":"Genai App"
+                  },
+                  "description":"The name of the GenAI app."
+               },
+               {
+                  "name":"app_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"The type of the app ('mcp' or 'agent').",
+                     "default":"mcp",
+                     "title":"App Type"
+                  },
+                  "description":"The type of the app ('mcp' or 'agent')."
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/MCPInstructionsResponse"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp/apps_list":{
+         "get":{
+            "tags":[
+               "MCP"
+            ],
+            "summary":"Apps List",
+            "description":"Returns Custom GPT's full instructions. GPT must call this at the start of each session, before any other action. Response JSON: {task, operations_list} where operations_list lists actions for app_execute_action.",
+            "operationId":"mcp_apps_list",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"genai_app",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the GenAI app.",
+                     "title":"Genai App"
+                  },
+                  "description":"The name of the GenAI app."
+               },
+               {
+                  "name":"app_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"The type of the app ('mcp' or 'agent').",
+                     "default":"mcp",
+                     "title":"App Type"
+                  },
+                  "description":"The type of the app ('mcp' or 'agent')."
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp/list_contexts":{
+         "get":{
+            "tags":[
+               "MCP"
+            ],
+            "summary":"List Contexts",
+            "description":"List all context names available for the specified agent.\nReturns a list of context names that the agent has access to.",
+            "operationId":"list_contexts",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"genai_app",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the GenAI app.",
+                     "title":"Genai App"
+                  },
+                  "description":"The name of the GenAI app."
+               },
+               {
+                  "name":"app_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"The type of the app ('mcp' or 'agent').",
+                     "default":"agent",
+                     "title":"App Type"
+                  },
+                  "description":"The type of the app ('mcp' or 'agent')."
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/MCPContextNamesResponse"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp/get_context":{
+         "get":{
+            "tags":[
+               "MCP"
+            ],
+            "summary":"Get Context",
+            "description":"Get a specific context by its name for the specified agent.\nReturns the full context data for the specified context name if the agent has access to it.",
+            "operationId":"get_context",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"genai_app",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the GenAI app.",
+                     "title":"Genai App"
+                  },
+                  "description":"The name of the GenAI app."
+               },
+               {
+                  "name":"app_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"string",
+                     "description":"The type of the app ('mcp' or 'agent').",
+                     "default":"agent",
+                     "title":"App Type"
+                  },
+                  "description":"The type of the app ('mcp' or 'agent')."
+               },
+               {
+                  "name":"context_name",
+                  "in":"query",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "description":"The name of the context to retrieve.",
+                     "title":"Context Name"
+                  },
+                  "description":"The name of the context to retrieve."
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/MCPContextResponse"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp-server/create":{
+         "post":{
+            "tags":[
+               "MCP Server"
+            ],
+            "summary":"Mcp Server Create",
+            "description":"Create a new MCP server.\n\nArgs:\n    mcp_server_data: The MCP server data to create\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    MCPServer: The created MCP server\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(403): If trying to create public server without APIGENE tier\n    HTTPException(409): If MCP server with same name already exists\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"mcp_server_create",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/MCPServerCreate"
+                     }
+                  }
+               },
+               "required":true
+            },
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/MCPServer"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            },
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ]
+         }
+      },
+      "/api/mcp-server/list":{
+         "get":{
+            "tags":[
+               "MCP Server"
+            ],
+            "summary":"Mcp Servers List",
+            "description":"List all MCP servers for the current tenant.\n\nArgs:\n    current_user: The current authenticated user\n    tenant: The tenant database\n    server_type: Optional filter by server type\n    enabled_only: Only return enabled servers\n\nReturns:\n    List[MCPServer]: List of MCP servers\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"mcp_servers_list",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"server_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "$ref":"#/components/schemas/MCPServerType"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by server type",
+                     "title":"Server Type"
+                  },
+                  "description":"Filter by server type"
+               },
+               {
+                  "name":"enabled_only",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"boolean",
+                     "description":"Only return enabled servers",
+                     "default":false,
+                     "title":"Enabled Only"
+                  },
+                  "description":"Only return enabled servers"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "type":"array",
+                           "items":{
+                              "$ref":"#/components/schemas/MCPServer"
+                           },
+                           "title":"Response Mcp Servers List"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp-server/get/{server_id}":{
+         "get":{
+            "tags":[
+               "MCP Server"
+            ],
+            "summary":"Mcp Server Get",
+            "description":"Get a specific MCP server by ID.\n\nArgs:\n    server_id: The ID of the MCP server to retrieve\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    MCPServer: The MCP server details\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(404): If MCP server not found\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"mcp_server_get",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"server_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Server Id"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/MCPServer"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp-server/update/{server_id}":{
+         "put":{
+            "tags":[
+               "MCP Server"
+            ],
+            "summary":"Mcp Server Update",
+            "description":"Update an existing MCP server.\n\nArgs:\n    server_id: The ID of the MCP server to update\n    mcp_server_data: The updated MCP server data\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    MCPServer: The updated MCP server\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(404): If MCP server not found\n    HTTPException(403): If trying to change to public server without APIGENE tier\n    HTTPException(409): If new name conflicts with existing server\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"mcp_server_update",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"server_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Server Id"
+                  }
+               }
+            ],
+            "requestBody":{
+               "required":true,
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/MCPServerUpdate"
+                     }
+                  }
+               }
+            },
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/MCPServer"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp-server/delete/{server_id}":{
+         "delete":{
+            "tags":[
+               "MCP Server"
+            ],
+            "summary":"Mcp Server Delete",
+            "description":"Delete an MCP server.\n\nArgs:\n    server_id: The ID of the MCP server to delete\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    dict: Confirmation message\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(404): If MCP server not found\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"mcp_server_delete",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"server_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Server Id"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/mcp-server/create_from_api":{
+         "post":{
+            "tags":[
+               "MCP Server",
+               "MCP Server"
+            ],
+            "summary":"Mcp Create From Api",
+            "description":"Create a new MCP server from an existing API specification.\n\nThis endpoint locates the API by name, fetches its details, and creates a valid\nMCP server of APIGENE type with the API's information. The MCP server name is\nautomatically set to the API title, enabled is set to true, and global_spec\nis derived from the API data.\n\nArgs:\n    request: The request containing only the API name\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    dict: The created MCP server information\n\nRaises:\n    HTTPException(404): If the API specification is not found\n    HTTPException(409): If an MCP server with the same name already exists\n    HTTPException(500): If an error occurs during creation",
+            "operationId":"mcp_create_from_api",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/MCPCreateFromApiRequest"
+                     }
+                  }
+               },
+               "required":true
+            },
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            },
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ]
+         }
+      },
+      "/api/agent/create":{
+         "post":{
+            "tags":[
+               "Agent"
+            ],
+            "summary":"Agent Create",
+            "description":"Create a new agent.\n\nArgs:\n    agent_data: The agent data to create\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    Agent: The created agent\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(403): If trying to create public agent without APIGENE tier\n    HTTPException(409): If agent with same name already exists\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"agent_create",
+            "requestBody":{
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/AgentCreate"
+                     }
+                  }
+               },
+               "required":true
+            },
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/Agent"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            },
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ]
+         }
+      },
+      "/api/agent/list":{
+         "get":{
+            "tags":[
+               "Agent"
+            ],
+            "summary":"Agents List",
+            "description":"List all agents for the current tenant.\n\nArgs:\n    current_user: The current authenticated user\n    tenant: The tenant database\n    agent_type: Optional filter by agent type\n\nReturns:\n    List[Agent]: List of agents\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"agents_list",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"agent_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "$ref":"#/components/schemas/AgentType"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by agent type",
+                     "title":"Agent Type"
+                  },
+                  "description":"Filter by agent type"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "type":"array",
+                           "items":{
+                              "$ref":"#/components/schemas/Agent"
+                           },
+                           "title":"Response Agents List"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/agent/get/{agent_id}":{
+         "get":{
+            "tags":[
+               "Agent"
+            ],
+            "summary":"Agent Get",
+            "description":"Get a specific agent by ID.\n\nArgs:\n    agent_id: The ID of the agent to retrieve\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    Agent: The agent details\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(404): If agent not found\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"agent_get",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"agent_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Agent Id"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/Agent"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/agent/update/{agent_id}":{
+         "put":{
+            "tags":[
+               "Agent"
+            ],
+            "summary":"Agent Update",
+            "description":"Update an existing agent.\n\nArgs:\n    agent_id: The ID of the agent to update\n    agent_data: The updated agent data\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    Agent: The updated agent\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(404): If agent not found\n    HTTPException(403): If trying to change to public agent without APIGENE tier\n    HTTPException(409): If new name conflicts with existing agent\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"agent_update",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"agent_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Agent Id"
+                  }
+               }
+            ],
+            "requestBody":{
+               "required":true,
+               "content":{
+                  "application/json":{
+                     "schema":{
+                        "$ref":"#/components/schemas/AgentUpdate"
+                     }
+                  }
+               }
+            },
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/Agent"
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/agent/delete/{agent_id}":{
+         "delete":{
+            "tags":[
+               "Agent"
+            ],
+            "summary":"Agent Delete",
+            "description":"Delete an agent.\n\nArgs:\n    agent_id: The ID of the agent to delete\n    current_user: The current authenticated user\n    tenant: The tenant database\n\nReturns:\n    dict: Confirmation message\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(404): If agent not found\n    HTTPException(500): If database operation fails or other error occurs",
+            "operationId":"agent_delete",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"agent_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Agent Id"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/audit/audit-logs":{
+         "get":{
+            "summary":"Get Audit Logs",
+            "description":"Get audit logs for the tenant with optional filtering\n\nReturns:\n    List of audit log entries with metadata",
+            "operationId":"get_audit_logs_api_audit_audit_logs_get",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"resource_type",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by resource type (application, agent, mcp_server, context)",
+                     "title":"Resource Type"
+                  },
+                  "description":"Filter by resource type (application, agent, mcp_server, context)"
+               },
+               {
+                  "name":"resource_id",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by specific resource ID",
+                     "title":"Resource Id"
+                  },
+                  "description":"Filter by specific resource ID"
+               },
+               {
+                  "name":"action",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by action (create, update, delete)",
+                     "title":"Action"
+                  },
+                  "description":"Filter by action (create, update, delete)"
+               },
+               {
+                  "name":"user_id",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by user ID",
+                     "title":"User Id"
+                  },
+                  "description":"Filter by user ID"
+               },
+               {
+                  "name":"start_date",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string",
+                           "format":"date-time"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by start date (ISO format)",
+                     "title":"Start Date"
+                  },
+                  "description":"Filter by start date (ISO format)"
+               },
+               {
+                  "name":"end_date",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "anyOf":[
+                        {
+                           "type":"string",
+                           "format":"date-time"
+                        },
+                        {
+                           "type":"null"
+                        }
+                     ],
+                     "description":"Filter by end date (ISO format)",
+                     "title":"End Date"
+                  },
+                  "description":"Filter by end date (ISO format)"
+               },
+               {
+                  "name":"skip",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"integer",
+                     "minimum":0,
+                     "description":"Number of records to skip",
+                     "default":0,
+                     "title":"Skip"
+                  },
+                  "description":"Number of records to skip"
+               },
+               {
+                  "name":"limit",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"integer",
+                     "maximum":1000,
+                     "minimum":1,
+                     "description":"Maximum number of records to return",
+                     "default":100,
+                     "title":"Limit"
+                  },
+                  "description":"Maximum number of records to return"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/api/audit/audit-logs/resource/{resource_type}/{resource_id}":{
+         "get":{
+            "summary":"Get Resource Audit History",
+            "description":"Get complete audit history for a specific resource\n\nArgs:\n    resource_type: Type of resource (application, agent, mcp_server, context)\n    resource_id: ID of the resource\n\nReturns:\n    Complete audit history for the resource",
+            "operationId":"get_resource_audit_history_api_audit_audit_logs_resource__resource_type___resource_id__get",
+            "security":[
+               {
+                  "BearerAuth":[
+                     
+                  ]
+               }
+            ],
+            "parameters":[
+               {
+                  "name":"resource_type",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Resource Type"
+                  }
+               },
+               {
+                  "name":"resource_id",
+                  "in":"path",
+                  "required":true,
+                  "schema":{
+                     "type":"string",
+                     "title":"Resource Id"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful Response",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           
+                        }
+                     }
+                  }
+               },
+               "422":{
+                  "description":"Validation Error",
+                  "content":{
+                     "application/json":{
+                        "schema":{
+                           "$ref":"#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
       }
    },
    "components":{
       "schemas":{
+         "APIInstructions":{
+            "properties":{
+               "api":{
+                  "type":"string",
+                  "title":"Api",
+                  "description":"Name of the api"
+               },
+               "url":{
+                  "type":"string",
+                  "title":"Url",
+                  "description":"URL for API authentication instructions."
+               }
+            },
+            "type":"object",
+            "required":[
+               "api",
+               "url"
+            ],
+            "title":"APIInstructions"
+         },
          "ActionResult":{
             "properties":{
                "action_name":{
@@ -4193,6 +6209,316 @@
             ],
             "title":"AddAccountResponse"
          },
+         "Agent":{
+            "properties":{
+               "id":{
+                  "type":"string",
+                  "title":"Id",
+                  "description":"Unique identifier for the agent"
+               },
+               "name":{
+                  "type":"string",
+                  "title":"Name",
+                  "description":"Name of the agent"
+               },
+               "description":{
+                  "type":"string",
+                  "title":"Description",
+                  "description":"Brief description of what the agent does"
+               },
+               "instructions":{
+                  "type":"string",
+                  "title":"Instructions",
+                  "description":"Long string with the agent instructions"
+               },
+               "apis":{
+                  "items":{
+                     "type":"string"
+                  },
+                  "type":"array",
+                  "title":"Apis",
+                  "description":"List of API names that the agent contains"
+               },
+               "mcps":{
+                  "items":{
+                     "type":"string"
+                  },
+                  "type":"array",
+                  "title":"Mcps",
+                  "description":"List of MCP server names that the agent contains"
+               },
+               "context":{
+                  "items":{
+                     "type":"string"
+                  },
+                  "type":"array",
+                  "title":"Context",
+                  "description":"List of context IDs that the agent contains"
+               },
+               "icon":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Icon",
+                  "description":"Either a URL or base64 string for the agent icon"
+               },
+               "agent_type":{
+                  "type":"string",
+                  "title":"Agent Type",
+                  "description":"Type of agent (private/public)"
+               },
+               "created_at":{
+                  "type":"string",
+                  "format":"date-time",
+                  "title":"Created At",
+                  "description":"When the agent was created"
+               },
+               "updated_at":{
+                  "type":"string",
+                  "format":"date-time",
+                  "title":"Updated At",
+                  "description":"When the agent was last updated"
+               },
+               "created_by":{
+                  "type":"string",
+                  "title":"Created By",
+                  "description":"Email of the user who created the agent"
+               }
+            },
+            "type":"object",
+            "required":[
+               "id",
+               "name",
+               "description",
+               "instructions",
+               "agent_type",
+               "created_at",
+               "updated_at",
+               "created_by"
+            ],
+            "title":"Agent",
+            "description":"Response model for agent"
+         },
+         "AgentCreate":{
+            "properties":{
+               "name":{
+                  "type":"string",
+                  "title":"Name",
+                  "description":"Name of the agent"
+               },
+               "description":{
+                  "type":"string",
+                  "title":"Description",
+                  "description":"Brief description of what the agent does"
+               },
+               "instructions":{
+                  "title":"Instructions",
+                  "description":"Long string with the agent instructions (can be string or dict)"
+               },
+               "apis":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Apis",
+                  "description":"List of API names that the agent contains"
+               },
+               "mcps":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Mcps",
+                  "description":"List of MCP server names that the agent contains"
+               },
+               "context":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Context",
+                  "description":"List of context IDs that the agent contains"
+               },
+               "icon":{
+                  "anyOf":[
+                     {
+                        
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Icon",
+                  "description":"Either a URL, base64 string, or dict for the agent icon"
+               },
+               "agent_type":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/AgentType"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "description":"Type of agent (private/public)",
+                  "default":"private"
+               }
+            },
+            "type":"object",
+            "required":[
+               "name",
+               "description",
+               "instructions"
+            ],
+            "title":"AgentCreate",
+            "description":"Request model for creating an agent"
+         },
+         "AgentType":{
+            "type":"string",
+            "enum":[
+               "private",
+               "public"
+            ],
+            "title":"AgentType",
+            "description":"Agent visibility types"
+         },
+         "AgentUpdate":{
+            "properties":{
+               "name":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Name",
+                  "description":"Name of the agent"
+               },
+               "description":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Description",
+                  "description":"Brief description of what the agent does"
+               },
+               "instructions":{
+                  "anyOf":[
+                     {
+                        
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Instructions",
+                  "description":"Long string with the agent instructions (can be string or dict)"
+               },
+               "apis":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Apis",
+                  "description":"List of API names that the agent contains"
+               },
+               "mcps":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Mcps",
+                  "description":"List of MCP server names that the agent contains"
+               },
+               "context":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Context",
+                  "description":"List of context IDs that the agent contains"
+               },
+               "icon":{
+                  "anyOf":[
+                     {
+                        
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Icon",
+                  "description":"Either a URL, base64 string, or dict for the agent icon"
+               },
+               "agent_type":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/AgentType"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "description":"Type of agent (private/public)"
+               }
+            },
+            "type":"object",
+            "title":"AgentUpdate",
+            "description":"Request model for updating an agent"
+         },
          "Body_spec_create_from_file":{
             "properties":{
                "file":{
@@ -4203,6 +6529,16 @@
                "global_spec":{
                   "type":"boolean",
                   "title":"Global Spec",
+                  "default":false
+               },
+               "shared_security_info":{
+                  "type":"boolean",
+                  "title":"Shared Security Info",
+                  "default":false
+               },
+               "create_mcp":{
+                  "type":"boolean",
+                  "title":"Create Mcp",
                   "default":false
                }
             },
@@ -4232,6 +6568,7 @@
                },
                "password":{
                   "type":"string",
+                  "format":"password",
                   "title":"Password"
                },
                "scope":{
@@ -4259,6 +6596,7 @@
                         "type":"null"
                      }
                   ],
+                  "format":"password",
                   "title":"Client Secret"
                }
             },
@@ -4505,6 +6843,45 @@
             ],
             "title":"DecodeLicenseResponse"
          },
+         "Details":{
+            "properties":{
+               "text":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Text",
+                  "description":"Details text."
+               },
+               "link":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Link",
+                  "description":"Details link."
+               }
+            },
+            "type":"object",
+            "title":"Details"
+         },
+         "ExecutionMode":{
+            "type":"string",
+            "enum":[
+               "dry_run_execution",
+               "apigene_execution",
+               "customer_execution"
+            ],
+            "title":"ExecutionMode"
+         },
          "GPT-Input":{
             "properties":{
                "index_name":{
@@ -4512,9 +6889,9 @@
                   "title":"Index Name",
                   "description":"The index name of the custom GPT model."
                },
-               "gpt_name":{
+               "genai_app":{
                   "type":"string",
-                  "title":"Gpt Name",
+                  "title":"Genai App",
                   "description":"The name of the custom GPT model."
                },
                "created_by":{
@@ -4664,7 +7041,7 @@
             "type":"object",
             "required":[
                "index_name",
-               "gpt_name",
+               "genai_app",
                "summary",
                "description",
                "apis"
@@ -4678,9 +7055,9 @@
                   "title":"Index Name",
                   "description":"The index name of the custom GPT model."
                },
-               "gpt_name":{
+               "genai_app":{
                   "type":"string",
-                  "title":"Gpt Name",
+                  "title":"Genai App",
                   "description":"The name of the custom GPT model."
                },
                "created_by":{
@@ -4830,7 +7207,7 @@
             "type":"object",
             "required":[
                "index_name",
-               "gpt_name",
+               "genai_app",
                "summary",
                "description",
                "apis"
@@ -4958,6 +7335,174 @@
             "type":"object",
             "title":"HTTPValidationError"
          },
+         "IntegrationAssets":{
+            "properties":{
+               "videos":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Videos",
+                  "description":"Integration videos."
+               },
+               "images":{
+                  "items":{
+                     "type":"string"
+                  },
+                  "type":"array",
+                  "title":"Images",
+                  "description":"Integration images."
+               },
+               "authentication_instructions":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "$ref":"#/components/schemas/APIInstructions"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Authentication Instructions",
+                  "description":"URL for GPT API authentication instructions."
+               }
+            },
+            "type":"object",
+            "title":"IntegrationAssets"
+         },
+         "IntegrationDetails":{
+            "properties":{
+               "developer":{
+                  "$ref":"#/components/schemas/Details",
+                  "description":"Developer details."
+               },
+               "website":{
+                  "$ref":"#/components/schemas/Details",
+                  "description":"Website details."
+               }
+            },
+            "type":"object",
+            "required":[
+               "developer",
+               "website"
+            ],
+            "title":"IntegrationDetails"
+         },
+         "IntegrationModel":{
+            "properties":{
+               "state":{
+                  "type":"string",
+                  "title":"State",
+                  "description":"Hold the integration state.",
+                  "default":"draft"
+               },
+               "gpt_name":{
+                  "type":"string",
+                  "title":"Gpt Name",
+                  "description":"The name of the gpt for the integration."
+               },
+               "installs":{
+                  "additionalProperties":true,
+                  "type":"object",
+                  "title":"Installs",
+                  "description":"Installation details.",
+                  "default":"Less than 100"
+               },
+               "website_details":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/IntegrationWebsiteModel"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "description":"Website information for model."
+               },
+               "partner_info":{
+                  "anyOf":[
+                     {
+                        "additionalProperties":true,
+                        "type":"object"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Partner Info",
+                  "description":"Client details of an official partner."
+               }
+            },
+            "type":"object",
+            "required":[
+               "gpt_name"
+            ],
+            "title":"IntegrationModel"
+         },
+         "IntegrationWebsiteModel":{
+            "properties":{
+               "overview":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Overview",
+                  "description":"Integration overview."
+               },
+               "tags":{
+                  "anyOf":[
+                     {
+                        "items":{
+                           "type":"string"
+                        },
+                        "type":"array"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Tags",
+                  "description":"Integration SEO related tags."
+               },
+               "assets":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/IntegrationAssets"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "description":"Integration video and image assets."
+               },
+               "details":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/IntegrationDetails"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "description":"Integration details"
+               }
+            },
+            "type":"object",
+            "title":"IntegrationWebsiteModel"
+         },
          "Interaction":{
             "properties":{
                "user_id":{
@@ -5030,11 +7575,11 @@
             "properties":{
                "interactions":{
                   "items":{
-                     "$ref":"#/components/schemas/Interaction"
+                     "$ref":"#/components/schemas/InteractionMetadata"
                   },
                   "type":"array",
                   "title":"Interactions",
-                  "description":"List of interactions."
+                  "description":"List of interaction metadata."
                },
                "count":{
                   "type":"integer",
@@ -5073,11 +7618,23 @@
                   "description":"Control the response format available option are raw / formatted_html / formatted_md / formatted_text",
                   "default":"raw"
                },
-               "dry_run":{
-                  "type":"boolean",
-                  "title":"Dry Run",
-                  "description":"Control if to perform dray run interaction that only returns the request without actually sending it to the service",
-                  "default":false
+               "execution_mode":{
+                  "$ref":"#/components/schemas/ExecutionMode",
+                  "description":"Controls how the request is executed: dry_run_execution (returns request without sending), apigene_execution (Apigene handles execution with stored credentials), customer_execution (request is forwarded to customer's webhook where the customer is responsible for executing it with their own credentials)",
+                  "default":"apigene_execution"
+               },
+               "customer_execution_context":{
+                  "anyOf":[
+                     {
+                        "additionalProperties":true,
+                        "type":"object"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Customer Execution Context",
+                  "description":"Customer-specific context data for correlation and tracking in customer execution mode"
                },
                "model":{
                   "anyOf":[
@@ -5098,6 +7655,74 @@
                "user_input"
             ],
             "title":"InteractionInput"
+         },
+         "InteractionMetadata":{
+            "properties":{
+               "_id":{
+                  "type":"string",
+                  "title":"Id",
+                  "description":"Unique identifier for the interaction."
+               },
+               "user_id":{
+                  "type":"string",
+                  "title":"User Id",
+                  "description":"User ID who created the interaction."
+               },
+               "api_name":{
+                  "type":"string",
+                  "title":"Api Name",
+                  "description":"Name of the API."
+               },
+               "api_title":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Api Title",
+                  "description":"Title of the API."
+               },
+               "user_input":{
+                  "type":"string",
+                  "title":"User Input",
+                  "description":"User input text."
+               },
+               "created_at":{
+                  "type":"string",
+                  "title":"Created At",
+                  "description":"Creation timestamp."
+               },
+               "duration":{
+                  "type":"number",
+                  "title":"Duration",
+                  "description":"Duration of the interaction in seconds."
+               },
+               "status_code":{
+                  "type":"integer",
+                  "title":"Status Code",
+                  "description":"HTTP status code of the response."
+               },
+               "response_size":{
+                  "type":"integer",
+                  "title":"Response Size",
+                  "description":"Size of the response content in bytes."
+               }
+            },
+            "type":"object",
+            "required":[
+               "_id",
+               "user_id",
+               "api_name",
+               "user_input",
+               "created_at",
+               "duration",
+               "status_code",
+               "response_size"
+            ],
+            "title":"InteractionMetadata"
          },
          "LicenseFeatures":{
             "properties":{
@@ -5138,6 +7763,395 @@
             ],
             "title":"LicenseUpdateRequest"
          },
+         "MCPActionInput":{
+            "properties":{
+               "app_name":{
+                  "type":"string",
+                  "title":"App Name",
+                  "description":"The identifier of the App to invoke."
+               },
+               "user_input":{
+                  "type":"string",
+                  "title":"User Input",
+                  "description":"The natural language input describing the desired action."
+               },
+               "context":{
+                  "anyOf":[
+                     {
+                        "additionalProperties":true,
+                        "type":"object"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Context",
+                  "description":"Contextual parameters for the action, including operationId and any required inputs."
+               },
+               "response_format":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Response Format",
+                  "description":"Response format: 'raw' (default) or 'formatted_md'.",
+                  "default":"raw"
+               },
+               "customer_execution_context":{
+                  "anyOf":[
+                     {
+                        "additionalProperties":true,
+                        "type":"object"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Customer Execution Context",
+                  "description":"Customer-specific context data for correlation and tracking in customer execution mode"
+               }
+            },
+            "type":"object",
+            "required":[
+               "app_name",
+               "user_input"
+            ],
+            "title":"MCPActionInput",
+            "description":"Input payload for triggering a MCP action. Contains the user's input and operation ID."
+         },
+         "MCPActionResponse":{
+            "properties":{
+               "message":{
+                  "title":"Message",
+                  "description":"The response message or result from the MCP action"
+               }
+            },
+            "type":"object",
+            "required":[
+               "message"
+            ],
+            "title":"MCPActionResponse",
+            "description":"Response model for a MCP action. Contains the message or result returned by the MCP action."
+         },
+         "MCPContextNamesResponse":{
+            "properties":{
+               "context_names":{
+                  "items":{
+                     "type":"string"
+                  },
+                  "type":"array",
+                  "title":"Context Names",
+                  "description":"List of context names"
+               }
+            },
+            "type":"object",
+            "required":[
+               "context_names"
+            ],
+            "title":"MCPContextNamesResponse",
+            "description":"Response model for listing context names. Contains the list of context names."
+         },
+         "MCPContextResponse":{
+            "properties":{
+               "context":{
+                  "$ref":"#/components/schemas/Context",
+                  "description":"The context data"
+               }
+            },
+            "type":"object",
+            "required":[
+               "context"
+            ],
+            "title":"MCPContextResponse",
+            "description":"Response model for getting a specific context. Contains the context data."
+         },
+         "MCPCreateFromApiRequest":{
+            "properties":{
+               "api_name":{
+                  "type":"string",
+                  "title":"Api Name",
+                  "description":"The name of the API to create MCP server from"
+               }
+            },
+            "type":"object",
+            "required":[
+               "api_name"
+            ],
+            "title":"MCPCreateFromApiRequest",
+            "description":"Request model for creating an MCP server from an API name."
+         },
+         "MCPInstructionsResponse":{
+            "properties":{
+               "instructions":{
+                  "type":"string",
+                  "title":"Instructions",
+                  "description":"The formatted agent instructions"
+               }
+            },
+            "type":"object",
+            "required":[
+               "instructions"
+            ],
+            "title":"MCPInstructionsResponse",
+            "description":"Response model for MCP instructions. Contains the formatted instructions for the agent."
+         },
+         "MCPServer":{
+            "properties":{
+               "id":{
+                  "type":"string",
+                  "title":"Id",
+                  "description":"Unique identifier for the MCP server"
+               },
+               "name":{
+                  "type":"string",
+                  "title":"Name",
+                  "description":"Name of the MCP server"
+               },
+               "config":{
+                  "$ref":"#/components/schemas/MCPServerConfig",
+                  "description":"MCP server configuration"
+               },
+               "enabled":{
+                  "type":"boolean",
+                  "title":"Enabled",
+                  "description":"Whether the MCP server is enabled"
+               },
+               "server_type":{
+                  "$ref":"#/components/schemas/MCPServerType",
+                  "description":"Type of MCP server (public/private)"
+               },
+               "created_at":{
+                  "type":"string",
+                  "format":"date-time",
+                  "title":"Created At",
+                  "description":"When the MCP server was created"
+               },
+               "updated_at":{
+                  "type":"string",
+                  "format":"date-time",
+                  "title":"Updated At",
+                  "description":"When the MCP server was last updated"
+               },
+               "created_by":{
+                  "type":"string",
+                  "format":"email",
+                  "title":"Created By",
+                  "description":"Email of the user who created the MCP server"
+               },
+               "icon_url":{
+                  "type":"string",
+                  "title":"Icon Url",
+                  "description":"Icon URL of the MCP server for display",
+                  "default":"apigene.ai"
+               },
+               "api_name":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Api Name",
+                  "description":"API name for APIGENE type servers"
+               },
+               "global_spec":{
+                  "anyOf":[
+                     {
+                        "type":"boolean"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Global Spec",
+                  "description":"Whether this is a global spec for APIGENE type servers"
+               }
+            },
+            "type":"object",
+            "required":[
+               "id",
+               "name",
+               "config",
+               "enabled",
+               "server_type",
+               "created_at",
+               "updated_at",
+               "created_by"
+            ],
+            "title":"MCPServer",
+            "description":"Response model for MCP server"
+         },
+         "MCPServerConfig":{
+            "properties":{
+               "url":{
+                  "type":"string",
+                  "title":"Url",
+                  "description":"MCP server URL"
+               },
+               "headers":{
+                  "anyOf":[
+                     {
+                        "additionalProperties":{
+                           "type":"string"
+                        },
+                        "type":"object"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Headers",
+                  "description":"Additional headers for MCP server requests"
+               }
+            },
+            "type":"object",
+            "required":[
+               "url"
+            ],
+            "title":"MCPServerConfig",
+            "description":"MCP Server configuration"
+         },
+         "MCPServerCreate":{
+            "properties":{
+               "name":{
+                  "type":"string",
+                  "title":"Name",
+                  "description":"Name of the MCP server"
+               },
+               "config":{
+                  "$ref":"#/components/schemas/MCPServerConfig",
+                  "description":"MCP server configuration"
+               },
+               "enabled":{
+                  "type":"boolean",
+                  "title":"Enabled",
+                  "description":"Whether the MCP server is enabled",
+                  "default":true
+               },
+               "server_type":{
+                  "$ref":"#/components/schemas/MCPServerType",
+                  "description":"Type of MCP server (apigene/public)",
+                  "default":"apigene"
+               },
+               "icon_url":{
+                  "type":"string",
+                  "title":"Icon Url",
+                  "description":"icon URL of the MCP server for display",
+                  "default":"apigene.ai"
+               },
+               "api_name":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Api Name",
+                  "description":"API name for APIGENE type servers"
+               },
+               "global_spec":{
+                  "anyOf":[
+                     {
+                        "type":"boolean"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Global Spec",
+                  "description":"Whether this is a global spec for APIGENE type servers"
+               }
+            },
+            "type":"object",
+            "required":[
+               "name",
+               "config"
+            ],
+            "title":"MCPServerCreate",
+            "description":"Request model for creating an MCP server"
+         },
+         "MCPServerType":{
+            "type":"string",
+            "enum":[
+               "apigene",
+               "public"
+            ],
+            "title":"MCPServerType",
+            "description":"MCP Server visibility types"
+         },
+         "MCPServerUpdate":{
+            "properties":{
+               "name":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Name",
+                  "description":"Name of the MCP server"
+               },
+               "config":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/MCPServerConfig"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "description":"MCP server configuration"
+               },
+               "enabled":{
+                  "anyOf":[
+                     {
+                        "type":"boolean"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Enabled",
+                  "description":"Whether the MCP server is enabled"
+               },
+               "server_type":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/MCPServerType"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "description":"Type of MCP server (public/private)"
+               },
+               "icon_url":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Icon Url",
+                  "description":"Icon URL of the MCP server for display"
+               }
+            },
+            "type":"object",
+            "title":"MCPServerUpdate",
+            "description":"Request model for updating an MCP server"
+         },
          "ModelConfig":{
             "properties":{
                "id":{
@@ -5175,7 +8189,14 @@
                   "description":"Base URL for API calls, optional for bedrock"
                },
                "model":{
-                  "type":"string",
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
                   "title":"Model",
                   "description":"Model name or ID"
                },
@@ -5259,8 +8280,7 @@
             "type":"object",
             "required":[
                "id",
-               "provider",
-               "model"
+               "provider"
             ],
             "title":"ModelConfig"
          },
@@ -5306,6 +8326,26 @@
                   "anyOf":[
                      {
                         "$ref":"#/components/schemas/ModelRegistry"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ]
+               },
+               "product_visual_settings":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/ProductVisualSettings"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ]
+               },
+               "webhook_config":{
+                  "anyOf":[
+                     {
+                        "$ref":"#/components/schemas/WebhookConfig"
                      },
                      {
                         "type":"null"
@@ -5390,6 +8430,72 @@
                "additional_personalization"
             ],
             "title":"PersonalContext"
+         },
+         "ProductVisualSettings":{
+            "properties":{
+               "sidebar_icon":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Sidebar Icon",
+                  "description":"The icon of that will be displayed in the sidebar"
+               },
+               "product_name":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Product Name",
+                  "description":"The name of the product"
+               },
+               "copilot_icon":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Copilot Icon",
+                  "description":"The icon of that will be displayed in the copilot"
+               },
+               "copilot_welcome_text":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Copilot Welcome Text",
+                  "description":"The welcome text for the copilot"
+               },
+               "copilot_welcome_image":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Copilot Welcome Image",
+                  "description":"The welcome image for the copilot"
+               }
+            },
+            "type":"object",
+            "title":"ProductVisualSettings"
          },
          "Schedule":{
             "properties":{
@@ -5537,6 +8643,16 @@
                "global_spec":{
                   "type":"boolean",
                   "title":"Global Spec",
+                  "default":false
+               },
+               "shared_security_info":{
+                  "type":"boolean",
+                  "title":"Shared Security Info",
+                  "default":false
+               },
+               "create_mcp":{
+                  "type":"boolean",
+                  "title":"Create Mcp",
                   "default":false
                }
             },
@@ -5774,6 +8890,19 @@
                   "description":"Flag indicating whether the spec belong to the tenant or it is a global one.",
                   "default":false
                },
+               "shared_security_info":{
+                  "anyOf":[
+                     {
+                        "type":"boolean"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Shared Security Info",
+                  "description":"Flag indicating whether the spec uses shared security info (global specs only).",
+                  "default":false
+               },
                "agentic_metadata":{
                   "anyOf":[
                      {
@@ -5868,6 +8997,16 @@
             },
             "type":"object",
             "title":"SpecUseCasesPayload"
+         },
+         "State":{
+            "type":"string",
+            "enum":[
+               "draft",
+               "published",
+               "rejected",
+               "in_review"
+            ],
+            "title":"State"
          },
          "StoreURL":{
             "properties":{
@@ -6491,6 +9630,92 @@
                "public"
             ],
             "title":"Visibility"
+         },
+         "WebhookConfig":{
+            "properties":{
+               "url":{
+                  "anyOf":[
+                     {
+                        "type":"string"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Url",
+                  "description":"The webhook URL where the request will be sent"
+               },
+               "headers":{
+                  "anyOf":[
+                     {
+                        "additionalProperties":{
+                           "type":"string"
+                        },
+                        "type":"object"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Headers",
+                  "description":"Additional headers to include in the webhook request"
+               },
+               "connect_timeout":{
+                  "anyOf":[
+                     {
+                        "type":"integer"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Connect Timeout",
+                  "description":"Connect Timeout in seconds for the webhook request",
+                  "default":30
+               },
+               "read_timeout":{
+                  "anyOf":[
+                     {
+                        "type":"integer"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Read Timeout",
+                  "description":"Read Timeout in seconds for the webhook request",
+                  "default":30
+               },
+               "retry_count":{
+                  "anyOf":[
+                     {
+                        "type":"integer"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Retry Count",
+                  "description":"Number of retry attempts if webhook fails",
+                  "default":2
+               },
+               "retry_delay":{
+                  "anyOf":[
+                     {
+                        "type":"integer"
+                     },
+                     {
+                        "type":"null"
+                     }
+                  ],
+                  "title":"Retry Delay",
+                  "description":"Delay in seconds between retry attempts",
+                  "default":5
+               }
+            },
+            "type":"object",
+            "title":"WebhookConfig",
+            "description":"Configuration for webhook execution"
          }
       },
       "securitySchemes":{
