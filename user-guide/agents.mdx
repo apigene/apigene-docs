@@ -1,0 +1,465 @@
+---
+title: 'Agents'
+description: 'Create and manage AI agents with specialized capabilities'
+icon: 'robot'
+---
+
+## Overview
+
+Agents are specialized AI assistants that can be configured with specific instructions, tools, and behaviors. They enable you to create focused, reusable AI workflows tailored to particular tasks or domains.
+
+## What Are Agents?
+
+Think of agents as expert assistants with:
+- **Custom instructions**: Define how the agent should behave and respond
+- **Specific tools**: Select which applications and APIs the agent can access
+- **Consistent behavior**: Agents follow the same instructions every time
+- **Shareable knowledge**: Make agents available across your organization
+
+## Key Features
+
+### Custom Instructions
+Define exactly how your agent should operate:
+- Personality and tone
+- Domain expertise
+- Response format
+- Decision-making guidelines
+
+### Tool Selection
+Control which capabilities your agent has:
+- Select specific applications
+- Choose individual API operations
+- Configure MCP servers access
+- Set tool usage policies
+
+### Visibility Control
+Manage who can use your agents:
+- **Private**: Only visible to you
+- **Public**: Available to your entire organization
+- Easy visibility toggle
+
+### Version Control
+Track changes and improvements:
+- Edit instructions over time
+- Update tool configurations
+- Maintain agent consistency
+
+## Creating an Agent
+
+### Step 1: Navigate to Agents
+
+1. Click **Agents** in the main navigation
+2. Click the **+ New Agent** card
+3. You'll see the agent creation form
+
+### Step 2: Configure Basic Information
+
+**Agent Name**
+- Choose a descriptive name
+- Examples: "GitHub Bot", "Customer Support Assistant", "Data Analyzer"
+- Keep it short and memorable
+
+**Agent Description** (Optional)
+- Explain the agent's purpose
+- Describe what it's good at
+- Helps team members understand when to use it
+
+### Step 3: Write Instructions
+
+This is where you define your agent's behavior. Good instructions include:
+
+**Role Definition**
+```
+You are an expert GitHub repository manager who helps developers with code reviews and issue management.
+```
+
+**Capabilities**
+```
+You can:
+- Create and update GitHub issues
+- Review pull requests
+- Search code repositories
+- Manage project boards
+```
+
+**Guidelines**
+```
+When responding:
+- Be concise and technical
+- Always include relevant GitHub links
+- Use markdown formatting
+- Provide code examples when helpful
+```
+
+**Example Complete Instructions**
+```
+You are a customer support agent specializing in technical troubleshooting.
+
+Your role is to:
+1. Understand customer issues clearly
+2. Search the knowledge base for solutions
+3. Create support tickets for unresolved issues
+4. Follow up with customers promptly
+
+Guidelines:
+- Always be polite and empathetic
+- Ask clarifying questions when needed
+- Provide step-by-step solutions
+- Escalate complex issues to human agents
+- Use bullet points for clarity
+
+When creating tickets:
+- Include all relevant customer information
+- Tag with appropriate priority level
+- Add reproduction steps if provided
+```
+
+### Step 4: Select Tools
+
+Choose which applications and tools your agent can access:
+
+**Default Toolkit**
+- Enable to give access to all configured applications
+- Good for general-purpose agents
+- Simpler to manage
+
+**Custom Tool Selection**
+- Select specific applications only
+- More precise control
+- Better for specialized agents
+
+**MCP Servers**
+- Choose which MCP servers to enable
+- Control access to specific capabilities
+- Configure per-agent permissions
+
+### Step 5: Set Visibility
+
+**Private Agent**
+- Only you can see and use it
+- Perfect for personal workflows
+- Test agents before sharing
+
+**Public Agent**
+- Available to your entire organization
+- Appears in everyone's agent list
+- Great for team collaboration
+
+### Step 6: Save and Test
+
+1. Click **Save** to create your agent
+2. Test it immediately in a new chat
+3. Mention the agent using `@agent_name`
+4. Refine instructions based on results
+
+## Using Agents
+
+### In Copilot
+
+Invoke agents in your conversations:
+
+**Direct Mention**
+```
+@GitHub Bot please create an issue for the login bug
+```
+
+**Implicit Usage**
+The agent's instructions guide the conversation context and behavior.
+
+### Agent Context
+
+When you use an agent:
+- Its instructions are added to the conversation
+- Only specified tools are available
+- The agent's personality shapes responses
+- All mentions from instructions are inherited
+
+## Managing Agents
+
+### Viewing Agents
+
+The Agents page shows two sections:
+
+**My Agents**
+- Agents you created
+- Private agents
+- Full control to edit or delete
+
+**Shared Agents**
+- Public agents from your organization
+- Created by team members
+- View-only access
+
+### Editing Agents
+
+1. Find your agent in "My Agents"
+2. Click the **Edit** icon
+3. Modify instructions, tools, or settings
+4. Click **Save Changes**
+
+Changes take effect immediately in new conversations.
+
+### Deleting Agents
+
+1. Find your agent in "My Agents"
+2. Click the **Delete** icon
+3. Confirm the deletion
+4. The agent is permanently removed
+
+**Note**: Existing conversations using the agent will continue to work.
+
+### Changing Visibility
+
+Toggle between private and public:
+1. Find your agent in the list
+2. Click the visibility icon
+3. Confirm the change
+4. The agent moves to the appropriate section
+
+## Agent Best Practices
+
+### Writing Effective Instructions
+
+**Be Specific**
+- ❌ "Help users with GitHub"
+- ✅ "You are a GitHub automation assistant that creates issues, manages pull requests, and updates project boards based on user requests"
+
+**Define Boundaries**
+```
+You can:
+- Create and update issues
+- Comment on pull requests
+- Search repositories
+
+You cannot:
+- Delete repositories
+- Modify security settings
+- Access private repositories without permission
+```
+
+**Include Examples**
+```
+Example interaction:
+User: "Create an issue for the login bug"
+You: "I'll create a GitHub issue. What should the title be?"
+User: "Login fails with special characters"
+You: *creates issue with title, asks for description*
+```
+
+### Tool Selection Strategy
+
+**Specialized Agents**
+- Select only necessary applications
+- Reduces confusion and errors
+- Improves response accuracy
+- Example: GitHub-only agent for code management
+
+**General Purpose Agents**
+- Use default toolkit
+- Enable multiple applications
+- Good for exploratory workflows
+- Example: Research assistant with web search, docs, and email
+
+### Naming Conventions
+
+Use clear, descriptive names:
+- **Good**: "Jira Issue Creator", "Slack Notifier", "Data Export Assistant"
+- **Avoid**: "Agent1", "My Agent", "Test"
+
+Include the domain or platform in the name when relevant.
+
+## Common Agent Types
+
+### Support Agent
+```
+You are a customer support specialist.
+
+Responsibilities:
+- Answer customer questions
+- Search documentation
+- Create support tickets
+- Track issue resolution
+
+Always:
+- Be empathetic and professional
+- Verify information before responding
+- Follow up on open issues
+- Provide ticket numbers for tracking
+```
+
+### Development Assistant
+```
+You are a development workflow assistant.
+
+You help developers by:
+- Creating and updating Jira issues
+- Managing GitHub pull requests
+- Running CI/CD workflows
+- Notifying teams in Slack
+
+Technical Guidelines:
+- Use proper technical terminology
+- Include relevant links and references
+- Format code snippets properly
+- Verify changes before executing
+```
+
+### Data Analyst
+```
+You are a data analysis assistant.
+
+Your capabilities:
+- Query databases
+- Generate reports
+- Create visualizations
+- Export data to various formats
+
+Analysis approach:
+- Clarify requirements first
+- Validate data quality
+- Explain your methodology
+- Provide actionable insights
+```
+
+### Marketing Assistant
+```
+You are a marketing automation assistant.
+
+You help with:
+- Email campaign management
+- Social media posting
+- Analytics reporting
+- Content scheduling
+
+Brand Guidelines:
+- Maintain consistent tone
+- Follow brand voice guidelines
+- Check content before publishing
+- Track campaign performance
+```
+
+## Advanced Features
+
+### Agent Mentions
+
+Agents can include mentions in their instructions:
+
+**Context Mentions**
+```
+When responding, always reference @company-policies for guidelines.
+```
+
+**Agent Chaining**
+```
+For complex issues, consult @expert-agent for additional insights.
+```
+
+**Thread References**
+```
+Refer to @project-thread for project context.
+```
+
+### Multi-Application Workflows
+
+Create agents that orchestrate multiple services:
+
+```
+You are a deployment coordinator.
+
+Deployment workflow:
+1. Check CI status in GitHub
+2. Create deployment record in Jira
+3. Notify team in Slack
+4. Monitor logs in Datadog
+5. Update status in project board
+
+At each step:
+- Verify success before proceeding
+- Report status to the user
+- Handle errors gracefully
+- Provide rollback guidance if needed
+```
+
+### Conditional Behavior
+
+Include decision logic in instructions:
+
+```
+Issue Triage Agent:
+
+When a new issue is reported:
+
+IF severity is HIGH:
+  - Create P0 ticket in Jira
+  - Notify on-call engineer in Slack
+  - Set status to "Urgent"
+
+IF severity is MEDIUM:
+  - Create P1 ticket in Jira
+  - Add to sprint backlog
+  - Assign to team lead
+
+IF severity is LOW:
+  - Create P2 ticket in Jira
+  - Add to general backlog
+  - No immediate notification
+```
+
+## Searching Agents
+
+Use the search bar to quickly find agents:
+- Search by agent name
+- Filter through descriptions
+- Works on both "My Agents" and "Shared Agents"
+- Updates results in real-time
+
+## Troubleshooting
+
+### Agent Not Responding as Expected
+
+**Check Instructions**
+- Review for clarity and specificity
+- Ensure guidelines are unambiguous
+- Add examples if behavior is unclear
+
+**Verify Tool Access**
+- Confirm necessary applications are selected
+- Check application credentials
+- Test tools individually
+
+**Review Conversation Context**
+- Agent instructions may conflict with user requests
+- Check for contradictory mentions
+- Verify all prerequisites are met
+
+### Agent Can't Access Tools
+
+**Application Not Selected**
+- Edit agent configuration
+- Add required applications
+- Save changes
+
+**Missing Credentials**
+- Check Settings > Applications
+- Verify API keys and tokens
+- Reconfigure authentication
+
+**Permissions Issue**
+- Verify MCP server access
+- Check organization permissions
+- Confirm application is properly installed
+
+### Shared Agent Not Visible
+
+**Visibility Setting**
+- Ensure agent is set to "Public"
+- Check with agent creator
+- Verify organization membership
+
+## Next Steps
+
+- [Use agents in Copilot](/user-guide/copilot) for specialized tasks
+- [Configure applications](/user-guide/applications) to enable more agent capabilities
+- [Add context items](/user-guide/context) for agents to reference
+- [View agent usage](/user-guide/dashboard) in analytics
+

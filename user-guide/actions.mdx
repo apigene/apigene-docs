@@ -1,0 +1,470 @@
+---
+title: 'Actions'
+description: 'Monitor and analyze API calls executed by Copilot'
+icon: 'bolt'
+---
+
+## Overview
+
+Actions are the individual API calls that Copilot executes on your behalf. The Actions page provides a comprehensive log of all API interactions, allowing you to monitor, debug, and analyze your application usage.
+
+## What Are Actions?
+
+Every time Copilot interacts with an application, it creates an action record that includes:
+- **Request details**: What was sent to the API
+- **Response data**: What the API returned
+- **Performance metrics**: How long the call took
+- **Status information**: Success or failure
+- **User context**: Who initiated the action
+
+## Accessing Actions
+
+Navigate to **Actions** from the main navigation menu to view all your API call history.
+
+## Action List View
+
+### Information Displayed
+
+Each action in the list shows:
+
+**Timestamp**
+- When the action was executed
+- Formatted as date and time
+- Sortable and filterable
+
+**User ID**
+- Which user initiated the action
+- Links to user details
+- Filter by specific users
+
+**Application**
+- Which API was called
+- Application name and title
+- Quick access to application settings
+
+**User Input**
+- The original request that triggered the action
+- Natural language query from Copilot
+- Context about why the action was taken
+
+**Duration**
+- How long the API call took
+- Measured in milliseconds
+- Performance indicator
+
+**Status Code**
+- HTTP response code (200, 404, 500, etc.)
+- Color-coded for quick identification
+  - **Green**: Success (2xx)
+  - **Yellow**: Client errors (4xx)
+  - **Red**: Server errors (5xx)
+
+**Cache Status**
+- Whether the response was cached
+- Improves performance for repeated queries
+- Reduces API calls
+
+## Search and Filter
+
+### Search Actions
+
+Use the search bar to find specific actions:
+- Search by user ID
+- Search by application name
+- Search by user input text
+- Search by API operation
+- Real-time filtering as you type
+
+### Advanced Filters
+
+Click the **Filters** button to access advanced filtering:
+
+**Resource Type**
+- Filter by application/API
+- Select specific applications
+- View all or narrow down
+
+**Action Type**
+- Filter by HTTP method (GET, POST, PUT, DELETE)
+- Focus on specific operation types
+
+**Status Code**
+- Success (2xx)
+- Client errors (4xx)
+- Server errors (5xx)
+- Custom status codes
+
+**Date Range**
+- Start date
+- End date
+- View actions within specific timeframes
+- Useful for auditing and analysis
+
+**User Filter**
+- Filter by specific user IDs
+- See actions from particular team members
+- Audit individual user activity
+
+### Applying Filters
+
+1. Click **Filters** button
+2. Configure your filter criteria
+3. Click **Apply** to filter results
+4. Click **Clear** to reset all filters
+
+## Action Details
+
+Click on any action to view complete details:
+
+### Overview Information
+
+**Action Summary**
+- Unique action ID
+- Timestamp (precise date and time)
+- User who executed it
+- Application used
+- Status code with indicator
+
+### Request Details
+
+**HTTP Method**
+- GET, POST, PUT, DELETE, PATCH, etc.
+- Shows the type of operation
+
+**Endpoint URL**
+- Full API endpoint that was called
+- Path parameters included
+- Query parameters visible
+
+**Request Headers**
+- All headers sent with the request
+- Authentication headers
+- Content-Type, Accept, etc.
+
+**Request Body**
+- Payload sent to the API
+- Formatted JSON/XML
+- Copy to clipboard functionality
+
+### Response Details
+
+**Response Status**
+- HTTP status code
+- Status message
+- Success/failure indicator
+
+**Response Headers**
+- Headers returned by the API
+- Content-Type, Cache-Control, etc.
+- Rate limit information if available
+
+**Response Body**
+- Full response from the API
+- Formatted and syntax-highlighted
+- Expandable/collapsible sections
+- Copy to clipboard functionality
+
+**Response Size**
+- Raw response size in bytes/KB/MB
+- Content size after processing
+- Performance indicator
+
+### Performance Metrics
+
+**Duration Breakdown**
+- Total request duration
+- Network time
+- Processing time
+- Response parsing time
+
+**Cache Information**
+- Whether response was cached
+- Cache hit/miss
+- Cache expiry information
+
+## Action Management
+
+### Refresh Actions
+
+Click the **Refresh** button to:
+- Load latest actions
+- Update the list
+- Check for new activity
+
+### Pagination
+
+Navigate through large action lists:
+- **Items per page**: Choose 10, 20, 50, or 100 entries
+- **Previous/Next**: Navigate between pages
+- **Page indicator**: Shows current page and total pages
+
+### Export Actions
+
+Export action data for analysis:
+1. Apply filters to narrow down actions
+2. Click export button (if available)
+3. Choose format (CSV, JSON)
+4. Download the file
+
+## Understanding Status Codes
+
+### Success Codes (2xx) - Green
+
+**200 OK**
+- Request succeeded
+- Response body contains requested data
+
+**201 Created**
+- Resource successfully created
+- Response includes new resource details
+
+**204 No Content**
+- Request succeeded
+- No response body
+
+### Client Error Codes (4xx) - Yellow
+
+**400 Bad Request**
+- Invalid request format
+- Missing required parameters
+- Check request body and parameters
+
+**401 Unauthorized**
+- Authentication failed
+- Check credentials in application settings
+- Token may have expired
+
+**403 Forbidden**
+- Authentication succeeded but access denied
+- Check account permissions
+- Verify required scopes
+
+**404 Not Found**
+- Resource doesn't exist
+- Check resource ID
+- Verify endpoint URL
+
+**429 Too Many Requests**
+- Rate limit exceeded
+- Wait before retrying
+- Review rate limit policies
+
+### Server Error Codes (5xx) - Red
+
+**500 Internal Server Error**
+- API server error
+- Not your fault
+- Retry later or contact API provider
+
+**502 Bad Gateway**
+- Gateway/proxy error
+- Temporary issue
+- Retry after a moment
+
+**503 Service Unavailable**
+- API temporarily down
+- Scheduled maintenance or outage
+- Check API status page
+
+## Use Cases
+
+### Debugging
+
+**Identify Failures**
+1. Filter by error status codes (4xx, 5xx)
+2. Review failed actions
+3. Check request details
+4. Identify the root cause
+5. Fix configuration or parameters
+
+**Reproduce Issues**
+1. Find the failing action
+2. Copy request details
+3. Test manually or in Copilot
+4. Verify the fix
+
+### Performance Analysis
+
+**Slow Requests**
+1. Sort by duration (longest first)
+2. Identify slow endpoints
+3. Review request complexity
+4. Consider optimization strategies
+
+**Cache Effectiveness**
+1. Filter by cached actions
+2. Calculate cache hit ratio
+3. Identify cacheable patterns
+4. Optimize caching strategy
+
+### Security Auditing
+
+**Access Review**
+1. Filter by date range
+2. Review which APIs were called
+3. Check for unusual patterns
+4. Verify proper access controls
+
+**User Activity**
+1. Filter by specific users
+2. See what actions they performed
+3. Audit for compliance
+4. Review sensitive operations
+
+### Usage Tracking
+
+**Application Usage**
+1. Group by application
+2. Count actions per application
+3. Identify most-used APIs
+4. Optimize or expand integrations
+
+**Pattern Analysis**
+1. Review common user inputs
+2. Identify frequent operations
+3. Create agents for common tasks
+4. Improve automation
+
+## Best Practices
+
+### Regular Monitoring
+
+**Daily Review**
+- Check for error spikes
+- Monitor performance trends
+- Verify authentication status
+- Review unusual activity
+
+**Weekly Analysis**
+- Generate usage reports
+- Identify optimization opportunities
+- Review new integrations
+- Clean up failed configurations
+
+### Error Management
+
+**Immediate Action on Errors**
+1. Set up alerts for critical failures
+2. Review 401/403 errors immediately (auth issues)
+3. Investigate 5xx errors with API provider
+4. Document and fix 4xx errors
+
+**Error Prevention**
+- Test integrations before production use
+- Validate credentials regularly
+- Monitor rate limits
+- Keep application configurations updated
+
+### Performance Optimization
+
+**Identify Bottlenecks**
+- Find consistently slow endpoints
+- Review large response sizes
+- Optimize query parameters
+- Consider pagination for large datasets
+
+**Leverage Caching**
+- Identify cacheable operations
+- Review cache hit rates
+- Adjust cache strategies
+- Balance freshness vs performance
+
+## Troubleshooting
+
+### Actions Not Appearing
+
+**Possible Causes**
+- No actions have been executed yet
+- Filters are too restrictive
+- Date range excludes all actions
+- Page needs refresh
+
+**Solutions**
+- Execute some actions in Copilot first
+- Clear all filters
+- Expand date range
+- Click Refresh button
+
+### Can't See Action Details
+
+**Possible Causes**
+- Insufficient permissions
+- Action data was purged
+- Network connectivity issue
+
+**Solutions**
+- Check user permissions
+- Verify action ID is correct
+- Refresh the page
+- Contact administrator if needed
+
+### Filters Not Working
+
+**Possible Causes**
+- Invalid filter criteria
+- No actions match filters
+- Filter syntax error
+
+**Solutions**
+- Try simpler filters first
+- Verify data exists in selected range
+- Clear and reapply filters
+- Use search instead
+
+## Privacy and Data Retention
+
+### Data Stored
+
+Actions store:
+- Request and response metadata
+- User information
+- Timestamps and performance metrics
+- Status codes and errors
+
+### Data Security
+
+- All action data is encrypted
+- Access controlled by user permissions
+- Sensitive data can be masked
+- Compliant with data regulations
+
+### Data Retention
+
+- Actions are retained based on your plan
+- Historical data for analysis and auditing
+- Export before retention period expires
+- Automatic cleanup of old data
+
+## Integration with Other Features
+
+### Dashboard Analytics
+
+Actions feed into the Dashboard:
+- Daily action usage charts
+- Success/failure rates
+- User activity graphs
+- Application usage breakdown
+
+### Audit Logs
+
+System-level changes create audit logs:
+- Application configuration changes
+- Agent modifications
+- Security updates
+- User management
+
+### Context Items
+
+Actions can inform context creation:
+- Common API patterns
+- Frequent data access
+- Usage-based recommendations
+- Automation opportunities
+
+## Next Steps
+
+- [View analytics](/user-guide/dashboard) to understand usage patterns
+- [Configure applications](/user-guide/applications) to reduce errors
+- [Check audit logs](/user-guide/audit) for system changes
+- [Use Copilot](/user-guide/copilot) to execute more actions
+

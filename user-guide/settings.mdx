@@ -1,0 +1,582 @@
+---
+title: 'Settings'
+description: 'Configure your workspace, preferences, and integrations'
+icon: 'settings'
+---
+
+## Overview
+
+Settings is your central hub for configuring Apigene Copilot. Here you can manage workspace preferences, user settings, API configurations, and system-level options to tailor the platform to your needs.
+
+## Accessing Settings
+
+Navigate to **Settings** from the main navigation menu or user profile dropdown.
+
+## Settings Categories
+
+### User Settings
+
+Personal preferences and account information.
+
+**Profile Information**
+- Display name
+- Email address
+- Profile picture
+- User role and permissions
+
+**Preferences**
+- Default AI model preference
+- Theme (light/dark mode)
+- Language preferences
+- Notification settings
+
+**Keyboard Shortcuts**
+- View available shortcuts
+- Customize key bindings
+- Enable/disable shortcuts
+- Quick reference guide
+
+### Workspace Settings
+
+Organization-level configurations.
+
+**General**
+- Workspace name
+- Workspace ID
+- Default settings for new users
+- Feature access control
+
+**Billing & Usage**
+- Current plan details
+- Usage statistics
+- Billing information
+- Upgrade options
+
+**Team Management**
+- Add/remove users
+- Assign roles
+- Permission levels
+- Access control
+
+### Application Settings
+
+Configure installed applications and integrations.
+
+**Installed Applications**
+- View all applications
+- Quick access to configuration
+- Security status overview
+- Usage statistics per app
+
+**Default Configurations**
+- Default tool selection mode
+- Application access policies
+- Common parameters
+- Rate limiting preferences
+
+**API Keys Management**
+- View configured API keys
+- Add new API keys
+- Rotate credentials
+- Test connections
+
+### AI Model Settings
+
+Configure AI model preferences and access.
+
+**Model Providers**
+- OpenAI configuration
+- Anthropic configuration
+- Google AI configuration
+- xAI configuration
+
+**API Keys**
+- Add provider API keys
+- Test key validity
+- Set key priorities
+- Manage key usage
+
+**Default Models**
+- Set default model for Copilot
+- Configure model fallbacks
+- Set model per use case
+- Cost optimization preferences
+
+### Security Settings
+
+Manage authentication and security policies.
+
+**Authentication**
+- Single Sign-On (SSO) setup
+- Multi-factor authentication
+- Session timeout settings
+- Password policies
+
+**Access Control**
+- Role-based access control (RBAC)
+- Permission matrices
+- Resource access policies
+- API access restrictions
+
+**Audit & Compliance**
+- Audit log retention
+- Compliance certifications
+- Data residency preferences
+- Export settings
+
+### Integration Settings
+
+Connect external services and tools.
+
+**Webhooks**
+- Configure webhook endpoints
+- Event subscriptions
+- Webhook security
+- Test webhook delivery
+
+**External Services**
+- Connect collaboration tools
+- Integration with CI/CD
+- Monitoring services
+- Analytics platforms
+
+**Data Export**
+- Export formats
+- Scheduled exports
+- Destination configuration
+- Data retention policies
+
+## Common Configuration Tasks
+
+### Adding API Keys for Model Providers
+
+Enable AI models by adding provider API keys:
+
+**OpenAI**
+1. Navigate to Settings > AI Models
+2. Find OpenAI section
+3. Click "Add API Key"
+4. Paste your OpenAI API key
+5. Click "Save" and "Test Connection"
+
+**Anthropic**
+1. Navigate to Settings > AI Models
+2. Find Anthropic section
+3. Click "Add API Key"
+4. Paste your Anthropic API key
+5. Select available models
+6. Click "Save"
+
+**Google AI**
+1. Navigate to Settings > AI Models
+2. Find Google AI section
+3. Click "Add API Key"
+4. Paste your Google AI API key
+5. Configure model access
+6. Click "Save"
+
+### Configuring Application Defaults
+
+Set default behaviors for application usage:
+
+**Tool Choice Default**
+1. Settings > Application Settings
+2. Find "Default Tool Choice"
+3. Select: Auto / Required / None
+4. Apply to all users or per-user
+
+**Application Access**
+1. Settings > Application Settings
+2. Configure default application access
+3. Set restrictions if needed
+4. Save preferences
+
+### Managing User Access
+
+Add or remove team members:
+
+**Add User**
+1. Settings > Team Management
+2. Click "Invite User"
+3. Enter email address
+4. Select role (Admin, User, Viewer)
+5. Send invitation
+
+**Remove User**
+1. Settings > Team Management
+2. Find user in list
+3. Click "Remove"
+4. Confirm removal
+5. User access revoked immediately
+
+**Change User Role**
+1. Settings > Team Management
+2. Find user in list
+3. Click "Edit Role"
+4. Select new role
+5. Save changes
+
+### Configuring Notifications
+
+Control how you receive notifications:
+
+**Email Notifications**
+- System alerts
+- Usage reports
+- Security notifications
+- Team activity updates
+
+**In-App Notifications**
+- Real-time updates
+- Action completions
+- Error alerts
+- Collaboration notifications
+
+**Notification Preferences**
+1. Settings > User Settings > Notifications
+2. Toggle notification types
+3. Set frequency (real-time, daily digest, weekly)
+4. Choose channels (email, in-app, both)
+5. Save preferences
+
+## Advanced Settings
+
+### Custom Model Endpoints
+
+Configure custom or self-hosted models:
+
+**Setup**
+1. Settings > AI Models > Custom Endpoints
+2. Click "Add Custom Endpoint"
+3. Enter endpoint URL
+4. Configure authentication
+5. Set model parameters
+6. Test connection
+7. Save configuration
+
+**Use Cases**
+- Self-hosted models
+- Organization-specific models
+- Compliance requirements
+- Cost optimization
+
+### Rate Limiting
+
+Configure rate limits for API usage:
+
+**Application Rate Limits**
+1. Settings > Application Settings
+2. Select application
+3. Set requests per minute/hour/day
+4. Configure burst limits
+5. Set user-specific limits
+6. Save configuration
+
+**Model Rate Limits**
+1. Settings > AI Models
+2. Configure tokens per request
+3. Set concurrent request limits
+4. Define cooldown periods
+5. Apply limits
+
+### Webhook Configuration
+
+Set up webhooks for event notifications:
+
+**Create Webhook**
+1. Settings > Integrations > Webhooks
+2. Click "Add Webhook"
+3. Enter endpoint URL
+4. Select events to subscribe
+5. Configure security (signing secret)
+6. Test webhook
+7. Save and activate
+
+**Webhook Events**
+- Action completed
+- Error occurred
+- User activity
+- System updates
+- Configuration changes
+
+### Data Retention Policies
+
+Configure how long data is retained:
+
+**Action Logs**
+1. Settings > Security > Data Retention
+2. Set retention period (30-365 days)
+3. Configure automatic cleanup
+4. Set archival rules
+5. Save policy
+
+**Chat History**
+1. Configure retention duration
+2. Set archival preferences
+3. Define deletion policies
+4. Enable/disable exports before deletion
+
+## Security Best Practices
+
+### API Key Management
+
+**Best Practices**
+- Rotate keys regularly (quarterly)
+- Use different keys for dev/prod
+- Never share keys publicly
+- Revoke compromised keys immediately
+- Use environment-specific keys
+
+**Key Rotation**
+1. Generate new key with provider
+2. Add new key to Settings
+3. Test new key works
+4. Remove old key
+5. Update documentation
+
+### Access Control
+
+**Principle of Least Privilege**
+- Grant minimum necessary permissions
+- Regular access reviews
+- Remove access when no longer needed
+- Use role-based access control
+- Document access policies
+
+**User Roles**
+- **Admin**: Full system access
+- **User**: Standard usage access
+- **Viewer**: Read-only access
+- **Custom**: Tailored permissions
+
+### Audit Trail
+
+**Enable Comprehensive Logging**
+1. Settings > Security > Audit Logs
+2. Enable all log categories
+3. Set appropriate retention
+4. Configure log exports
+5. Review logs regularly
+
+**What to Monitor**
+- Configuration changes
+- User access patterns
+- Failed authentication attempts
+- Unusual API usage
+- Data exports
+
+## Troubleshooting Settings
+
+### Can't Save Settings
+
+**Possible Causes**
+- Insufficient permissions
+- Invalid configuration values
+- Network connectivity issues
+- Concurrent modifications
+
+**Solutions**
+1. Verify you have admin access
+2. Check all required fields
+3. Validate input formats
+4. Refresh page and retry
+5. Contact support if persists
+
+### API Keys Not Working
+
+**OpenAI Key Invalid**
+- Verify key is correct (starts with sk-)
+- Check key hasn't expired
+- Verify account has credits
+- Test key with OpenAI directly
+
+**Anthropic Key Invalid**
+- Verify key format
+- Check API access enabled
+- Verify model access permissions
+- Test with Anthropic console
+
+**General Troubleshooting**
+1. Copy key again from provider
+2. Remove spaces or extra characters
+3. Test connection button
+4. Check provider status page
+5. Generate new key if needed
+
+### Application Configuration Issues
+
+**Application Not Responding**
+- Verify credentials are current
+- Check API service status
+- Test with simple operation
+- Review error messages
+- Reconfigure if needed
+
+**Permission Errors**
+- Review granted scopes
+- Check account permissions
+- Verify API access level
+- Contact service provider
+
+### Notification Issues
+
+**Not Receiving Notifications**
+- Check email spam folder
+- Verify email address is correct
+- Check notification preferences enabled
+- Verify account email is verified
+- Test with a trigger event
+
+**Too Many Notifications**
+- Adjust notification frequency
+- Disable non-critical alerts
+- Set daily/weekly digests
+- Configure filters
+- Customize per-notification type
+
+## Settings Import/Export
+
+### Export Configuration
+
+Save your settings for backup or migration:
+
+**Export Steps**
+1. Settings > Advanced > Export
+2. Select what to export:
+   - User preferences
+   - Application configurations
+   - Team settings
+   - Integration settings
+3. Choose format (JSON, YAML)
+4. Click "Export"
+5. Save file securely
+
+**Use Cases**
+- Backup before changes
+- Migrate to new workspace
+- Share configurations with team
+- Disaster recovery
+
+### Import Configuration
+
+Restore or apply saved settings:
+
+**Import Steps**
+1. Settings > Advanced > Import
+2. Click "Choose File"
+3. Select configuration file
+4. Review changes to be applied
+5. Confirm import
+6. Verify settings applied correctly
+
+**Cautions**
+- Review before importing
+- Backup current settings first
+- Test in non-production first
+- Some settings may need adjustment
+
+## Workspace Administration
+
+### Organization Settings
+
+**Organization Profile**
+- Organization name
+- Primary domain
+- Industry/sector
+- Company size
+- Contact information
+
+**Branding**
+- Logo upload
+- Color scheme
+- Custom domain (if supported)
+- Email templates customization
+
+**Compliance**
+- Data residency preferences
+- Compliance certifications needed
+- Privacy policy acceptance
+- Terms of service
+
+### Resource Limits
+
+**Usage Limits**
+- API calls per month
+- Storage capacity
+- Number of users
+- Number of applications
+- Concurrent sessions
+
+**Monitoring**
+1. Settings > Workspace > Usage
+2. View current usage
+3. Check against limits
+4. Plan upgrades if needed
+5. Set usage alerts
+
+### Feature Flags
+
+Control access to beta or advanced features:
+
+**Enable Features**
+1. Settings > Advanced > Feature Flags
+2. View available features
+3. Toggle features on/off
+4. Apply to users/teams
+5. Monitor feature usage
+
+**Common Features**
+- Beta features preview
+- Advanced analytics
+- Custom integrations
+- Experimental AI models
+- Performance optimizations
+
+## Best Practices
+
+### Regular Maintenance
+
+**Weekly Tasks**
+- Review failed actions
+- Check API key status
+- Monitor usage metrics
+- Review user activity
+- Test critical integrations
+
+**Monthly Tasks**
+- Rotate sensitive credentials
+- Review and update settings
+- Audit user access
+- Clean up unused integrations
+- Review and optimize costs
+
+**Quarterly Tasks**
+- Comprehensive security audit
+- Review all application configurations
+- Update team documentation
+- Evaluate new features
+- Plan capacity adjustments
+
+### Documentation
+
+**Document Your Configuration**
+- Settings rationale
+- Custom configurations
+- Integration details
+- Access policies
+- Troubleshooting guides
+
+**Share with Team**
+- Onboarding documentation
+- Configuration standards
+- Best practices guide
+- Emergency procedures
+- Contact information
+
+## Next Steps
+
+- [Configure applications](/user-guide/applications) for use in Copilot
+- [Set up agents](/user-guide/agents) with proper tool access
+- [Monitor usage](/user-guide/dashboard) to optimize settings
+- [Review audit logs](/user-guide/audit) for security
+

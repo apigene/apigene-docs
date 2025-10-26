@@ -1,0 +1,571 @@
+---
+title: 'Context'
+description: 'Manage reusable context items for consistent AI interactions'
+icon: 'database'
+---
+
+## Overview
+
+Context items are reusable pieces of information that you can reference in your Copilot conversations. They provide consistent data, instructions, or knowledge that the AI can use across multiple interactions, reducing repetition and ensuring accuracy.
+
+## What Is Context?
+
+Context items are stored pieces of information that can include:
+- **Reference data**: Company information, product details, guidelines
+- **Code snippets**: Reusable code templates or examples
+- **Documentation**: Technical specs, API documentation, procedures
+- **Instructions**: Standard operating procedures, policies
+- **Templates**: Message templates, response formats
+- **Knowledge**: Domain expertise, best practices, FAQs
+
+## Why Use Context?
+
+### Consistency
+- Same information used across all conversations
+- No need to repeat common details
+- Reduced errors from manual entry
+
+### Efficiency
+- Reference complex information with simple mentions
+- Avoid copying and pasting repeatedly
+- Faster conversation setup
+
+### Knowledge Sharing
+- Share context across your organization
+- Onboard new team members faster
+- Centralize important information
+
+### AI Enhancement
+- Provide domain-specific knowledge
+- Improve AI response accuracy
+- Guide AI behavior consistently
+
+## Creating Context Items
+
+### Step 1: Navigate to Context
+
+1. Click **Context** in the main navigation
+2. Click **+ New Context** button
+3. The context creation form appears
+
+### Step 2: Configure Basic Information
+
+**Context Name**
+- Choose a descriptive, memorable name
+- Use clear naming conventions
+- Examples: "company-info", "api-guidelines", "brand-voice"
+
+**Context Description** (Optional)
+- Explain what the context contains
+- Note when to use it
+- Helpful for team members
+
+### Step 3: Add Content
+
+**Content Field**
+- Enter your context information
+- Can include:
+  - Plain text
+  - Markdown formatting
+  - Code snippets
+  - JSON data
+  - XML/YAML
+  - Documentation excerpts
+
+**Content Examples**
+
+**Company Information**
+```markdown
+# Company Information
+
+Company Name: Acme Corporation
+Founded: 2020
+Industry: Software Development
+Main Product: AI-powered automation tools
+
+Contact Information:
+- Support Email: support@acme.com
+- Sales Email: sales@acme.com
+- Phone: +1-555-0123
+
+Office Locations:
+- HQ: San Francisco, CA
+- Europe: London, UK
+- Asia: Singapore
+```
+
+**API Guidelines**
+```markdown
+# API Integration Guidelines
+
+Authentication:
+- Always use OAuth 2.0
+- Refresh tokens before expiry
+- Store tokens securely
+
+Error Handling:
+- Retry on 5xx errors with exponential backoff
+- Log all 4xx errors for analysis
+- Show user-friendly error messages
+
+Rate Limiting:
+- Maximum 100 requests per minute
+- Implement request queuing
+- Monitor usage via dashboard
+```
+
+**Code Template**
+```python
+# Standard API Request Template
+
+import requests
+from typing import Dict, Any
+
+def make_api_request(
+    endpoint: str,
+    method: str = "GET",
+    headers: Dict[str, str] = None,
+    data: Dict[str, Any] = None
+) -> Dict[str, Any]:
+    """
+    Standard API request handler with error handling.
+    """
+    try:
+        response = requests.request(
+            method=method,
+            url=f"{BASE_URL}/{endpoint}",
+            headers=headers,
+            json=data,
+            timeout=30
+        )
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        logger.error(f"API request failed: {e}")
+        raise
+```
+
+### Step 4: Set Metadata
+
+**Context Type**
+- Select the appropriate type
+- Helps with organization and filtering
+- Examples: documentation, code, template, policy
+
+**Tags** (Optional)
+- Add searchable tags
+- Group related contexts
+- Examples: "api", "customer-support", "development"
+
+### Step 5: Set Visibility
+
+**Private Context**
+- Only you can see and use it
+- Perfect for personal references
+- Test before sharing
+
+**Public Context**
+- Available to your entire organization
+- Appears in everyone's context list
+- Great for team standards
+
+### Step 6: Save
+
+1. Click **Save** to create the context item
+2. It's immediately available for use
+3. Reference it with `@context-name` in Copilot
+
+## Using Context Items
+
+### In Copilot Conversations
+
+Reference context items using mentions:
+
+**Simple Reference**
+```
+@company-info please draft an email to a new client
+```
+
+**Multiple Context Items**
+```
+Using @api-guidelines and @code-template, create a new 
+API integration
+```
+
+**Implicit Usage**
+```
+Following our standard practices, create a support ticket
+(if agent has context item in instructions)
+```
+
+### How Context Is Applied
+
+When you mention a context item:
+1. The AI receives the full context content
+2. It uses this information to inform responses
+3. It maintains consistency with the guidelines
+4. It references specific details as needed
+
+### Context in Agents
+
+Agents can include context mentions in their instructions:
+
+```
+You are a customer support agent.
+
+Always reference @company-policies and @support-templates 
+when responding to customers.
+
+Use @faq-database to answer common questions before 
+escalating.
+```
+
+This ensures the agent always has access to this information.
+
+## Managing Context Items
+
+### Viewing Context
+
+The Context page shows:
+
+**My Contexts**
+- Context items you created
+- Private items
+- Full edit/delete access
+
+**Shared Contexts**
+- Public items from your organization
+- Created by team members
+- View-only access
+
+### Searching Context
+
+Use the search bar to find context items:
+- Search by name
+- Search by description
+- Search by tags
+- Filter in real-time
+
+### Editing Context
+
+1. Find your context in "My Contexts"
+2. Click the **Edit** button
+3. Modify name, content, or settings
+4. Click **Save Changes**
+
+**Changes Apply**
+- Immediately to new conversations
+- Existing conversations may have old version
+- Update agents that reference this context
+
+### Deleting Context
+
+1. Find your context in "My Contexts"
+2. Click the **Delete** button
+3. Confirm deletion
+4. Context is permanently removed
+
+**Impact**
+- No longer available for new mentions
+- Agents referencing it may show warnings
+- Existing conversations with it continue to work
+
+### Changing Visibility
+
+Toggle between private and public:
+1. Click the visibility toggle
+2. Confirm the change
+3. Context moves to appropriate section
+4. Available to others immediately
+
+## Context Best Practices
+
+### Naming Conventions
+
+**Use Clear Names**
+- ✅ "customer-support-guidelines"
+- ✅ "api-authentication-process"
+- ✅ "brand-voice-standards"
+- ❌ "context1"
+- ❌ "my-stuff"
+- ❌ "temp"
+
+**Follow Patterns**
+- Use lowercase with hyphens
+- Include domain or purpose
+- Keep names concise but descriptive
+- Consistent with team conventions
+
+### Content Organization
+
+**Keep It Focused**
+- One purpose per context item
+- Break large contexts into smaller ones
+- Example: Instead of "all-company-info", create:
+  - "company-details"
+  - "contact-information"
+  - "office-locations"
+
+**Structure for Clarity**
+```markdown
+# Title
+
+## Overview
+Brief description of the content
+
+## Key Information
+- Point 1
+- Point 2
+- Point 3
+
+## Examples
+Concrete examples when applicable
+
+## Related Resources
+Links to related contexts or documentation
+```
+
+**Use Formatting**
+- Markdown for readability
+- Code blocks for snippets
+- Lists for easier scanning
+- Headers for organization
+
+### Maintenance
+
+**Regular Review**
+- Monthly review of all contexts
+- Update outdated information
+- Remove unused contexts
+- Consolidate duplicates
+
+**Version Control**
+- Note major changes in descriptions
+- Keep change log if critical
+- Communicate updates to team
+- Test changes before saving
+
+**Quality Assurance**
+- Verify information accuracy
+- Check links and references
+- Test context in conversations
+- Get feedback from users
+
+## Common Context Types
+
+### Company Information
+```markdown
+# Company Profile
+
+Name: Acme Corp
+Mission: Empowering businesses through AI
+Values: Innovation, Integrity, Impact
+
+Products:
+1. Copilot Platform
+2. Automation Suite
+3. Analytics Dashboard
+```
+
+### API Documentation
+```markdown
+# Authentication API
+
+Endpoint: POST /api/v1/auth/login
+
+Request Body:
+{
+  "email": "user@example.com",
+  "password": "securepass"
+}
+
+Response:
+{
+  "token": "jwt_token_here",
+  "expires_in": 3600
+}
+
+Rate Limit: 5 requests per minute per IP
+```
+
+### Process Guidelines
+```markdown
+# Bug Report Process
+
+1. User reports bug
+2. Create Jira ticket with:
+   - Title: Clear description
+   - Priority: Based on severity
+   - Components: Affected areas
+   - Labels: bug, needs-triage
+3. Notify team in #bugs Slack channel
+4. Assign to appropriate team member
+5. Update ticket status as work progresses
+```
+
+### Brand Voice
+```markdown
+# Brand Communication Guidelines
+
+Tone: Friendly, professional, helpful
+
+Do:
+- Use clear, simple language
+- Be empathetic and understanding
+- Provide actionable guidance
+- Include concrete examples
+
+Don't:
+- Use jargon unnecessarily
+- Be overly formal or casual
+- Make promises we can't keep
+- Ignore customer concerns
+```
+
+### Code Standards
+```javascript
+// Standard Function Documentation
+
+/**
+ * Brief description of function purpose
+ * 
+ * @param {Type} paramName - Parameter description
+ * @returns {Type} Return value description
+ * @throws {ErrorType} When error occurs
+ * 
+ * @example
+ * const result = functionName(param);
+ */
+function functionName(paramName) {
+  // Implementation
+  return result;
+}
+```
+
+## Advanced Features
+
+### Dynamic Content
+
+Include placeholders that get filled in:
+```markdown
+# Email Template
+
+Subject: Welcome to {COMPANY_NAME}
+
+Dear {USER_NAME},
+
+Thank you for joining {PRODUCT_NAME}! 
+Your account has been created with email: {USER_EMAIL}
+
+Next steps:
+1. Complete your profile
+2. Explore our features
+3. Join our community
+
+Best regards,
+{SUPPORT_TEAM}
+```
+
+### Nested References
+
+Context items can reference other contexts:
+```markdown
+# Complete Onboarding Process
+
+## Step 1: Account Setup
+See @account-creation-guide
+
+## Step 2: Initial Configuration
+Follow @configuration-checklist
+
+## Step 3: First Project
+Use @project-template
+```
+
+### Conditional Guidelines
+
+Include decision trees or conditional logic:
+```markdown
+# Support Escalation Rules
+
+IF issue_priority == HIGH AND no_solution_found:
+  - Escalate to senior support
+  - Notify team lead
+  - Update customer within 1 hour
+
+ELSE IF issue_priority == MEDIUM:
+  - Attempt standard troubleshooting
+  - Consult knowledge base
+  - Escalate if unresolved in 24 hours
+
+ELSE:
+  - Handle using standard procedures
+  - Document solution
+  - Update knowledge base if new
+```
+
+## Troubleshooting
+
+### Context Not Working
+
+**Context Not Applied**
+- Verify mention syntax: `@context-name`
+- Check context name spelling
+- Ensure context exists and is accessible
+- Try refreshing the context list
+
+**Partial Content**
+- Context might be too large
+- Consider splitting into smaller contexts
+- Verify full content was saved
+- Check for formatting issues
+
+### Can't Find Context
+
+**Missing from List**
+- Check visibility settings
+- Verify you have access
+- Use search function
+- Check spelling variations
+
+**Search Not Working**
+- Clear search and try again
+- Use partial name matching
+- Check filters
+- Refresh the page
+
+### Context Conflicts
+
+**Multiple Contexts with Similar Info**
+- Consolidate duplicate contexts
+- Use clear differentiation in names
+- Add descriptive tags
+- Document which to use when
+
+## Integration with Other Features
+
+### Context + Agents
+- Agents reference contexts in instructions
+- Ensures consistent agent behavior
+- Provides domain knowledge
+- Reduces agent instruction length
+
+### Context + Copilot
+- Direct mentions in conversations
+- Quick access to complex information
+- Consistent responses across chats
+- Reduced input required from users
+
+### Context + Applications
+- Application-specific guidelines
+- API usage templates
+- Authentication instructions
+- Error handling procedures
+
+## Next Steps
+
+- [Use context in Copilot](/user-guide/copilot) conversations
+- [Reference context in agents](/user-guide/agents) for specialized behavior
+- [Monitor usage](/user-guide/dashboard) of your applications
+- [Configure settings](/user-guide/settings) for your workspace
+

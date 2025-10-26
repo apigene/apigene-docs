@@ -1,39 +1,158 @@
 ---
-title: 'Getting started with Apigene'
-description: 'Getting started with Apigene'
+title: 'Welcome to Apigene'
+description: 'Build powerful AI applications with natural language API interactions'
 ---
 
-Apigene is a secure bridge for connecting your business applications to AI assistants.
+## What is Apigene?
 
+Apigene is an AI-powered platform that enables you to interact with APIs and services using natural language. Instead of writing code or making manual API calls, simply describe what you want to accomplish, and Apigene's AI Copilot executes the necessary actions.
 
-Through our API, you can build white label applications that let users interact with their favorite applications from their AI assistants.
+## Key Features
 
-### What is an AI application
-An AI application is a business application that has been installed on Apigene. 
+<CardGroup cols={2}>
+  <Card title="AI Copilot" icon="robot" href="/user-guide/copilot">
+    Interact with multiple applications using natural language conversations
+  </Card>
+  <Card title="Applications" icon="grid-3x3" href="/user-guide/applications">
+    Install and configure API integrations from OpenAPI specifications
+  </Card>
+  <Card title="Agents" icon="user-robot" href="/user-guide/agents">
+    Create specialized AI assistants with custom instructions and capabilities
+  </Card>
+  <Card title="Context" icon="database" href="/user-guide/context">
+    Manage reusable context items for consistent AI interactions
+  </Card>
+  <Card title="Dashboard" icon="chart-line" href="/user-guide/dashboard">
+    Monitor usage, performance, and insights across your applications
+  </Card>
+  <Card title="Actions" icon="bolt" href="/user-guide/actions">
+    Track and analyze all API calls executed by Copilot
+  </Card>
+  <Card title="Audit Logs" icon="shield-check" href="/user-guide/audit">
+    Track system changes and configuration activities
+  </Card>
+  <Card title="Settings" icon="settings" href="/user-guide/settings">
+    Configure your workspace, preferences, and integrations
+  </Card>
+</CardGroup>
 
-After converting a business application to an AI application, you can interact with the application using our AI copilot, or create AI connectors and interact with the application using AI assistants like ChatGPT, Claude, Cursor, Windsurf, etc.
+## Quick Start
 
-#### Create a new AI application
+<Steps>
+  <Step title="Install Applications">
+    Add API integrations by uploading OpenAPI specifications or connecting to API endpoints.
+    
+    [Learn about Applications →](/user-guide/applications)
+  </Step>
+  
+  <Step title="Configure Security">
+    Set up authentication for your applications to enable API calls.
+    
+    [Configure Applications →](/user-guide/applications#security-configuration)
+  </Step>
+  
+  <Step title="Start Using Copilot">
+    Begin interacting with your applications using natural language in Copilot.
+    
+    [Get Started with Copilot →](/user-guide/copilot)
+  </Step>
+  
+  <Step title="Create Custom Agents">
+    Build specialized agents for common workflows and tasks.
+    
+    [Create Agents →](/user-guide/agents)
+  </Step>
+</Steps>
 
-Business applications are converted to AI applications by installing their OpenAPI specification file on Apigene. 
+## Popular Use Cases
 
-You can do this by uploading the SPEC file `YAML` or `JSON` file, or by importing the SPEC file from the URL of the OpenAPI specification url.
+### Development Workflows
+- Automate GitHub issue creation and management
+- Trigger CI/CD pipelines
+- Deploy applications
+- Monitor application logs
 
-Follow the instructions [here](/guides/add-ai-application) to set up your first AI application.
+### Customer Support
+- Create and manage support tickets in Jira
+- Send notifications to Slack channels
+- Query knowledge bases
+- Update customer records in CRM
 
-### Interact with your AI application
+### Data Operations
+- Query databases and APIs
+- Generate reports and analytics
+- Export data to various formats
+- Sync data between systems
 
-There are two ways to interact with your AI application. 
+### Marketing & Sales
+- Manage email campaigns
+- Post to social media
+- Track analytics and metrics
+- Update CRM records
 
-- Apigene Copilot - Interact with your application using the Apigene copilot.
-- AI Connectors - Convert your API application to an AI connector and connect it to AI assistants like ChatGPT, Claude, Cursor, Windsurf, etc.
+## Platform Components
 
-### AI connectors
-To connect your AI applications to AI assistants like ChatGPT or Claude, you need to create an AI connector for the apps. 
+### Copilot
+The conversational AI interface where you interact with applications using natural language. Copilot understands your intent, selects the right tools, and executes API calls on your behalf.
 
-Apigene AI connectors allow for two modes of connection to AI assistants.
+[Explore Copilot →](/user-guide/copilot)
 
-- Connection via Spec files - This is used for Open AI GPT applications.
-- MCP Connection via MCP local or MCP remote
+### Applications
+API integrations based on OpenAPI specifications. Each application provides tools that Copilot can use to interact with external services.
 
-Learn more about AI connectors [here](/guides/connectors/overview).
+[Learn about Applications →](/user-guide/applications)
+
+### Agents
+Specialized AI assistants configured with specific instructions, tools, and behaviors. Agents enable consistent, reusable workflows.
+
+[Create Agents →](/user-guide/agents)
+
+### Context
+Reusable pieces of information that provide consistent data, instructions, or knowledge across conversations.
+
+[Manage Context →](/user-guide/context)
+
+### Dashboard
+Analytics and insights about your usage, including API call metrics, performance data, and user activity.
+
+[View Dashboard →](/user-guide/dashboard)
+
+### Actions
+Detailed logs of all API calls executed by Copilot, including request/response data and performance metrics.
+
+[Review Actions →](/user-guide/actions)
+
+### Audit Logs
+Comprehensive records of system-level changes and configuration activities for compliance and security.
+
+[Check Audit Logs →](/user-guide/audit)
+
+## Getting Help
+
+### Documentation
+Browse our comprehensive user guides and API reference documentation to learn about all features.
+
+### Support
+Contact our support team at [support@apigene.ai](mailto:support@apigene.ai) for assistance.
+
+### API Reference
+Explore our API documentation to integrate Apigene into your applications.
+
+[View API Reference →](/api-reference/api-authentication)
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="User Guide" icon="book" href="/user-guide/copilot">
+    Start with our user-facing documentation
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/api-authentication">
+    Integrate Apigene into your applications
+  </Card>
+  <Card title="Getting Started" icon="rocket" href="/guides/getting-started">
+    Follow our getting started guide
+  </Card>
+  <Card title="Examples" icon="lightbulb" href="/guides/copilot/copilot">
+    Learn from real-world examples
+  </Card>
+</CardGroup>

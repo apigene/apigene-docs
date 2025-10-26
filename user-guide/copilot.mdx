@@ -1,0 +1,220 @@
+---
+title: 'Copilot'
+description: 'Interact with your applications using AI-powered conversations'
+icon: 'message-circle'
+---
+
+## Overview
+
+Apigene Copilot is an AI-powered conversational interface that enables you to interact with multiple applications, APIs, and services using natural language. Instead of writing code or making manual API calls, simply describe what you want to accomplish, and Copilot will execute the necessary actions.
+
+## Key Features
+
+### Multi-Application Support
+- Connect and interact with multiple applications simultaneously
+- Execute complex workflows across different services
+- Seamlessly switch between applications in a single conversation
+
+### Intelligent Tool Selection
+- Automatic selection of the right tools and APIs based on your request
+- Context-aware recommendations for API operations
+- Smart parameter detection and validation
+
+### Real-Time Execution
+- Live execution of API calls with streaming responses
+- View request and response data in real-time
+- Monitor tool invocations as they happen
+
+### Model Selection
+Choose from multiple AI models to power your conversations:
+- **OpenAI**: Latest GPT models
+- **Anthropic**: Claude models
+- **Google**: Gemini models
+- **xAI**: Grok models
+
+## Getting Started
+
+### Starting a New Chat
+
+1. Navigate to the **Copilot** page from the main navigation
+2. You'll see a greeting screen with quick start options
+3. Type your request in the message input at the bottom
+4. Press Enter or click Send to start the conversation
+
+### Your First Query
+
+Try these example queries to get started:
+- "List all my GitHub repositories"
+- "Create a new Jira issue for the bug I found"
+- "Send a message in Slack to the #engineering channel"
+- "Get my last 10 emails from Gmail"
+
+### Selecting AI Model
+
+1. Click the model selector in the top bar
+2. Choose from available models based on your needs:
+   - **Fast models**: Quick responses for simple tasks
+   - **Powerful models**: Complex reasoning and multi-step workflows
+   - **Balanced models**: Good balance of speed and capability
+
+## Chat Features
+
+### Tool Invocations
+
+When Copilot executes actions, you'll see:
+- **Tool name and description**: What action is being performed
+- **Parameters**: The data being sent to the API
+- **Status indicators**: Success, loading, or error states
+- **Response data**: Full results from the API call
+
+### Message Actions
+
+Each message supports:
+- **Copy**: Copy message content to clipboard
+- **Regenerate**: Re-run the AI response with same context
+- **Edit**: Modify your previous message
+- **Branch**: Create a new conversation from this point
+
+### File Attachments
+
+Upload files to enhance your conversations:
+1. Click the attachment icon in the message input
+2. Select files from your computer
+3. Copilot will analyze and use the file content in responses
+4. Supported formats: PDF, images, text files, code files
+
+### Mentions
+
+Reference specific resources in your messages:
+- **@agents**: Invoke a specific agent to handle the request
+- **@context**: Include context items in the conversation
+- **@threads**: Reference previous conversation threads
+
+## Tool Control
+
+### Tool Choice Modes
+
+Control how Copilot uses tools:
+
+**Auto** (Default)
+- AI automatically decides when to use tools
+- Best for most use cases
+- Balances efficiency and accuracy
+
+**Required**
+- Forces the AI to use at least one tool
+- Ensures API interactions happen
+- Good for action-focused tasks
+
+**None**
+- Disables all tool usage
+- Pure conversational mode
+- Use for questions and planning
+
+### Selecting Applications
+
+Choose which applications Copilot can access:
+1. Click the applications dropdown in the top bar
+2. Select or deselect applications
+3. Only selected applications will be available for the conversation
+4. Leave empty to allow access to all configured applications
+
+## Advanced Features
+
+### Multi-Step Workflows
+
+Copilot can execute complex multi-step operations:
+```
+Create a GitHub issue, then post a message in Slack with the issue link
+```
+
+The AI will:
+1. Create the GitHub issue
+2. Extract the issue URL from the response
+3. Post to Slack with the URL included
+
+### Context Awareness
+
+Copilot maintains context throughout the conversation:
+- References to previous messages
+- Remembers data from earlier tool invocations
+- Builds on previous results
+
+### Error Handling
+
+When errors occur:
+- Clear error messages explain what went wrong
+- Suggestions for how to fix the issue
+- Option to retry with corrected parameters
+
+## Best Practices
+
+### Writing Effective Prompts
+
+**Be Specific**
+- ❌ "Get my data"
+- ✅ "Get all issues created in the last week from Jira"
+
+**Include Context**
+- ❌ "Update the issue"
+- ✅ "Update issue PROJ-123 to set status to 'In Progress'"
+
+**Break Down Complex Tasks**
+- Instead of one complex request, use multiple specific requests
+- Let Copilot handle each step and verify results
+
+### Managing Conversations
+
+**Create New Threads**
+- Start new conversations for unrelated topics
+- Keep conversations focused on a single workflow
+- Use descriptive titles for easy reference
+
+**Use Mentions**
+- Mention specific agents for specialized tasks
+- Reference context items for consistent data
+- Link related conversation threads
+
+### Performance Tips
+
+**Choose the Right Model**
+- Use faster models for simple queries
+- Reserve powerful models for complex reasoning
+- Consider cost and response time tradeoffs
+
+**Limit Application Scope**
+- Select only relevant applications
+- Reduces tool selection overhead
+- Improves response accuracy
+
+## Keyboard Shortcuts
+
+- `Cmd/Ctrl + Enter`: Send message
+- `Cmd/Ctrl + K`: Open command palette
+- `Escape`: Cancel current operation
+- `↑`: Edit previous message
+
+## Troubleshooting
+
+### Copilot Not Responding
+- Check your internet connection
+- Verify API keys are configured
+- Try refreshing the page
+
+### Wrong Tool Selected
+- Be more specific in your request
+- Mention the application name explicitly
+- Check that the right applications are enabled
+
+### Authentication Errors
+- Verify application credentials in Settings
+- Check if tokens have expired
+- Reconfigure the application security settings
+
+## Next Steps
+
+- [Configure your applications](/user-guide/applications) to enable more capabilities
+- [Create custom agents](/user-guide/agents) for specialized workflows
+- [Add context items](/user-guide/context) for consistent data access
+- [View analytics](/user-guide/dashboard) to track your usage
+

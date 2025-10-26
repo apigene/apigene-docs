@@ -1,0 +1,583 @@
+---
+title: 'Audit Logs'
+description: 'Track system changes and monitor configuration activities'
+icon: 'shield-check'
+---
+
+## Overview
+
+Audit Logs provide a comprehensive record of all configuration changes and system-level activities within your Apigene Copilot workspace. They enable you to track who made what changes, when they occurred, and maintain compliance with security and governance requirements.
+
+## What Are Audit Logs?
+
+Audit logs capture system-level events including:
+- **Application changes**: Install, update, delete
+- **Agent modifications**: Create, update, delete, visibility changes
+- **MCP Server changes**: Configuration updates
+- **Context changes**: Create, update, delete operations
+- **User management**: Role changes, access grants/revokes
+- **Security updates**: Credential changes, permission modifications
+- **Settings changes**: Configuration updates
+
+## Accessing Audit Logs
+
+Navigate to **Audit Logs** from the main navigation menu to view system activity history.
+
+## Audit Log Interface
+
+### Log List View
+
+Each audit log entry displays:
+
+**Timestamp**
+- Exact date and time of the event
+- Formatted for your timezone
+- Sortable for chronological analysis
+
+**User ID**
+- Who performed the action
+- User email or identifier
+- Links to user details
+
+**Action Type**
+- **Create**: New resource created
+- **Update**: Existing resource modified
+- **Delete**: Resource removed
+
+**Resource Type**
+- **Application**: API integrations
+- **Agent**: AI agents
+- **MCP Server**: MCP configurations
+- **Context**: Context items
+- **User**: User account changes
+- **Settings**: System configuration
+
+**Resource ID**
+- Unique identifier of affected resource
+- Quick reference for tracking
+- Links to resource (if still exists)
+
+## Search and Filter
+
+### Quick Search
+
+Use the search bar for instant filtering:
+- Search by user ID
+- Search by resource type
+- Search by resource ID
+- Search by action type
+- Real-time results as you type
+
+### Advanced Filters
+
+Click **Filters** to access detailed filtering options:
+
+**Resource Type Filter**
+```
+Options:
+- All Resource Types
+- Application
+- Agent  
+- MCP Server
+- Context
+```
+
+**Action Filter**
+```
+Options:
+- All Actions
+- Create
+- Update
+- Delete
+```
+
+**Date Range**
+- **From Date**: Start of audit period
+- **To Date**: End of audit period
+- Defaults to last 30 days
+
+**User Filter**
+- Filter by specific user ID
+- See activities by individual users
+- Audit specific user actions
+
+**Resource ID Filter**
+- Track changes to specific resource
+- View complete history of an item
+- Useful for troubleshooting
+
+### Applying and Clearing Filters
+
+**Apply Filters**
+1. Configure filter criteria
+2. Click **Apply** button
+3. Results update immediately
+4. Page resets to page 1
+
+**Clear Filters**
+1. Click **Clear** button
+2. All filters reset to default
+3. Shows all audit logs again
+4. Preserves date range selection
+
+## Audit Log Details
+
+Click on any log entry to view complete information:
+
+### Event Summary
+
+**Action Information**
+- Action type badge (Create/Update/Delete)
+- Color-coded for quick identification:
+  - **Green**: Create
+  - **Blue**: Update
+  - **Red**: Delete
+
+**Resource Information**
+- Resource type badge
+- Resource ID with copy function
+- Link to resource (if available)
+
+**User Information**
+- User ID who performed action
+- User role at time of action
+- User email address
+
+**Timing Information**
+- Full timestamp with timezone
+- ISO format timestamp
+- Time since event occurred
+
+### Change Details
+
+For **Update** operations, see:
+
+**Before Values**
+- Previous configuration
+- Old settings
+- Original state
+
+**After Values**
+- New configuration
+- Updated settings
+- Modified state
+
+**Changed Fields**
+- List of modified fields only
+- Highlights what actually changed
+- Easy comparison view
+
+### Metadata
+
+Additional context about the event:
+
+**Request Context**
+- Source IP address (if available)
+- User agent / client information
+- Session ID
+- API version used
+
+**System Information**
+- System version at time of event
+- Processing time
+- Related events (if applicable)
+
+**Export Options**
+- Copy full log data as JSON
+- Download specific log entry
+- Share log URL (if permitted)
+
+## Understanding Audit Events
+
+### Application Events
+
+**Application Created**
+```json
+{
+  "action": "create",
+  "resource_type": "application",
+  "resource_id": "github",
+  "changes": {
+    "api_name": "github",
+    "api_title": "GitHub",
+    "domain_url": "https://api.github.com"
+  }
+}
+```
+
+**Application Security Updated**
+```json
+{
+  "action": "update",
+  "resource_type": "application",
+  "resource_id": "github",
+  "changes": {
+    "security_info_configured": {
+      "old": false,
+      "new": true
+    }
+  }
+}
+```
+
+**Application Deleted**
+```json
+{
+  "action": "delete",
+  "resource_type": "application",
+  "resource_id": "slack",
+  "metadata": {
+    "operations_count": 47,
+    "mcp_tools_removed": 47
+  }
+}
+```
+
+### Agent Events
+
+**Agent Created**
+```json
+{
+  "action": "create",
+  "resource_type": "agent",
+  "resource_id": "support-bot-001",
+  "changes": {
+    "name": "Customer Support Bot",
+    "visibility": "private"
+  }
+}
+```
+
+**Agent Visibility Changed**
+```json
+{
+  "action": "update",
+  "resource_type": "agent",
+  "resource_id": "support-bot-001",
+  "changes": {
+    "visibility": {
+      "old": "private",
+      "new": "public"
+    }
+  }
+}
+```
+
+**Agent Instructions Updated**
+```json
+{
+  "action": "update",
+  "resource_type": "agent",
+  "resource_id": "support-bot-001",
+  "changes": {
+    "instructions": {
+      "old": "...",
+      "new": "..."
+    }
+  }
+}
+```
+
+### Context Events
+
+**Context Created**
+```json
+{
+  "action": "create",
+  "resource_type": "context",
+  "resource_id": "company-info",
+  "changes": {
+    "name": "company-info",
+    "type": "documentation"
+  }
+}
+```
+
+**Context Content Updated**
+```json
+{
+  "action": "update",
+  "resource_type": "context",
+  "resource_id": "company-info",
+  "changes": {
+    "content": {
+      "old": "...",
+      "new": "..."
+    }
+  }
+}
+```
+
+### MCP Server Events
+
+**MCP Server Configured**
+```json
+{
+  "action": "update",
+  "resource_type": "mcp_server",
+  "resource_id": "custom-tools",
+  "changes": {
+    "enabled": {
+      "old": false,
+      "new": true
+    }
+  }
+}
+```
+
+## Pagination and Navigation
+
+### Viewing Large Result Sets
+
+**Page Controls**
+- **Items per page**: Select 10, 20, 50, or 100
+- **Previous button**: Go to previous page
+- **Next button**: Go to next page
+- **Page indicator**: Shows "Page X of Y"
+
+**Navigation Tips**
+- Start with more items per page for overview
+- Reduce items for detailed review
+- Use filters to narrow results first
+- Export for offline analysis if needed
+
+### Refresh
+
+Click **Refresh** button to:
+- Load latest audit logs
+- Update current page
+- Check for new activity
+- Verify recent changes
+
+## Use Cases
+
+### Security Auditing
+
+**Track Sensitive Changes**
+1. Filter by resource type: "Application"
+2. Filter by action: "Update"
+3. Review security configuration changes
+4. Verify authorized changes only
+
+**Access Pattern Analysis**
+1. Filter by specific user
+2. Review all their activities
+3. Identify unusual patterns
+4. Ensure proper access usage
+
+**Compliance Reporting**
+1. Set date range for audit period
+2. Export filtered results
+3. Generate compliance reports
+4. Document all changes
+
+### Troubleshooting
+
+**When Did This Break?**
+1. Identify when issue started
+2. Filter audit logs by timeframe
+3. Review all changes in that period
+4. Correlate changes with issues
+
+**Who Changed This?**
+1. Filter by resource ID
+2. View all changes to resource
+3. Identify who made changes
+4. Contact for more information
+
+**What Changed?**
+1. View audit log details
+2. Compare before/after values
+3. Understand exact changes
+4. Determine impact
+
+### Change Management
+
+**Track Deployment Changes**
+1. Filter by date of deployment
+2. Review all changes made
+3. Verify deployment checklist
+4. Document deployment activities
+
+**Review Team Activities**
+1. Filter by team member
+2. Monitor configuration changes
+3. Ensure best practices followed
+4. Provide feedback as needed
+
+**Configuration Drift Detection**
+1. Export current configuration
+2. Compare with baseline
+3. Identify unexpected changes
+4. Restore or document as needed
+
+## Best Practices
+
+### Regular Review
+
+**Daily Quick Check**
+- Review last 24 hours
+- Check for unexpected changes
+- Verify critical resources unchanged
+- Monitor for security events
+
+**Weekly Deep Dive**
+- Review all changes for the week
+- Analyze change patterns
+- Verify compliance
+- Document significant changes
+
+**Monthly Audit**
+- Comprehensive review of all logs
+- Generate compliance reports
+- Identify optimization opportunities
+- Update documentation
+
+### Security Monitoring
+
+**Watch For**
+- Changes outside business hours
+- Bulk delete operations
+- Unauthorized access attempts
+- Unusual modification patterns
+- Security configuration changes
+
+**Alert On**
+- Critical application changes
+- Agent visibility changes to public
+- User permission escalations
+- Multiple failed operations
+- Rapid configuration changes
+
+### Documentation
+
+**Keep Records Of**
+- Intentional configuration changes
+- Deployment activities
+- Security incidents
+- User access changes
+- System updates
+
+**Document Why**
+- Reason for major changes
+- Business justification
+- Approval process followed
+- Expected impact
+- Rollback plan if needed
+
+## Integration with Compliance
+
+### Regulatory Requirements
+
+**GDPR Compliance**
+- Track data access changes
+- Document user consent management
+- Monitor data export activities
+- Verify deletion requests processed
+
+**SOC 2 Compliance**
+- Access control changes
+- Security configuration audit
+- Change management documentation
+- Incident tracking
+
+**HIPAA Compliance**
+- PHI access logging
+- Security configuration tracking
+- User access management
+- Audit trail maintenance
+
+### Audit Trail Export
+
+**For Compliance**
+1. Filter relevant time period
+2. Apply necessary filters
+3. Export audit logs
+4. Store securely with compliance data
+5. Retain per policy requirements
+
+## Troubleshooting
+
+### No Logs Appearing
+
+**Possible Causes**
+- No changes have been made
+- Filters too restrictive
+- Date range excludes all activity
+- Insufficient permissions
+
+**Solutions**
+1. Verify changes were made
+2. Clear all filters
+3. Expand date range
+4. Check user permissions
+5. Refresh the page
+
+### Can't See Change Details
+
+**Possible Causes**
+- Log data pruned
+- Insufficient permissions
+- Network issue
+
+**Solutions**
+1. Check data retention policy
+2. Verify user role permissions
+3. Refresh connection
+4. Contact administrator
+
+### Export Not Working
+
+**Possible Causes**
+- Too much data selected
+- Export format not supported
+- Browser blocking download
+- Network timeout
+
+**Solutions**
+1. Reduce date range
+2. Apply filters first
+3. Check browser settings
+4. Retry with smaller dataset
+5. Contact support if persists
+
+## Privacy and Data Retention
+
+### What's Logged
+
+**Included**
+- Configuration changes
+- Resource modifications
+- User actions
+- Timestamps and users
+- Change details
+
+**Excluded**
+- API call payloads
+- Sensitive credentials
+- User conversation content
+- Personal identifiable information (beyond user ID)
+
+### Retention Period
+
+- Logs retained based on your plan
+- Typical retention: 90 days to 1 year
+- Export before retention expires
+- Automatic cleanup of old logs
+- Can request extended retention
+
+### Access Control
+
+- Role-based access to audit logs
+- Admin-only access (typically)
+- Organization-level visibility
+- Secure storage and encryption
+- Compliance with data regulations
+
+## Next Steps
+
+- [Monitor actions](/user-guide/actions) for API call details
+- [Review settings](/user-guide/settings) for current configurations
+- [Check dashboard](/user-guide/dashboard) for usage trends
+- [Configure applications](/user-guide/applications) with proper security
+

@@ -11,6 +11,35 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "User Guide",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "user-guide/copilot",
+              "user-guide/applications"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "user-guide/agents",
+              "user-guide/context",
+              "user-guide/chat-history"
+            ]
+          },
+          {
+            "group": "Monitoring & Management",
+            "pages": [
+              "user-guide/actions",
+              "user-guide/dashboard",
+              "user-guide/audit",
+              "user-guide/settings"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Guides",
         "groups": [
           {
