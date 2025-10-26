@@ -9,45 +9,42 @@
   },
   "favicon": "/favicon.ico",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "User Guide",
-        "groups": [
+        "group": "Getting Started",
+        "pages": [
           {
-            "group": "Getting Started",
-            "pages": [
-              {
-                "page": "user-guide/copilot",
-                "icon": "message-circle"
-              },
-              {
-                "page": "user-guide/applications",
-                "icon": "grid-3x3"
-              }
-            ]
+            "page": "user-guide/copilot",
+            "icon": "message-circle"
           },
           {
-            "group": "Core Features",
-            "pages": [
-              "user-guide/agents",
-              "user-guide/context",
-              "user-guide/chat-history"
-            ]
-          },
-          {
-            "group": "Monitoring & Management",
-            "pages": [
-              "user-guide/actions",
-              "user-guide/dashboard",
-              "user-guide/audit",
-              {
-                "page": "user-guide/settings",
-                "icon": "settings"
-              }
-            ]
+            "page": "user-guide/applications",
+            "icon": "grid"
           }
         ]
       },
+      {
+        "group": "Core Features",
+        "pages": [
+          "user-guide/agents",
+          "user-guide/context",
+          "user-guide/chat-history"
+        ]
+      },
+      {
+        "group": "Monitoring & Management",
+        "pages": [
+          "user-guide/actions",
+          "user-guide/dashboard",
+          "user-guide/audit",
+          {
+            "page": "user-guide/settings",
+            "icon": "cog"
+          }
+        ]
+      }
+    ],
+    "tabs": [
       {
         "tab": "API Reference",
         "groups": [
