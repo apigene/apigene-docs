@@ -14,6 +14,12 @@
         "tab": "User Guide",
         "groups": [
           {
+            "group": "Overview",
+            "pages": [
+              "user-guide/introduction"
+            ]
+          },
+          {
             "group": "Getting Started",
             "pages": [
               {
