@@ -1,0 +1,42 @@
+---
+title: 'MCP Gateway Authentication'
+description: 'How to authenticate with the MCP Gateway'
+icon: 'key'
+---
+
+## Authentication Methods
+
+The MCP Gateway supports two authentication methods:
+
+### OAuth Authentication (Recommended for User Applications)
+
+Use OAuth when you need user-specific access:
+- Automatically handled by your MCP client
+- User context is maintained
+- Actions are tracked per user
+- No additional configuration needed
+
+### API Key Authentication (For Server Integrations)
+
+Use API keys for automated systems:
+- Include `apigene-api-key` header in requests
+- Direct server-to-server access
+- No user context required
+- Ideal for automated workflows
+
+## How to Choose
+
+**Use OAuth when:**
+- Building user-facing applications
+- Need to track actions per user
+- Want automatic token management
+
+**Use API key when:**
+- Building server-to-server integrations
+- Running automated systems
+- Don't need user context
+
+## Next Steps
+
+- [Learn about available tools](/user-guide/mcp-gateway/mcp-gateway-tools)
+- [See usage examples](/user-guide/mcp-gateway/mcp-gateway-examples)

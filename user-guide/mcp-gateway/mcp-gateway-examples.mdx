@@ -1,0 +1,392 @@
+---
+title: 'MCP Gateway Examples'
+description: 'Practical examples for using the MCP Gateway'
+icon: 'code'
+---
+
+## Overview
+
+This guide provides practical examples for common use cases with the MCP Gateway. All examples use standard MCP tool calling format.
+
+## Example 1: Discovering and Executing an Action
+
+### Step 1: Discover Available Actions
+
+```json
+{
+  "tool": "list_actions",
+  "arguments": {
+    "requests": [
+      {
+        "app_name": "Slack",
+        "detail_level": "summary"
+      }
+    ]
+  }
+}
+```
+
+**Response:** List of all Slack actions with operation IDs and descriptions
+
+### Step 2: Get Full Action Details
+
+```json
+{
+  "tool": "list_actions",
+  "arguments": {
+    "requests": [
+      {
+        "app_name": "Slack",
+        "operationIds": ["chat.postMessage"]
+      }
+    ]
+  }
+}
+```
+
+**Response:** Complete parameter schema for `chat.postMessage`
+
+### Step 3: Execute the Action
+
+```json
+{
+  "tool": "run_action",
+  "arguments": {
+    "app_name": "Slack",
+    "user_input": "Send a message to the general channel",
+    "context": {
+      "operationId": "chat.postMessage",
+      "channel": "#general",
+      "text": "Hello from Apigene!"
+    }
+  }
+}
+```
+
+## Example 2: Searching for Actions
+
+### Search for Message-Related Actions
+
+```json
+{
+  "tool": "search_actions",
+  "arguments": {
+    "query": "send message",
+    "detail_level": "summary",
+    "max_results": 10
+  }
+}
+```
+
+**Response:** List of actions matching "send message" across all apps
+
+### Get Details and Execute
+
+After finding the right action, get full details and execute:
+
+```json
+{
+  "tool": "list_actions",
+  "arguments": {
+    "requests": [
+      {
+        "app_name": "Slack",
+        "operationIds": ["chat.postMessage"]
+      }
+    ]
+  }
+}
+```
+
+Then execute with proper parameters.
+
+## Example 3: Batch Execution
+
+### Reading Multiple Emails
+
+```json
+{
+  "tool": "run_action_batch",
+  "arguments": {
+    "app_name": "Gmail",
+    "user_input": "Read multiple emails",
+    "base_context": {
+      "operationId": "readEmail",
+      "format": "full"
+    },
+    "batch_context": [
+      { "email_id": "msg_001" },
+      { "email_id": "msg_002" },
+      { "email_id": "msg_003" }
+    ]
+  }
+}
+```
+
+**Response:** Array of results, one per email, executed in parallel
+
+## Example 4: Parallel Multi-Action Execution
+
+### Fetching Data from Multiple Sources
+
+```json
+{
+  "tool": "run_multi_actions",
+  "arguments": {
+    "actions": [
+      {
+        "app_name": "Gmail",
+        "user_input": "Get latest email",
+        "context": {
+          "operationId": "getLatestEmail"
+        }
+      },
+      {
+        "app_name": "Jira",
+        "user_input": "List my open issues",
+        "context": {
+          "operationId": "listIssues",
+          "assignee": "me",
+          "status": "open"
+        }
+      },
+      {
+        "app_name": "Slack",
+        "user_input": "Get unread message count",
+        "context": {
+          "operationId": "getUnreadCount"
+        }
+      }
+    ]
+  }
+}
+```
+
+**Response:** Results from all three actions, executed simultaneously
+
+## Example 5: Using Response Projection
+
+### Extract Specific Fields from Large Response
+
+```json
+{
+  "tool": "run_action",
+  "arguments": {
+    "app_name": "Jira",
+    "user_input": "List all issues",
+    "context": {
+      "operationId": "listIssues"
+    },
+    "response_projection": "{issues: issues[*].{id: id, key: key, summary: fields.summary, status: fields.status.name}}"
+  }
+}
+```
+
+**Response:** Only the specified fields (id, key, summary, status) instead of full issue objects
+
+### Filter and Aggregate Data
+
+```json
+{
+  "tool": "run_action",
+  "arguments": {
+    "app_name": "Salesforce",
+    "user_input": "Get high-value opportunities",
+    "context": {
+      "operationId": "listOpportunities"
+    },
+    "response_projection": "opportunities[?amount > 10000].{name: name, amount: amount, stage: stageName}"
+  }
+}
+```
+
+## Example 6: Agent Mode - Getting Instructions
+
+### Retrieve Agent Instructions
+
+```json
+{
+  "tool": "get_instructions",
+  "arguments": {}
+}
+```
+
+**Response:** Complete agent instructions including description, capabilities, and available apps
+
+## Example 7: Agent Mode - Listing Applications
+
+### Get All Apps with Action Summaries
+
+```json
+{
+  "tool": "list_available_apps",
+  "arguments": {
+    "include_action_summaries": true,
+    "max_action_summary": 20
+  }
+}
+```
+
+**Response:** List of all apps with their action summaries
+
+## Example 8: Agent Mode - Context Management
+
+### List All Contexts
+
+```json
+{
+  "tool": "list_contexts",
+  "arguments": {}
+}
+```
+
+**Response:** All available contexts and context type definitions
+
+### Search for Specific Contexts
+
+```json
+{
+  "tool": "search_contexts",
+  "arguments": {
+    "query": "customer support",
+    "type": "Knowledge",
+    "max_results": 5
+  }
+}
+```
+
+### Get Context Details
+
+```json
+{
+  "tool": "get_context",
+  "arguments": {
+    "context_id": "ctx_123"
+  }
+}
+```
+
+### Create New Context
+
+```json
+{
+  "tool": "add_context",
+  "arguments": {
+    "name": "Product Knowledge Base",
+    "description": "Comprehensive information about our products, features, and pricing...",
+    "summary": "Product information and features",
+    "type": "Knowledge",
+    "apps": ["Salesforce", "Zendesk"],
+    "status": "active"
+  }
+}
+```
+
+## Example 9: Complete Workflow
+
+### Multi-Step Workflow Example
+
+**Step 1:** Discover available actions
+```json
+{
+  "tool": "list_actions",
+  "arguments": {
+    "requests": [
+      { "app_name": "GitHub", "detail_level": "summary" },
+      { "app_name": "Slack", "detail_level": "summary" }
+    ]
+  }
+}
+```
+
+**Step 2:** Get full details for specific actions
+```json
+{
+  "tool": "list_actions",
+  "arguments": {
+    "requests": [
+      {
+        "app_name": "GitHub",
+        "operationIds": ["createIssue"]
+      },
+      {
+        "app_name": "Slack",
+        "operationIds": ["chat.postMessage"]
+      }
+    ]
+  }
+}
+```
+
+**Step 3:** Execute actions in sequence or parallel
+```json
+{
+  "tool": "run_multi_actions",
+  "arguments": {
+    "actions": [
+      {
+        "app_name": "GitHub",
+        "user_input": "Create a new issue",
+        "context": {
+          "operationId": "createIssue",
+          "title": "Bug: Login not working",
+          "body": "Users cannot log in..."
+        }
+      },
+      {
+        "app_name": "Slack",
+        "user_input": "Notify team about new issue",
+        "context": {
+          "operationId": "chat.postMessage",
+          "channel": "#engineering",
+          "text": "New GitHub issue created: Bug: Login not working"
+        }
+      }
+    ]
+  }
+}
+```
+
+## Best Practices
+
+### 1. Use Summary Mode for Discovery
+Always start with `detail_level: "summary"` when exploring actions to save tokens and improve performance.
+
+### 2. Get Full Schemas Before Execution
+Always call `list_actions` with specific `operationIds` to get complete parameter specifications before executing actions.
+
+### 3. Use Batch Operations for Efficiency
+When executing the same action multiple times, use `run_action_batch` instead of multiple `run_action` calls.
+
+### 4. Leverage Parallel Execution
+Use `run_multi_actions` when you need to fetch data from multiple sources simultaneously.
+
+### 5. Use Response Projection for Large Data
+Apply `response_projection` to reduce response size when you only need specific fields from large responses.
+
+## Common Patterns
+
+### Pattern: Discover → Get Details → Execute
+
+1. Use `list_actions` with `detail_level: "summary"` to discover
+2. Use `list_actions` with `operationIds` to get full schemas
+3. Use `run_action` with complete parameters to execute
+
+### Pattern: Search → Execute
+
+1. Use `search_actions` to find relevant actions
+2. Get full details for selected actions
+3. Execute with proper parameters
+
+### Pattern: Batch Processing
+
+1. Identify the action to execute multiple times
+2. Prepare `base_context` with shared parameters
+3. Prepare `batch_context` with varying parameters
+4. Execute with `run_action_batch`
+
+## Next Steps
+
+- [Review all available tools](/user-guide/mcp-gateway/mcp-gateway-tools)
+- [Learn about resources](/user-guide/mcp-gateway/mcp-gateway-resources)
+

@@ -1,0 +1,112 @@
+---
+title: 'MCP vs Agent Modes'
+description: 'Understanding the difference between MCP and Agent modes'
+icon: 'toggle-left'
+---
+
+## Overview
+
+The MCP Gateway operates in two modes, each optimized for different use cases. Choose the mode that best fits your needs.
+
+## MCP Mode
+
+**Endpoint**: `/{type}/mcp/{genai_app}/mcp`
+
+### Capabilities
+
+MCP mode provides core action execution capabilities:
+
+- ✅ List and search actions
+- ✅ Execute single actions
+- ✅ Batch action execution
+- ✅ Parallel multi-action execution
+
+### Use Cases
+
+- Simple API integrations
+- Direct action execution
+- Applications that don't need agent features
+- Lightweight integrations
+
+### Available Tools
+
+- `list_actions`
+- `search_actions`
+- `run_action`
+- `run_action_batch`
+- `run_multi_actions`
+
+## Agent Mode
+
+**Endpoint**: `/{type}/agent/{genai_app}/mcp`
+
+### Capabilities
+
+Agent mode includes everything in MCP mode plus:
+
+- ✅ All MCP mode features
+- ✅ Access to agent instructions
+- ✅ Application discovery
+- ✅ Context management
+- ✅ Context creation and search
+
+### Use Cases
+
+- Full agent workflows
+- Applications needing context awareness
+- Complex multi-step operations
+- AI assistants with extended capabilities
+
+### Available Tools
+
+**All MCP Mode Tools Plus:**
+- `get_instructions`
+- `list_available_apps`
+- `list_contexts`
+- `get_context`
+- `search_contexts`
+- `add_context`
+
+## Choosing the Right Mode
+
+### Use MCP Mode When:
+
+- You only need basic action execution
+- You don't need agent instructions
+- Context management isn't required
+- You want a simpler integration
+
+### Use Agent Mode When:
+
+- You need full agent capabilities
+- You want to access agent instructions
+- You need context management
+- You're building AI assistants
+- You want complete workflow support
+
+## Resources Available
+
+### MCP Mode Resources
+
+- App Actions Template
+- Action Details Template
+
+### Agent Mode Resources
+
+- Agent Instructions
+- Available Apps List
+- Contexts List
+- Context Type Definitions
+- App Actions Template
+- Action Details Template
+- Context Details Template
+
+## Switching Between Modes
+
+You can use both modes simultaneously by connecting to different endpoints. Each mode maintains its own session and capabilities.
+
+## Next Steps
+
+- [Explore available tools](/user-guide/mcp-gateway/mcp-gateway-tools)
+- [See usage examples](/user-guide/mcp-gateway/mcp-gateway-examples)
+

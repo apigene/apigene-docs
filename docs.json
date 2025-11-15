@@ -51,6 +51,20 @@
                 "icon": "cog"
               }
             ]
+          },
+          {
+            "group": "MCP Gateway",
+            "pages": [
+              {
+                "page": "user-guide/mcp-gateway/mcp-gateway-overview",
+                "icon": "server"
+              },
+              "user-guide/mcp-gateway/mcp-gateway-authentication",
+              "user-guide/mcp-gateway/mcp-gateway-resources",
+              "user-guide/mcp-gateway/mcp-gateway-tools",
+              "user-guide/mcp-gateway/mcp-gateway-modes",
+              "user-guide/mcp-gateway/mcp-gateway-examples"
+            ]
           }
         ]
       },

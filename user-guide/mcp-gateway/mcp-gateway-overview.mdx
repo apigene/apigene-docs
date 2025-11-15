@@ -1,0 +1,83 @@
+---
+title: 'MCP Gateway Overview'
+description: 'Connect AI assistants to Apigene using the Model Context Protocol'
+icon: 'server'
+---
+
+## What is the MCP Gateway?
+
+The Apigene MCP Gateway enables AI assistants and chatbots to interact with your Apigene applications through the Model Context Protocol (MCP). Connect tools like Claude Desktop, Cline, or any MCP-compatible client to discover and execute actions across your integrated applications.
+
+## Key Capabilities
+
+### Discover Applications and Actions
+- Browse all available applications in your agent
+- Search for specific actions by description or type
+- Get detailed action schemas and parameters
+
+### Execute Actions
+- Run single actions with full parameter control
+- Execute the same action multiple times in parallel (batch mode)
+- Run different actions simultaneously across multiple apps
+
+### Manage Context (Agent Mode)
+- Access agent instructions and capabilities
+- List and search available contexts
+- Create new contexts to extend agent knowledge
+
+## Two Operation Modes
+
+### MCP Mode
+Basic action execution for simple integrations:
+- List and search actions
+- Execute actions across applications
+- Perfect for straightforward API interactions
+
+### Agent Mode
+Full agent capabilities with enhanced features:
+- Access agent instructions
+- Context management
+- Application discovery
+- Complete agent workflow support
+
+## Getting Started
+
+### Prerequisites
+- An Apigene account with configured applications
+- An MCP-compatible client (Claude Desktop, Cline, etc.)
+- Your application identifier (`genai_app`)
+
+### Connection Steps
+
+1. **Get Your Endpoint**
+   - MCP Mode: `/{type}/mcp/{genai_app}/mcp`
+   - Agent Mode: `/{type}/agent/{genai_app}/mcp`
+
+2. **Configure Authentication**
+   - Use OAuth for user-based access
+   - Or use API key for server-to-server access
+
+3. **Connect Your Client**
+   - Add the gateway URL to your MCP client configuration
+   - Initialize the connection
+   - Start using tools and resources
+
+## What You Can Do
+
+### For AI Assistants
+Connect your AI assistant to execute real actions across your applications:
+- "Send a message in Slack"
+- "Create a Jira issue"
+- "Get my latest emails from Gmail"
+
+### For Developers
+Build integrations that can discover and use Apigene capabilities:
+- Dynamic action discovery
+- Flexible execution patterns
+- Standard MCP protocol compliance
+
+## Next Steps
+
+- [Explore available tools](/user-guide/mcp-gateway/mcp-gateway-tools)
+- [Learn about resources](/user-guide/mcp-gateway/mcp-gateway-resources)
+- [See usage examples](/user-guide/mcp-gateway/mcp-gateway-examples)

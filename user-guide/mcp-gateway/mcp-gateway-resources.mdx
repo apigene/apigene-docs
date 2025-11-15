@@ -1,0 +1,123 @@
+---
+title: 'MCP Gateway Resources'
+description: 'Available resources in the MCP Gateway'
+icon: 'database'
+---
+
+## Overview
+
+Resources provide read-only access to information about your agent, applications, actions, and contexts. They can be accessed through standard MCP resource requests.
+
+## Static Resources (Agent Mode Only)
+
+### Agent Instructions
+**URI**: `apigene://{genai_app}/instructions`
+
+Get the complete agent instructions including:
+- Agent description and capabilities
+- Internal guidelines
+- Available applications list
+
+### Available Apps List
+**URI**: `apigene://{genai_app}/apps`
+
+List all applications available in the agent:
+- App names and summaries
+- Action summaries (optional)
+- App capabilities overview
+
+### Contexts List
+**URI**: `apigene://{genai_app}/contexts`
+
+View all available contexts:
+- Context IDs and names
+- Context summaries
+- Context types
+
+### Context Type Definitions
+**URI**: `apigene://{genai_app}/context-types`
+
+Get all context type templates:
+- Available context types
+- How to create each type
+- When to use each type
+
+## Dynamic Resource Templates
+
+### App Actions
+**URI**: `apigene://{genai_app}/apps/{app_name}/actions`
+
+Get actions for a specific app:
+- All available actions (summary or full details)
+- Action descriptions
+- Operation IDs
+
+**Parameters:**
+- `app_name`: The application identifier
+
+### Action Details
+**URI**: `apigene://{genai_app}/apps/{app_name}/actions/{operationId}`
+
+Get complete schema for a specific action:
+- Full parameter specifications
+- Required and optional parameters
+- Parameter types and descriptions
+
+**Parameters:**
+- `app_name`: The application identifier
+- `operationId`: The specific action identifier
+
+### Context Details (Agent Mode Only)
+**URI**: `apigene://{genai_app}/contexts/{context_id}`
+
+Get detailed information about a specific context:
+- Full context description
+- Associated apps
+- Usage guidelines
+
+**Parameters:**
+- `context_id`: The context identifier
+
+## Using Resources
+
+Resources are accessed through standard MCP resource requests. Your MCP client will handle the protocol details automatically.
+
+### Example: Reading Agent Instructions
+
+```json
+{
+  "method": "resources/read",
+  "params": {
+    "uri": "apigene://my-agent/instructions"
+  }
+}
+```
+
+### Example: Getting App Actions
+
+```json
+{
+  "method": "resources/read",
+  "params": {
+    "uri": "apigene://my-agent/apps/Slack/actions"
+  }
+}
+```
+
+## Resource vs Tools
+
+**Resources** provide read-only information:
+- Use when you need to read data
+- Accessed via `resources/read`
+- Return structured information
+
+**Tools** execute actions:
+- Use when you need to perform operations
+- Accessed via `tools/call`
+- Execute actions and return results
+
+## Next Steps
+
+- [Learn about available tools](/user-guide/mcp-gateway/mcp-gateway-tools)
+- [See usage examples](/user-guide/mcp-gateway/mcp-gateway-examples)
+

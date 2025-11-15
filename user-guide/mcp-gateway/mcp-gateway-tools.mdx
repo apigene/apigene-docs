@@ -1,0 +1,346 @@
+---
+title: 'MCP Gateway Tools'
+description: 'Complete reference for all available tools'
+icon: 'wrench'
+---
+
+## Overview
+
+Tools enable you to discover, search, and execute actions across your Apigene applications. All tools follow the standard MCP tool calling protocol.
+
+## Common Tools (Available in Both MCP and Agent Modes)
+
+### list_actions
+
+Retrieve actions from one or multiple applications.
+
+**Parameters:**
+- `requests` (array, required): Array of action requests, each containing:
+  - `app_name` (string, required): Application identifier
+  - `operationIds` (array, optional): Specific action IDs to fetch. If omitted, returns all actions
+  - `detail_level` (string, optional): `"summary"` or `"full"` (default: `"full"`)
+
+**Usage Modes:**
+- **Discovery Mode**: Omit `operationIds` to get all actions (use `detail_level: "summary"` for lightweight listing)
+- **Details Mode**: Provide `operationIds` to get full parameter schemas
+
+**Returns:** Array of actions or object with app names as keys (for multiple apps)
+
+**Example:**
+```json
+{
+  "tool": "list_actions",
+  "arguments": {
+    "requests": [
+      {
+        "app_name": "Slack",
+        "detail_level": "summary"
+      }
+    ]
+  }
+}
+```
+
+### search_actions
+
+Search across all agentic metadata to find relevant actions.
+
+**Parameters:**
+- `query` (string, optional): Free text search
+- `action_type` (string, optional): Filter by type (get, search, add, update, delete, execute)
+- `resource` (string, optional): Filter by resource type
+- `min_rating` / `max_rating` (number, optional): Filter by rating
+- `required_input` (string, optional): Only actions requiring this parameter
+- `max_results` (number, optional): Maximum results to return
+- `detail_level` (string, optional): `"summary"` or `"full"` (default: `"full"`)
+
+**Returns:** Filtered list of matching actions
+
+**Example:**
+```json
+{
+  "tool": "search_actions",
+  "arguments": {
+    "query": "send message",
+    "detail_level": "summary"
+  }
+}
+```
+
+### run_action
+
+Execute a single action for a specific application.
+
+**Parameters:**
+- `app_name` (string, required): Application identifier
+- `user_input` (string, required): Natural language description
+- `context` (object, required): Action parameters including `operationId`
+- `response_format` (string, optional): `"raw"` or `"formatted_md"` (default: `"raw"`)
+- `response_projection` (string, optional): JMESPath expression to transform response
+- `customer_execution_context` (object, optional): Customer-specific context
+
+**Returns:** Action execution result
+
+**Example:**
+```json
+{
+  "tool": "run_action",
+  "arguments": {
+    "app_name": "Slack",
+    "user_input": "Send a message to #general",
+    "context": {
+      "operationId": "chat.postMessage",
+      "channel": "#general",
+      "text": "Hello, world!"
+    }
+  }
+}
+```
+
+### run_action_batch
+
+Execute the same action multiple times in parallel with different parameters.
+
+**Parameters:**
+- `app_name` (string, required): Application identifier
+- `user_input` (string, required): Natural language description
+- `base_context` (object, required): Shared parameters (must include `operationId`)
+- `batch_context` (array, required): Array of varying parameters, one per execution
+- `response_format` (string, optional): Output format
+- `response_projection` (string, optional): JMESPath expression
+- `customer_execution_context` (object, optional): Customer context
+
+**Returns:** Object with `batch_results` array and `summary` statistics
+
+**Example:**
+```json
+{
+  "tool": "run_action_batch",
+  "arguments": {
+    "app_name": "Gmail",
+    "user_input": "Read multiple emails",
+    "base_context": {
+      "operationId": "readEmail"
+    },
+    "batch_context": [
+      { "email_id": "123" },
+      { "email_id": "456" },
+      { "email_id": "789" }
+    ]
+  }
+}
+```
+
+### run_multi_actions
+
+Execute multiple different actions in parallel across different applications.
+
+**Parameters:**
+- `actions` (array, required): Array of action requests, each containing:
+  - `app_name` (string, required)
+  - `user_input` (string, required)
+  - `context` (object, required): Must include `operationId`
+  - `response_format` (string, optional)
+  - `response_projection` (string, optional)
+  - `customer_execution_context` (object, optional)
+
+**Returns:** Object with `results` array and `summary` statistics
+
+**Example:**
+```json
+{
+  "tool": "run_multi_actions",
+  "arguments": {
+    "actions": [
+      {
+        "app_name": "Gmail",
+        "user_input": "Get latest email",
+        "context": { "operationId": "getLatestEmail" }
+      },
+      {
+        "app_name": "Jira",
+        "user_input": "List my tasks",
+        "context": { "operationId": "listIssues", "assignee": "me" }
+      }
+    ]
+  }
+}
+```
+
+## Agent-Only Tools
+
+### get_instructions
+
+Get the complete agent instructions and capabilities.
+
+**Parameters:** None
+
+**Returns:** Agent instructions including description, guidelines, and available apps
+
+**Example:**
+```json
+{
+  "tool": "get_instructions",
+  "arguments": {}
+}
+```
+
+### list_available_apps
+
+List all available applications in the agent.
+
+**Parameters:**
+- `include_action_summaries` (boolean, optional): Include action summaries (default: `true`)
+- `max_action_summary` (number, optional): Max summaries per app (default: `20`)
+
+**Returns:** List of applications with optional action summaries
+
+**Example:**
+```json
+{
+  "tool": "list_available_apps",
+  "arguments": {
+    "include_action_summaries": true,
+    "max_action_summary": 10
+  }
+}
+```
+
+### list_contexts
+
+List all available contexts and context type definitions.
+
+**Parameters:** None
+
+**Returns:** Object with `contexts` array and `context_types` array
+
+**Example:**
+```json
+{
+  "tool": "list_contexts",
+  "arguments": {}
+}
+```
+
+### get_context
+
+Get detailed information about a specific context.
+
+**Parameters:**
+- `context_id` (string, required): The context identifier
+
+**Returns:** Full context details
+
+**Example:**
+```json
+{
+  "tool": "get_context",
+  "arguments": {
+    "context_id": "ctx_123"
+  }
+}
+```
+
+### search_contexts
+
+Search for contexts with flexible filtering.
+
+**Parameters:**
+- `query` (string, optional): Search query
+- `type` (string, optional): Filter by context type
+- `status` (string, optional): Filter by status (default: `"active"`)
+- `max_results` (number, optional): Maximum results (default: `5`)
+
+**Returns:** Object with matching `contexts` and `context_types`
+
+**Example:**
+```json
+{
+  "tool": "search_contexts",
+  "arguments": {
+    "query": "customer support",
+    "type": "Knowledge"
+  }
+}
+```
+
+### add_context
+
+Create a new context in the system.
+
+**Parameters:**
+- `name` (string, required): Unique context name
+- `description` (string, required): Detailed description
+- `summary` (string, optional): Short summary
+- `when_to_use` (string, optional): Usage guidelines
+- `type` (string, optional): Context type (must match existing types)
+- `apps` (array, optional): Associated app names
+- `status` (string, optional): `"active"` or `"disabled"` (default: `"active"`)
+
+**Returns:** Created context object
+
+**Example:**
+```json
+{
+  "tool": "add_context",
+  "arguments": {
+    "name": "Customer Support Guidelines",
+    "description": "Guidelines for handling customer support requests...",
+    "summary": "Support handling guidelines",
+    "type": "Knowledge",
+    "apps": ["Zendesk", "Slack"]
+  }
+}
+```
+
+## Recommended Workflows
+
+### Discovering and Executing Actions
+
+1. **Discovery**: Use `list_actions` with `detail_level: "summary"` to find relevant actions
+2. **Get Details**: Use `list_actions` with `operationIds` to get full parameter schemas
+3. **Execute**: Use `run_action` with complete parameters
+
+### Searching for Actions
+
+1. **Search**: Use `search_actions` with `detail_level: "summary"` to find actions
+2. **Get Details**: Use `list_actions` with specific `operationIds` for full schemas
+3. **Execute**: Use `run_action` with proper parameters
+
+### Batch Operations
+
+1. **Identify Action**: Find the action you want to execute multiple times
+2. **Prepare Batch**: Create `base_context` with shared parameters and `batch_context` with varying parameters
+3. **Execute**: Use `run_action_batch` for parallel execution
+
+## Response Formatting
+
+### response_format Parameter
+
+- `"raw"` (default): Returns exact API response
+- `"formatted_md"`: Returns Markdown-formatted response (use when explicitly requested)
+
+### response_projection Parameter
+
+Use JMESPath expressions to transform and reduce response size:
+
+- **Field Selection**: `"{name: name, email: email}"`
+- **Array Extraction**: `"items[*].name"`
+- **Filtering**: `"items[?price > 100]"`
+- **Aggregation**: `"sum(items[*].price)"`
+
+## Error Handling
+
+Tools return standard error responses when:
+- Authentication fails
+- Required parameters are missing
+- Action execution fails
+- Invalid operation IDs are provided
+
+Check the error message for specific details about what went wrong.
+
+## Next Steps
+
+- [Learn about resources](/user-guide/mcp-gateway/mcp-gateway-resources)
+- [See usage examples](/user-guide/mcp-gateway/mcp-gateway-examples)
+
