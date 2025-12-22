@@ -8,11 +8,54 @@ icon: 'wrench'
 
 Tools enable you to discover, search, and execute actions across your Apigene applications. All tools follow the standard MCP tool calling protocol.
 
-## Common Tools (Available in Both MCP and Agent Modes)
+## Tools Reference
+
+### get_instructions
+
+Get the complete agent instructions and capabilities.
+
+**Available in:** Agent mode only
+
+**Parameters:** None
+
+**Returns:** Agent instructions including description, guidelines, and available apps
+
+**Example:**
+```json
+{
+  "tool": "get_instructions",
+  "arguments": {}
+}
+```
+
+### list_available_apps
+
+List all available applications in the agent.
+
+**Available in:** Agent mode only
+
+**Parameters:**
+- `include_action_summaries` (boolean, optional): Include action summaries (default: `true`)
+- `max_action_summary` (number, optional): Max summaries per app (default: `20`)
+
+**Returns:** List of applications with optional action summaries
+
+**Example:**
+```json
+{
+  "tool": "list_available_apps",
+  "arguments": {
+    "include_action_summaries": true,
+    "max_action_summary": 10
+  }
+}
+```
 
 ### list_actions
 
 Retrieve actions from one or multiple applications.
+
+**Available in:** Both MCP and Agent modes
 
 **Parameters:**
 - `requests` (array, required): Array of action requests, each containing:
@@ -45,6 +88,8 @@ Retrieve actions from one or multiple applications.
 
 Search across all agentic metadata to find relevant actions.
 
+**Available in:** Both MCP and Agent modes
+
 **Parameters:**
 - `query` (string, optional): Free text search
 - `action_type` (string, optional): Filter by type (get, search, add, update, delete, execute)
@@ -70,6 +115,8 @@ Search across all agentic metadata to find relevant actions.
 ### run_action
 
 Execute a single action for a specific application.
+
+**Available in:** Both MCP and Agent modes
 
 **Parameters:**
 - `app_name` (string, required): Application identifier
@@ -100,6 +147,8 @@ Execute a single action for a specific application.
 ### run_action_batch
 
 Execute the same action multiple times in parallel with different parameters.
+
+**Available in:** Both MCP and Agent modes
 
 **Parameters:**
 - `app_name` (string, required): Application identifier
@@ -135,6 +184,8 @@ Execute the same action multiple times in parallel with different parameters.
 
 Execute multiple different actions in parallel across different applications.
 
+**Available in:** Both MCP and Agent modes
+
 **Parameters:**
 - `actions` (array, required): Array of action requests, each containing:
   - `app_name` (string, required)
@@ -167,48 +218,11 @@ Execute multiple different actions in parallel across different applications.
 }
 ```
 
-## Agent-Only Tools
-
-### get_instructions
-
-Get the complete agent instructions and capabilities.
-
-**Parameters:** None
-
-**Returns:** Agent instructions including description, guidelines, and available apps
-
-**Example:**
-```json
-{
-  "tool": "get_instructions",
-  "arguments": {}
-}
-```
-
-### list_available_apps
-
-List all available applications in the agent.
-
-**Parameters:**
-- `include_action_summaries` (boolean, optional): Include action summaries (default: `true`)
-- `max_action_summary` (number, optional): Max summaries per app (default: `20`)
-
-**Returns:** List of applications with optional action summaries
-
-**Example:**
-```json
-{
-  "tool": "list_available_apps",
-  "arguments": {
-    "include_action_summaries": true,
-    "max_action_summary": 10
-  }
-}
-```
-
 ### list_contexts
 
 List all available contexts and context type definitions.
+
+**Available in:** Agent mode only
 
 **Parameters:** None
 
@@ -225,6 +239,8 @@ List all available contexts and context type definitions.
 ### get_context
 
 Get detailed information about a specific context.
+
+**Available in:** Agent mode only
 
 **Parameters:**
 - `context_id` (string, required): The context identifier
@@ -244,6 +260,8 @@ Get detailed information about a specific context.
 ### search_contexts
 
 Search for contexts with flexible filtering.
+
+**Available in:** Agent mode only
 
 **Parameters:**
 - `query` (string, optional): Search query
@@ -267,6 +285,8 @@ Search for contexts with flexible filtering.
 ### add_context
 
 Create a new context in the system.
+
+**Available in:** Agent mode only
 
 **Parameters:**
 - `name` (string, required): Unique context name
