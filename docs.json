@@ -12,7 +12,7 @@
     "tabs": [
       {
         "tab": "User Guide",
-        "href": "/user-guide/introduction",
+        "url": "user-guide",
         "groups": [
           {
             "group": "Overview",
@@ -71,7 +71,7 @@
       },
       {
         "tab": "API Reference",
-        "href": "/api-reference/api-authentication",
+        "url": "api-reference",
         "groups": [
           {
             "group": "API Documentation",
