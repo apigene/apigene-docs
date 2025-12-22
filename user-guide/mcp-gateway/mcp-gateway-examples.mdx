@@ -26,7 +26,23 @@ This guide provides practical examples for common use cases with the MCP Gateway
 }
 ```
 
-**Response:** List of all Slack actions with operation IDs and descriptions
+**Response:**
+```json
+[
+  {
+    "operationId": "chat.postMessage",
+    "description": "Sends a message to a channel"
+  },
+  {
+    "operationId": "conversations.list",
+    "description": "Lists all channels in a Slack team"
+  },
+  {
+    "operationId": "users.info",
+    "description": "Gets information about a user"
+  }
+]
+```
 
 ### Step 2: Get Full Action Details
 
@@ -44,7 +60,32 @@ This guide provides practical examples for common use cases with the MCP Gateway
 }
 ```
 
-**Response:** Complete parameter schema for `chat.postMessage`
+**Response:**
+```json
+[
+  {
+    "operationId": "chat.postMessage",
+    "description": "Sends a message to a channel",
+    "parameters": {
+      "channel": {
+        "type": "string",
+        "required": true,
+        "description": "Channel, private group, or IM channel to send message to"
+      },
+      "text": {
+        "type": "string",
+        "required": true,
+        "description": "Text of the message to send"
+      },
+      "thread_ts": {
+        "type": "string",
+        "required": false,
+        "description": "Provide another message's ts value to make this message a reply"
+      }
+    }
+  }
+]
+```
 
 ### Step 3: Execute the Action
 
@@ -58,6 +99,23 @@ This guide provides practical examples for common use cases with the MCP Gateway
       "operationId": "chat.postMessage",
       "channel": "#general",
       "text": "Hello from Apigene!"
+    }
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "status_code": 200,
+  "response_content": {
+    "ok": true,
+    "channel": "C1234567890",
+    "ts": "1234567890.123456",
+    "message": {
+      "text": "Hello from Apigene!",
+      "user": "U1234567890",
+      "ts": "1234567890.123456"
     }
   }
 }
@@ -78,7 +136,29 @@ This guide provides practical examples for common use cases with the MCP Gateway
 }
 ```
 
-**Response:** List of actions matching "send message" across all apps
+**Response:**
+```json
+[
+  {
+    "app_name": "Slack",
+    "operationId": "chat.postMessage",
+    "description": "Sends a message to a channel",
+    "rating": 4.8
+  },
+  {
+    "app_name": "Microsoft Teams",
+    "operationId": "sendMessage",
+    "description": "Send a message to a channel or chat",
+    "rating": 4.6
+  },
+  {
+    "app_name": "Discord",
+    "operationId": "createMessage",
+    "description": "Create a message in a channel",
+    "rating": 4.5
+  }
+]
+```
 
 ### Get Details and Execute
 
@@ -123,7 +203,38 @@ Then execute with proper parameters.
 }
 ```
 
-**Response:** Array of results, one per email, executed in parallel
+**Response:**
+```json
+[
+  {
+    "status_code": 200,
+    "response_content": {
+      "id": "msg_001",
+      "subject": "Meeting Tomorrow",
+      "from": "colleague@example.com",
+      "body": "Let's meet at 2pm..."
+    }
+  },
+  {
+    "status_code": 200,
+    "response_content": {
+      "id": "msg_002",
+      "subject": "Project Update",
+      "from": "manager@example.com",
+      "body": "Here's the latest update..."
+    }
+  },
+  {
+    "status_code": 200,
+    "response_content": {
+      "id": "msg_003",
+      "subject": "Action Required",
+      "from": "system@example.com",
+      "body": "Please review the attached..."
+    }
+  }
+]
+```
 
 ## Example 4: Parallel Multi-Action Execution
 
@@ -162,7 +273,76 @@ Then execute with proper parameters.
 }
 ```
 
-**Response:** Results from all three actions, executed simultaneously
+**Response:**
+```json
+{
+  "results": [
+    {
+      "success": true,
+      "index": 0,
+      "request": {
+        "app_name": "Gmail",
+        "user_input": "Get latest email",
+        "context": {
+          "operationId": "getLatestEmail"
+        }
+      },
+      "result": {
+        "status_code": 200,
+        "response_content": {
+          "id": "msg_123",
+          "subject": "Latest Email Subject",
+          "from": "sender@example.com"
+        }
+      }
+    },
+    {
+      "success": true,
+      "index": 1,
+      "request": {
+        "app_name": "Jira",
+        "user_input": "List my open issues",
+        "context": {
+          "operationId": "listIssues",
+          "assignee": "me",
+          "status": "open"
+        }
+      },
+      "result": {
+        "status_code": 200,
+        "response_content": {
+          "issues": [
+            {"id": "PROJ-123", "summary": "Fix bug"},
+            {"id": "PROJ-124", "summary": "Add feature"}
+          ]
+        }
+      }
+    },
+    {
+      "success": true,
+      "index": 2,
+      "request": {
+        "app_name": "Slack",
+        "user_input": "Get unread message count",
+        "context": {
+          "operationId": "getUnreadCount"
+        }
+      },
+      "result": {
+        "status_code": 200,
+        "response_content": {
+          "unread_count": 5
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "successful": 3,
+    "failed": 0
+  }
+}
+```
 
 ## Example 5: Using Response Projection
 
@@ -182,7 +362,28 @@ Then execute with proper parameters.
 }
 ```
 
-**Response:** Only the specified fields (id, key, summary, status) instead of full issue objects
+**Response:**
+```json
+{
+  "status_code": 200,
+  "response_content": {
+    "issues": [
+      {
+        "id": "10001",
+        "key": "PROJ-123",
+        "summary": "Fix login bug",
+        "status": "In Progress"
+      },
+      {
+        "id": "10002",
+        "key": "PROJ-124",
+        "summary": "Add dark mode",
+        "status": "To Do"
+      }
+    ]
+  }
+}
+```
 
 ### Filter and Aggregate Data
 
@@ -200,6 +401,27 @@ Then execute with proper parameters.
 }
 ```
 
+**Response:**
+```json
+{
+  "status_code": 200,
+  "response_content": {
+    "opportunities": [
+      {
+        "name": "Enterprise Deal",
+        "amount": 50000,
+        "stageName": "Negotiation"
+      },
+      {
+        "name": "SMB Contract",
+        "amount": 15000,
+        "stageName": "Proposal"
+      }
+    ]
+  }
+}
+```
+
 ## Example 6: Agent Mode - Getting Instructions
 
 ### Retrieve Agent Instructions
@@ -211,7 +433,22 @@ Then execute with proper parameters.
 }
 ```
 
-**Response:** Complete agent instructions including description, capabilities, and available apps
+**Response:**
+```json
+"You are a helpful AI assistant that can interact with various applications including Slack, Gmail, and Jira. Your capabilities include:
+
+- Sending messages and notifications
+- Reading and managing emails
+- Creating and tracking issues
+- Searching across multiple data sources
+
+Available applications: Slack, Gmail, Jira, GitHub
+
+Guidelines:
+- Always confirm before executing destructive actions
+- Provide clear summaries of actions taken
+- Ask for clarification when parameters are ambiguous"
+```
 
 ## Example 7: Agent Mode - Listing Applications
 
@@ -227,7 +464,37 @@ Then execute with proper parameters.
 }
 ```
 
-**Response:** List of all apps with their action summaries
+**Response:**
+```json
+[
+  {
+    "app_name": "Slack",
+    "action_summaries": [
+      {
+        "operationId": "chat.postMessage",
+        "description": "Sends a message to a channel"
+      },
+      {
+        "operationId": "conversations.list",
+        "description": "Lists all channels"
+      }
+    ]
+  },
+  {
+    "app_name": "Gmail",
+    "action_summaries": [
+      {
+        "operationId": "readEmail",
+        "description": "Reads an email by ID"
+      },
+      {
+        "operationId": "listEmails",
+        "description": "Lists emails in inbox"
+      }
+    ]
+  }
+]
+```
 
 ## Example 8: Agent Mode - Context Management
 
@@ -240,7 +507,35 @@ Then execute with proper parameters.
 }
 ```
 
-**Response:** All available contexts and context type definitions
+**Response:**
+```json
+{
+  "contexts": [
+    {
+      "id": "ctx_123",
+      "name": "Customer Support Knowledge",
+      "type": "Knowledge",
+      "summary": "Support policies and procedures"
+    },
+    {
+      "id": "ctx_456",
+      "name": "Product Information",
+      "type": "Knowledge",
+      "summary": "Product features and specifications"
+    }
+  ],
+  "context_types": [
+    {
+      "type": "Knowledge",
+      "description": "Structured knowledge base information"
+    },
+    {
+      "type": "Instructions",
+      "description": "Agent instructions and guidelines"
+    }
+  ]
+}
+```
 
 ### Search for Specific Contexts
 
@@ -255,6 +550,21 @@ Then execute with proper parameters.
 }
 ```
 
+**Response:**
+```json
+{
+  "contexts": [
+    {
+      "id": "ctx_123",
+      "name": "Customer Support Knowledge",
+      "type": "Knowledge",
+      "summary": "Support policies and procedures"
+    }
+  ],
+  "context_types": [...]
+}
+```
+
 ### Get Context Details
 
 ```json
@@ -263,6 +573,20 @@ Then execute with proper parameters.
   "arguments": {
     "context_id": "ctx_123"
   }
+}
+```
+
+**Response:**
+```json
+{
+  "id": "ctx_123",
+  "name": "Product Knowledge Base",
+  "description": "Comprehensive information about our products...",
+  "summary": "Product information and features",
+  "type": "Knowledge",
+  "apps": ["Salesforce", "Zendesk"],
+  "status": "active",
+  "created_at": "2024-01-15T10:30:00Z"
 }
 ```
 
@@ -279,6 +603,21 @@ Then execute with proper parameters.
     "apps": ["Salesforce", "Zendesk"],
     "status": "active"
   }
+}
+```
+
+**Response:**
+```json
+{
+  "id": "ctx_789",
+  "name": "Product Knowledge Base",
+  "description": "Comprehensive information about our products, features, and pricing...",
+  "summary": "Product information and features",
+  "type": "Knowledge",
+  "apps": ["Salesforce", "Zendesk"],
+  "status": "active",
+  "created_at": "2024-01-15T10:30:00Z",
+  "_message": "Context created successfully and added to agent 'MyAgent'"
 }
 ```
 
@@ -343,6 +682,111 @@ Then execute with proper parameters.
         }
       }
     ]
+  }
+}
+```
+
+**Step 1 Response:**
+```json
+{
+  "GitHub": [
+    {
+      "operationId": "createIssue",
+      "description": "Create a new issue in a repository"
+    },
+    {
+      "operationId": "listIssues",
+      "description": "List issues in a repository"
+    }
+  ],
+  "Slack": [
+    {
+      "operationId": "chat.postMessage",
+      "description": "Sends a message to a channel"
+    }
+  ]
+}
+```
+
+**Step 2 Response:**
+```json
+[
+  {
+    "operationId": "createIssue",
+    "description": "Create a new issue in a repository",
+    "parameters": {
+      "title": {"type": "string", "required": true},
+      "body": {"type": "string", "required": false},
+      "labels": {"type": "array", "required": false}
+    }
+  },
+  {
+    "operationId": "chat.postMessage",
+    "description": "Sends a message to a channel",
+    "parameters": {
+      "channel": {"type": "string", "required": true},
+      "text": {"type": "string", "required": true}
+    }
+  }
+]
+```
+
+**Step 3 Response:**
+```json
+{
+  "results": [
+    {
+      "success": true,
+      "index": 0,
+      "request": {
+        "app_name": "GitHub",
+        "user_input": "Create a new issue",
+        "context": {
+          "operationId": "createIssue",
+          "title": "Bug: Login not working",
+          "body": "Users cannot log in..."
+        }
+      },
+      "result": {
+        "status_code": 201,
+        "response_content": {
+          "id": 12345,
+          "number": 42,
+          "title": "Bug: Login not working",
+          "state": "open",
+          "url": "https://github.com/owner/repo/issues/42"
+        }
+      }
+    },
+    {
+      "success": true,
+      "index": 1,
+      "request": {
+        "app_name": "Slack",
+        "user_input": "Notify team about new issue",
+        "context": {
+          "operationId": "chat.postMessage",
+          "channel": "#engineering",
+          "text": "New GitHub issue created: Bug: Login not working"
+        }
+      },
+      "result": {
+        "status_code": 200,
+        "response_content": {
+          "ok": true,
+          "channel": "C1234567890",
+          "ts": "1234567890.123456",
+          "message": {
+            "text": "New GitHub issue created: Bug: Login not working"
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0
   }
 }
 ```
