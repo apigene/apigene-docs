@@ -12,6 +12,7 @@
     "tabs": [
       {
         "tab": "User Guide",
+        "url": "user-guide",
         "groups": [
           {
             "group": "Overview",
@@ -70,6 +71,7 @@
       },
       {
         "tab": "API Reference",
+        "url": "api-reference",
         "groups": [
           {
             "group": "API Documentation",
