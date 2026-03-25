@@ -6,7 +6,7 @@ icon: 'wrench'
 
 ## Overview
 
-Tools enable you to discover, search, and execute actions across your Apigene applications. All tools follow the standard MCP tool calling protocol.
+Tools enable you to discover, search, and execute actions across your Apigene applications. Agent mode adds context tools and [Agent Skills](https://github.com/agentskills/agentskills)-compatible skill listing, retrieval, and creation. When MCP App UI is enabled, additional tools render results in UI widgets. All tools follow the standard MCP tool calling protocol.
 
 ## Tools Reference
 
@@ -99,7 +99,7 @@ Search across all agentic metadata to find relevant actions.
 - `max_results` (number, optional): Maximum results to return
 - `detail_level` (string, optional): `"summary"` or `"full"` (default: `"full"`)
 
-**Returns:** Filtered list of matching actions
+**Returns:** Filtered list of matching actions. When nothing matches, the response may include `actions`, a short `message`, and `suggestions` (for example: broaden the query, use `list_available_apps`, or use `list_actions` for a specific app) instead of only an empty list.
 
 **Example:**
 ```json
@@ -125,6 +125,7 @@ Execute a single action for a specific application.
 - `response_format` (string, optional): `"raw"` or `"formatted_md"` (default: `"raw"`)
 - `response_projection` (string, optional): JMESPath expression to transform response
 - `customer_execution_context` (object, optional): Customer-specific context
+- `reasoning` (string, optional): Short explanation of why this action was chosen; supports decision tracing in agent workflows
 
 **Returns:** Action execution result
 
@@ -194,6 +195,7 @@ Execute multiple different actions in parallel across different applications.
   - `response_format` (string, optional)
   - `response_projection` (string, optional)
   - `customer_execution_context` (object, optional)
+  - `template_id` (string, optional): Only set when a specific MCP App template should render that action’s result in the UI
 
 **Returns:** Object with `results` array and `summary` statistics
 
@@ -217,6 +219,36 @@ Execute multiple different actions in parallel across different applications.
   }
 }
 ```
+
+### run_action_ui
+
+Execute a single action with MCP App UI rendering so results can be shown in a visual widget (when your host supports MCP Apps).
+
+**Available in:** Both MCP and Agent modes, when MCP App UI features are enabled for your Apigene deployment.
+
+**Parameters:**
+- `app_name` (string, required): Application identifier
+- `user_input` (string, required): Natural language description
+- `context` (object, required): Action parameters including `operationId`
+- `response_format` (string, optional): `"raw"` or `"formatted_md"` (default: `"raw"`)
+- `customer_execution_context` (object, optional): Customer-specific context
+- `reasoning` (string, optional): Why this action was chosen
+- `template_id` (string, optional): Only include when the user explicitly requests a specific template; otherwise omit so the default template applies
+
+**Returns:** Action result; when a template applies, the response includes data suitable for the UI resource (see [MCP Gateway Resources](/user-guide/mcp-gateway/mcp-gateway-resources)).
+
+**Note:** Unlike `run_action`, this tool does not accept `response_projection`.
+
+### run_multi_actions_ui
+
+Execute multiple different actions in parallel with MCP App UI rendering (for example a grid or mesh layout comparing outputs).
+
+**Available in:** Both MCP and Agent modes, when MCP App UI features are enabled for your Apigene deployment.
+
+**Parameters:**
+- `actions` (array, required): Same shape as `run_multi_actions` (each item may include `template_id` when a specific template is requested)
+
+**Returns:** Combined results with UI-oriented payload for supported hosts.
 
 ### list_contexts
 
@@ -313,6 +345,102 @@ Create a new context in the system.
 }
 ```
 
+### list_skills
+
+List skill metadata attached to the agent (Agent Skills style). Does not return the full `SKILL.md` body; use `get_skill_content` for that.
+
+**Available in:** Agent mode only
+
+**Parameters:**
+- `detail_level` (string, optional): `"summary"` (id, name, description only; fewer tokens) or `"full"` (all metadata fields; default: `"full"`)
+
+**Returns:** Object with `skill_list` entries. Summary mode is best for discovery; full mode includes fields such as license, compatibility, metadata, allowed tools, status, and timestamps.
+
+**Example:**
+```json
+{
+  "tool": "list_skills",
+  "arguments": {
+    "detail_level": "summary"
+  }
+}
+```
+
+### get_skill
+
+Fetch one skill by id: metadata plus optional packaged files (`scripts`, `references`, `assets`). Does not return the main `SKILL.md` body; use `get_skill_content` for the instruction text.
+
+**Available in:** Agent mode only
+
+**Parameters:**
+- `skill_id` (string, required): Skill identifier
+
+**Returns:** Object with a `skill` payload (metadata and optional path→content maps for scripts, references, assets).
+
+**Example:**
+```json
+{
+  "tool": "get_skill",
+  "arguments": {
+    "skill_id": "sk_abc123"
+  }
+}
+```
+
+### get_skill_content
+
+Return the full `SKILL.md` content for a skill (YAML front matter plus Markdown body).
+
+**Available in:** Agent mode only
+
+**Parameters:**
+- `skill_id` (string, required): Skill identifier
+
+**Returns:** Object with a `content` string.
+
+**Example:**
+```json
+{
+  "tool": "get_skill_content",
+  "arguments": {
+    "skill_id": "sk_abc123"
+  }
+}
+```
+
+### add_skill
+
+Create a new skill and attach it to the current agent. Content should follow the [Agent Skills specification](https://github.com/agentskills/agentskills/blob/main/docs/specification.mdx) (valid name format, description length, structured front matter, reasonably sized body with long reference material in `references/` when needed).
+
+**Available in:** Agent mode only
+
+**Parameters:**
+- `name` (string, required): Skill name (lowercase, hyphens; per spec)
+- `description` (string, required): What the skill does and when to use it
+- `content` (string, required): Full `SKILL.md` (front matter + Markdown body)
+- `license` (string, optional)
+- `compatibility` (string, optional)
+- `metadata` (object, optional)
+- `allowed_tools` (string, optional)
+- `status` (string, optional): `"active"` or `"disabled"` (default: `"active"`)
+- `scripts` (object, optional): Map of file path to content under `scripts/`
+- `references` (object, optional): Map of file path to content under `references/`
+- `assets` (object, optional): Map of file path to content under `assets/`
+
+**Returns:** The created skill record.
+
+**Example:**
+```json
+{
+  "tool": "add_skill",
+  "arguments": {
+    "name": "my-workflow",
+    "description": "Steps for our internal review workflow.",
+    "content": "---\nname: my-workflow\ndescription: Steps for our internal review workflow.\n---\n\n## When to use\n..."
+  }
+}
+```
+
 ## Recommended Workflows
 
 ### Discovering and Executing Actions
@@ -332,6 +460,13 @@ Create a new context in the system.
 1. **Identify Action**: Find the action you want to execute multiple times
 2. **Prepare Batch**: Create `base_context` with shared parameters and `batch_context` with varying parameters
 3. **Execute**: Use `run_action_batch` for parallel execution
+
+### Skills
+
+1. **Discover**: `list_skills` with `detail_level: "summary"` to see what exists
+2. **Read instructions**: `get_skill_content` for the main `SKILL.md` body when activating a skill
+3. **Optional files**: `get_skill` if you need scripts, references, or assets
+4. **Create**: `add_skill` when adding a new skill to the agent (follow Agent Skills formatting rules)
 
 ## Response Formatting
 

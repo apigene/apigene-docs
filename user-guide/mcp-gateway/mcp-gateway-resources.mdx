@@ -6,7 +6,7 @@ icon: 'database'
 
 ## Overview
 
-Resources provide read-only access to information about your agent, applications, actions, and contexts. They can be accessed through standard MCP resource requests.
+Resources provide read-only access to information about your agent, applications, actions, contexts, and skills. MCP App UI resources expose templates for visual rendering in supported clients. They can be accessed through standard MCP resource requests.
 
 ## Static Resources (Agent Mode Only)
 
@@ -41,6 +41,11 @@ Get all context type templates:
 - Available context types
 - How to create each type
 - When to use each type
+
+### Skills List
+**URI**: `apigene://{genai_app}/skills`
+
+List all skills available to the agent (metadata summary appropriate for discovery). For creating or updating skills, use the `add_skill` tool (see [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools)).
 
 ## Dynamic Resource Templates
 
@@ -78,6 +83,36 @@ Get detailed information about a specific context:
 **Parameters:**
 - `context_id`: The context identifier
 
+### Skill Details (Agent Mode Only)
+**URI**: `apigene://{genai_app}/skills/{skill_id}`
+
+Get skill metadata and optional packaged files (`scripts`, `references`, `assets`) when present. For the full `SKILL.md` body, use the Skill Content resource below or the `get_skill_content` tool.
+
+**Parameters:**
+- `skill_id`: The skill identifier
+
+### Skill Content (Agent Mode Only)
+**URI**: `apigene://{genai_app}/skills/{skill_id}/content`
+
+Get the full `SKILL.md` text (front matter and Markdown) for a skill. MIME type is `text/markdown`.
+
+**Parameters:**
+- `skill_id`: The skill identifier
+
+## MCP App UI Resources
+
+When MCP App UI is enabled for your Apigene deployment, the gateway may expose UI resources for hosts that support embedded MCP Apps (for example Claude). These pair with the `run_action_ui` and `run_multi_actions_ui` tools.
+
+### Run Action UI
+**URI**: `ui://run-action-ui`
+
+Template used to render a single action result inside an MCP App iframe. The host loads this resource according to the MCP Apps protocol.
+
+### Run Multi Actions UI
+**URI**: `ui://run-multi-actions-ui`
+
+Template used to render multiple parallel action results (for example in a grid or mesh layout).
+
 ## Using Resources
 
 Resources are accessed through standard MCP resource requests. Your MCP client will handle the protocol details automatically.
@@ -104,6 +139,17 @@ Resources are accessed through standard MCP resource requests. Your MCP client w
 }
 ```
 
+### Example: Listing Skills (Agent Mode)
+
+```json
+{
+  "method": "resources/read",
+  "params": {
+    "uri": "apigene://my-agent/skills"
+  }
+}
+```
+
 ## Resource vs Tools
 
 **Resources** provide read-only information:
@@ -111,8 +157,8 @@ Resources are accessed through standard MCP resource requests. Your MCP client w
 - Accessed via `resources/read`
 - Return structured information
 
-**Tools** execute actions:
-- Use when you need to perform operations
+**Tools** execute operations:
+- Use when you need to perform operations (including `run_action`, context updates, and `add_skill`)
 - Accessed via `tools/call`
 - Execute actions and return results
 

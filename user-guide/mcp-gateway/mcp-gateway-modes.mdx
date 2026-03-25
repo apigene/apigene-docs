@@ -22,6 +22,7 @@ MCP mode provides core action execution capabilities:
 - ✅ Execute single actions
 - ✅ Batch action execution
 - ✅ Parallel multi-action execution
+- ✅ Optional: MCP App UI tools (`run_action_ui`, `run_multi_actions_ui`) when UI features are enabled for your environment
 
 ### Use Cases
 
@@ -37,6 +38,8 @@ MCP mode provides core action execution capabilities:
 - `run_action`
 - `run_action_batch`
 - `run_multi_actions`
+- `run_action_ui` (when MCP App UI is enabled)
+- `run_multi_actions_ui` (when MCP App UI is enabled)
 
 ## Agent Mode
 
@@ -53,6 +56,7 @@ Agent mode includes everything in MCP mode plus:
 - ✅ Application discovery
 - ✅ Context management
 - ✅ Context creation and search
+- ✅ Agent Skills: list, fetch metadata/files, fetch `SKILL.md` content, and create skills
 
 ### Use Cases
 
@@ -70,6 +74,10 @@ Agent mode includes everything in MCP mode plus:
 - `get_context`
 - `search_contexts`
 - `add_context`
+- `list_skills`
+- `get_skill`
+- `get_skill_content`
+- `add_skill`
 
 ## Choosing the Right Mode
 
@@ -94,6 +102,7 @@ Agent mode includes everything in MCP mode plus:
 
 - App Actions Template
 - Action Details Template
+- MCP App UI templates (`ui://…`) when MCP App UI is enabled
 
 ### Agent Mode Resources
 
@@ -101,9 +110,11 @@ Agent mode includes everything in MCP mode plus:
 - Available Apps List
 - Contexts List
 - Context Type Definitions
+- Skills list, skill details, and skill content (`apigene://…/skills` — see [resources](/user-guide/mcp-gateway/mcp-gateway-resources))
 - App Actions Template
 - Action Details Template
 - Context Details Template
+- MCP App UI resources (`ui://run-action-ui`, `ui://run-multi-actions-ui`) when MCP App UI is enabled
 
 ## Switching Between Modes
 
