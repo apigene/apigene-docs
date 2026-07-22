@@ -89,6 +89,18 @@ Configure AI model preferences and access.
 - Anthropic configuration
 - Google AI configuration
 - xAI configuration
+- Amazon Bedrock (IAM access key, secret, region)
+- Microsoft Foundry (Azure OpenAI — service principal or API key, deployments)
+
+**Reasoning Effort**
+- Organization-wide setting for how much supported models think before answering
+- Options: None, Low, Medium, High
+- Affects Copilot Chat reasoning panels for compatible models
+
+**Mock Execution** (Advanced)
+- Return mock API responses from OpenAPI spec examples instead of calling real APIs
+- Optional **LLM-generated mocks** for realistic placeholder data when examples are missing
+- Useful for demos and development without live credentials
 
 **API Keys**
 - Add provider API keys
@@ -168,12 +180,56 @@ Enable AI models by adding provider API keys:
 6. Click "Save"
 
 **Google AI**
-1. Navigate to Settings > AI Models
+1. Navigate to Settings > Organization > Model Settings
 2. Find Google AI section
 3. Click "Add API Key"
 4. Paste your Google AI API key
 5. Configure model access
 6. Click "Save"
+
+**Amazon Bedrock**
+1. Navigate to Settings > Organization > Model Settings
+2. Find **Amazon Bedrock**
+3. Enter IAM **Access Key ID**, **Secret Access Key**, and **Region**
+4. Save and test — available Bedrock models appear in the Copilot model selector
+
+**Microsoft Foundry**
+1. Navigate to Settings > Organization > Model Settings
+2. Find **Microsoft Foundry** (Azure OpenAI)
+3. Configure authentication (service principal or API key) and add deployments
+4. Each deployment maps to a model name shown in Copilot
+
+### Reasoning Effort
+
+Control extended thinking for supported models:
+
+1. Settings → Organization → Model Settings
+2. Find **Reasoning Effort**
+3. Choose **None** (fastest), **Low**, **Medium**, or **High**
+4. Save organization settings
+
+Higher effort may improve complex answers but increases latency and cost.
+
+### Mock Execution Mode
+
+For development and demos without live API credentials:
+
+1. Settings → Organization → Advanced (or Model Settings accordion)
+2. Enable **Mock Execution Mode** — returns OpenAPI example responses instead of real API calls
+3. Optionally enable **LLM-generated mocks** for realistic values when examples are absent
+4. Save — Copilot uses mocks for application actions until you disable the setting
+
+### Authentication Providers (Self-Hosted)
+
+Apigene Copilot supports multiple auth backends via `NEXT_PUBLIC_AUTH_PROVIDER`:
+
+| Provider | Use case |
+|----------|----------|
+| **clerk** | Default SaaS authentication |
+| **apigene** | Apigene-native basic auth (self-hosted) |
+| **keycloak** | Enterprise SSO via Keycloak |
+
+Configure the matching environment variables in your deployment. Contact your administrator for sign-in URLs and client setup.
 
 ### Configuring Application Defaults
 

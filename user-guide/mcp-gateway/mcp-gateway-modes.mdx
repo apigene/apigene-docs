@@ -23,6 +23,7 @@ MCP mode provides core action execution capabilities:
 - ✅ Batch action execution
 - ✅ Parallel multi-action execution
 - ✅ Optional: MCP App UI tools (`run_action_ui`, `run_multi_actions_ui`) when UI features are enabled for your environment
+- ✅ Optional: Generative UI tools (`show_generative_ui`, template CRUD, `show_generative_ui_from_template`) when generative UI is enabled
 
 ### Use Cases
 
@@ -40,6 +41,13 @@ MCP mode provides core action execution capabilities:
 - `run_multi_actions`
 - `run_action_ui` (when MCP App UI is enabled)
 - `run_multi_actions_ui` (when MCP App UI is enabled)
+- `show_generative_ui` (when generative UI is enabled)
+- `list_generative_ui_templates` (when generative UI is enabled)
+- `create_generative_ui_template` (when generative UI is enabled)
+- `update_generative_ui_template` (when generative UI is enabled)
+- `get_generative_ui_template` (when generative UI is enabled)
+- `delete_generative_ui_template` (when generative UI is enabled)
+- `show_generative_ui_from_template` (when generative UI is enabled)
 
 ## Agent Mode
 
@@ -115,6 +123,7 @@ Agent mode includes everything in MCP mode plus:
 - Action Details Template
 - Context Details Template
 - MCP App UI resources (`ui://run-action-ui`, `ui://run-multi-actions-ui`) when MCP App UI is enabled
+- Generative UI resource (`ui://show-generative-ui`) when generative UI is enabled
 
 ## Switching Between Modes
 

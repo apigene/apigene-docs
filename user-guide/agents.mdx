@@ -46,6 +46,13 @@ Track changes and improvements:
 
 ## Creating an Agent
 
+You can create agents in two ways:
+
+1. **[Agent Builder](/user-guide/agent-builder)** (recommended) — conversational workflow in Copilot that discovers apps, drafts instructions, proposes skills, validates, and creates the agent
+2. **Agents page** — manual form at **Agents** → **+ New Agent**
+
+For most users, start in Agent Builder and refine in the editor afterward.
+
 ### Step 1: Navigate to Agents
 
 1. Click **Agents** in the main navigation
@@ -118,6 +125,19 @@ When creating tickets:
 
 Choose which applications and tools your agent can access:
 
+**Applications (APIs)**
+- Attach OpenAPI integrations installed in your workspace
+- Each application exposes actions the agent can call
+
+**MCP Servers**
+- Attach native MCP servers (not OpenAPI→MCP bridges — use Applications for those)
+- Configure per-agent in the **MCP Servers** tab
+
+**Per-tool toggles (Setup tab)**
+- Enable or disable individual MCP gateway tools for this agent (e.g. `list_skills`, `run_action`, `get_context`)
+- Disabled tools are hidden from the agent at runtime
+- Useful for least-privilege agents that should only call specific operations
+
 **Default Toolkit**
 - Enable to give access to all configured applications
 - Good for general-purpose agents
@@ -127,11 +147,6 @@ Choose which applications and tools your agent can access:
 - Select specific applications only
 - More precise control
 - Better for specialized agents
-
-**MCP Servers**
-- Choose which MCP servers to enable
-- Control access to specific capabilities
-- Configure per-agent permissions
 
 ### Step 5: Set Visibility
 
@@ -151,6 +166,46 @@ Choose which applications and tools your agent can access:
 2. Test it immediately in a new chat
 3. Mention the agent using `@agent_name`
 4. Refine instructions based on results
+
+## Agent Editor Tabs
+
+After creating an agent, the editor is organized into tabs:
+
+| Tab | Purpose |
+|-----|---------|
+| **Instructions** | Name, description, icon, and system prompt |
+| **Applications** | OpenAPI integrations attached to the agent |
+| **MCP Servers** | Native MCP server attachments |
+| **Skills** | Org skills from your [Skills](/user-guide/skills) library |
+| **Context** | Reusable context items |
+| **Generative UI** | Visual templates for MCP App results (available after first save) |
+| **Setup** | MCP client connection instructions, per-tool toggles, managed setup export |
+
+## Skills
+
+Attach [Skills](/user-guide/skills) on the **Skills** tab to give the agent reusable workflows and domain procedures. At runtime the agent discovers skills via `list_skills` and loads full instructions with `get_skill_content` before applying them.
+
+You can also attach skills during [Agent Builder](/user-guide/agent-builder) creation via the skill proposals card.
+
+## Generative UI Templates
+
+The **Generative UI** tab (visible after the agent is saved) lets you define visual templates for MCP App results — charts, tables, and custom layouts rendered in supported MCP hosts.
+
+- Start from starter layouts or write a JSON spec
+- Preview with sample state before saving
+- Templates pair with `run_action_ui` and `run_multi_actions_ui` in MCP Gateway
+
+See [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools) for UI execution tools.
+
+## Managed Agent Setup Export
+
+On the **Setup** tab, expand **Managed agent setup (YAML / JSON)** to export a configuration document for external managed-agent platforms. The export includes:
+
+- Agent name and system instructions (with skills workflow hints)
+- MCP server URLs (agent gateway URL plus attached MCP servers)
+- Tool set definitions
+
+Copy as YAML or JSON for use in compatible deployment workflows.
 
 ## Using Agents
 
@@ -458,8 +513,11 @@ Use the search bar to quickly find agents:
 
 ## Next Steps
 
+- [Agent Builder](/user-guide/agent-builder) — create agents conversationally
 - [Use agents in Copilot](/user-guide/copilot) for specialized tasks
+- [Skills](/user-guide/skills) — org skill library and registry
 - [Configure applications](/user-guide/applications) to enable more agent capabilities
 - [Add context items](/user-guide/context) for agents to reference
+- [MCP Gateway](/user-guide/mcp-gateway/mcp-gateway-overview) — connect agents to external clients
 - [View agent usage](/user-guide/dashboard) in analytics
 

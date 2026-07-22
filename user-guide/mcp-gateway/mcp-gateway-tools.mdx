@@ -250,6 +250,136 @@ Execute multiple different actions in parallel with MCP App UI rendering (for ex
 
 **Returns:** Combined results with UI-oriented payload for supported hosts.
 
+## Generative UI Tools
+
+These tools render **json-render** specs as interactive MCP App widgets. They are separate from `run_action_ui` (which visualizes API action results). Generative UI tools are available when MCP App UI is enabled (`APIGENE_FEATURE_SHOW_GENERATIVE_UI` is not disabled on your deployment).
+
+<Note>
+Only call generative UI tools when the user **explicitly** asks for interactive or visual UI. Do not auto-invoke for normal text answers.
+</Note>
+
+### show_generative_ui
+
+Render a one-off generative UI from an inline json-render spec.
+
+**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+
+**Parameters:**
+- `title` (string, optional): Heading shown above the widget
+- `spec` (object, required): json-render spec `{ root, elements, state? }` — layout in `elements`, dynamic values in `state` bound via `{ "$state": "/path" }`
+
+**Returns:** Validated spec plus MCP App metadata pointing at `ui://show-generative-ui`.
+
+**Example:**
+```json
+{
+  "tool": "show_generative_ui",
+  "arguments": {
+    "title": "Plan comparison",
+    "spec": {
+      "root": "stack",
+      "elements": {
+        "stack": { "type": "Stack", "props": {}, "children": ["title"] },
+        "title": { "type": "Text", "props": { "text": "Hello" }, "children": [] }
+      }
+    }
+  }
+}
+```
+
+### list_generative_ui_templates
+
+List saved generative UI templates for an agent.
+
+**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+
+**Parameters:**
+- `agent_name` (string, optional): Agent that owns the templates; omit to use the agent from the MCP connection URL
+- `detailed` (boolean, optional): If `true`, include full `generative_spec` per template; if `false` (default), return summary fields only (`template_id`, description, audit fields)
+
+**Returns:** Array of template records from the generative-ui-templates API.
+
+### create_generative_ui_template
+
+Persist a new generative UI template for reuse.
+
+**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+
+**Parameters:**
+- `template_id` (string, required): Unique template id (client-provided)
+- `generative_spec` (object, required): json-render spec (same shape as `show_generative_ui`)
+- `description` (string, optional): Human-readable description
+- `agent_name` (string, optional): Owning agent; omit to use the connection URL agent
+
+**Returns:** Created template record.
+
+<Warning>
+Put all dynamic values in `state`, not as literals in `elements`. `show_generative_ui_from_template` only deep-merges runtime `data` into `state`.
+</Warning>
+
+### update_generative_ui_template
+
+Patch an existing template.
+
+**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+
+**Parameters:**
+- `template_id` (string, required): Template to update
+- `description` (string, optional, nullable): New description; `null` clears it; omit to leave unchanged
+- `generative_spec` (object, optional): Replacement spec; omit to keep current layout
+- `agent_name` (string, optional): Owning agent
+
+**Returns:** Updated template record.
+
+### get_generative_ui_template
+
+Load one template including its full `generative_spec`.
+
+**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+
+**Parameters:**
+- `template_id` (string, required)
+- `agent_name` (string, optional)
+
+**Returns:** Full template record.
+
+### delete_generative_ui_template
+
+Remove a saved template.
+
+**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+
+**Parameters:**
+- `template_id` (string, required)
+- `agent_name` (string, optional)
+
+**Returns:** Deletion confirmation.
+
+### show_generative_ui_from_template
+
+Render UI from a saved template, merging runtime data into `spec.state`.
+
+**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+
+**Parameters:**
+- `template_id` (string, required): Id from `create_generative_ui_template`
+- `title` (string, optional): Override title
+- `data` (object, optional): Values deep-merged into the template's `state` before render
+- `agent_name` (string, optional)
+
+**Returns:** Rendered widget via `ui://show-generative-ui`.
+
+**Example:**
+```json
+{
+  "tool": "show_generative_ui_from_template",
+  "arguments": {
+    "template_id": "pricing-table",
+    "data": { "selectedPlan": "pro" }
+  }
+}
+```
+
 ### list_contexts
 
 List all available contexts and context type definitions.
@@ -467,6 +597,46 @@ Create a new skill and attach it to the current agent. Content should follow the
 2. **Read instructions**: `get_skill_content` for the main `SKILL.md` body when activating a skill
 3. **Optional files**: `get_skill` if you need scripts, references, or assets
 4. **Create**: `add_skill` when adding a new skill to the agent (follow Agent Skills formatting rules)
+
+### Generative UI
+
+1. **Ad hoc**: `show_generative_ui` with an inline `{ root, elements, state? }` spec
+2. **Persist**: `create_generative_ui_template` → `list_generative_ui_templates` / `get_generative_ui_template` to manage
+3. **Render saved**: `show_generative_ui_from_template` with `data` merged into template `state`
+4. **Update or remove**: `update_generative_ui_template` or `delete_generative_ui_template`
+
+Author templates in the Copilot **Agents** editor (**Generative UI** tab) or entirely via these MCP tools.
+
+## Complete Tool Index
+
+| Tool | MCP mode | Agent mode |
+|------|----------|------------|
+| `list_actions` | ✅ | ✅ |
+| `search_actions` | ✅ | ✅ |
+| `run_action` | ✅ | ✅ |
+| `run_action_batch` | ✅ | ✅ |
+| `run_multi_actions` | ✅ | ✅ |
+| `run_action_ui` | ✅* | ✅* |
+| `run_multi_actions_ui` | ✅* | ✅* |
+| `show_generative_ui` | ✅* | ✅* |
+| `list_generative_ui_templates` | ✅* | ✅* |
+| `create_generative_ui_template` | ✅* | ✅* |
+| `update_generative_ui_template` | ✅* | ✅* |
+| `get_generative_ui_template` | ✅* | ✅* |
+| `delete_generative_ui_template` | ✅* | ✅* |
+| `show_generative_ui_from_template` | ✅* | ✅* |
+| `get_instructions` | — | ✅ |
+| `list_available_apps` | — | ✅ |
+| `list_contexts` | — | ✅ |
+| `get_context` | — | ✅ |
+| `search_contexts` | — | ✅ |
+| `add_context` | — | ✅ |
+| `list_skills` | — | ✅ |
+| `get_skill` | — | ✅ |
+| `get_skill_content` | — | ✅ |
+| `add_skill` | — | ✅ |
+
+\* Requires MCP App UI / generative UI features to be enabled on your deployment. Individual tools can also be disabled per agent via **Setup** → MCP tool toggles in the Agents editor.
 
 ## Response Formatting
 

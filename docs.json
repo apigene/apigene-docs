@@ -28,6 +28,10 @@
                 "icon": "message-circle"
               },
               {
+                "page": "user-guide/agent-builder",
+                "icon": "wrench"
+              },
+              {
                 "page": "user-guide/applications",
                 "icon": "grid"
               }
@@ -37,6 +41,10 @@
             "group": "Core Features",
             "pages": [
               "user-guide/agents",
+              {
+                "page": "user-guide/skills",
+                "icon": "lightbulb"
+              },
               "user-guide/context",
               "user-guide/chat-history"
             ]

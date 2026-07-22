@@ -113,6 +113,16 @@ Template used to render a single action result inside an MCP App iframe. The hos
 
 Template used to render multiple parallel action results (for example in a grid or mesh layout).
 
+### Show Generative UI
+**URI**: `ui://show-generative-ui`
+
+MCP App widget for **json-render** generative UI specs. Used by `show_generative_ui` and `show_generative_ui_from_template`. Renders interactive layouts (charts, tables, forms) from `{ root, elements, state? }` specs — not HTML action-result templates.
+
+### UI Action Templates (Dynamic)
+**URI**: `ui://templates/{template_id}`
+
+Legacy/dynamic HTML templates for rendering structured API action results (table, list, chart). Loaded on demand for `run_action_ui` when a stored template id is used.
+
 ## Using Resources
 
 Resources are accessed through standard MCP resource requests. Your MCP client will handle the protocol details automatically.

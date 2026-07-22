@@ -25,21 +25,45 @@ Apigene Copilot is an AI-powered conversational interface that enables you to in
 - View request and response data in real-time
 - Monitor tool invocations as they happen
 
+### Agent Builder Mode
+A dedicated mode for **creating and configuring agents** — not for everyday chat. Agent Builder walks you through discovering integrations, drafting instructions, attaching skills, validating config, and presenting setup cards.
+
+Use **Chat** to talk to your apps and agents. Use **Agent Builder** to define agents as resources.
+
+See the full [Agent Builder guide](/user-guide/agent-builder) for workflows, examples, and when to use each mode.
+
 ### Model Selection
-Choose from multiple AI models to power your conversations:
-- **OpenAI**: Latest GPT models
-- **Anthropic**: Claude models
-- **Google**: Gemini models
-- **xAI**: Grok models
+Choose from multiple AI model providers configured in [Settings](/user-guide/settings):
+- **OpenAI** — GPT models
+- **Anthropic** — Claude models
+- **Google** — Gemini models
+- **xAI** — Grok models
+- **Amazon Bedrock** — AWS-hosted models (IAM credentials)
+- **Microsoft Foundry** — Azure OpenAI deployments
+
+The model selector supports search and collapsible provider groups when you have many models configured.
+
+### Reasoning Models
+For models that support extended thinking, Copilot can show a **reasoning** panel alongside the response. Organization admins set **Reasoning Effort** (None, Low, Medium, High) under Settings → Organization → Model Settings.
 
 ## Getting Started
 
 ### Starting a New Chat
 
 1. Navigate to the **Copilot** page from the main navigation
-2. You'll see a greeting screen with quick start options
+2. Choose **Chat** or **Agent Builder** with the mode toggle on the home screen
 3. Type your request in the message input at the bottom
 4. Press Enter or click Send to start the conversation
+
+### Onboarding Checklist (Trial Users)
+
+New trial users see a **getting started checklist** on the home screen. It tracks progress toward:
+
+1. Configuring a model provider (API key)
+2. Installing and configuring an application
+3. Creating your first agent
+
+Dismiss the checklist when you no longer need it, or follow the links to complete each step. Agent Builder is the fastest path to step 3 — see [Agent Builder](/user-guide/agent-builder).
 
 ### Your First Query
 
@@ -80,8 +104,13 @@ Each message supports:
 Upload files to enhance your conversations:
 1. Click the attachment icon in the message input
 2. Select files from your computer
-3. Copilot will analyze and use the file content in responses
-4. Supported formats: PDF, images, text files, code files
+3. Copilot analyzes and uses the file content in responses
+
+**Supported formats:** images (`image/*`), PDF (`.pdf`), plain text and code files (`text/*`), and other readable text-based files. Binary files that cannot be read as text prompt you to describe what you need instead.
+
+<Note>
+File attachments are available in **Chat** mode. Agent Builder focuses on agent configuration rather than file analysis.
+</Note>
 
 ### Mentions
 
@@ -213,8 +242,10 @@ When errors occur:
 
 ## Next Steps
 
+- [Agent Builder](/user-guide/agent-builder) — create and configure agents conversationally
 - [Configure your applications](/user-guide/applications) to enable more capabilities
-- [Create custom agents](/user-guide/agents) for specialized workflows
+- [Create and edit agents](/user-guide/agents) in the full editor
+- [Skills](/user-guide/skills) — reusable instruction libraries
 - [Add context items](/user-guide/context) for consistent data access
 - [View analytics](/user-guide/dashboard) to track your usage
 
