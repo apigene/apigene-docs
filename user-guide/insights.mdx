@@ -1,0 +1,53 @@
+---
+title: 'Insights'
+description: 'Per-agent analytics for success rate, latency, usage trends, and tool performance'
+icon: 'chart-mixed'
+---
+
+## Overview
+
+**Insights** provides deeper, **per-agent** analytics beyond the organization-wide [Dashboard](/user-guide/dashboard). Use it to understand how a specific agent performs: volume, success rate, response times, peak usage, application mix, and slow or frequent actions.
+
+## Accessing Insights
+
+Navigate to **Insights** from the main navigation (admin). Select an agent and date range to load charts and tables.
+
+## What you can analyze
+
+Depending on available data for the selected agent and period, Insights can show:
+
+- **Totals** — action / interaction volume
+- **Success rate** — successful vs failed calls
+- **Response times** — latency trends
+- **Usage trends** — volume over time
+- **Peak days and hours** — when the agent is busiest
+- **Application distribution** — which apps the agent calls most
+- **Size comparison** — payload or response size patterns when recorded
+- **Top and slowest actions** — hotspots for optimization
+- **Cache performance** — hit/miss style signals when caching is enabled
+- **User engagement** — which users drive agent activity
+
+Empty or sparse charts usually mean the agent has little traffic in the selected range — widen the dates or confirm the agent is being used in Copilot or via MCP.
+
+## How Insights differs from Dashboard
+
+| | Dashboard | Insights |
+|--|-----------|----------|
+| Scope | Organization-wide | Per agent |
+| Focus | Overall adoption and health | Agent-specific performance |
+| Typical use | Capacity and team usage | Tuning one agent’s tools and apps |
+
+Use Dashboard for org trends, then Insights when debugging a single agent’s reliability or cost drivers.
+
+## Tips
+
+- Compare peak hours with business workflows to spot unexpected automation
+- Investigate slowest actions together with [Actions](/user-guide/actions) detail and compare
+- If payloads look incomplete, check [Interaction Recording](/user-guide/settings#interaction-recording-organization)
+
+## Related
+
+- [Dashboard](/user-guide/dashboard)
+- [Actions](/user-guide/actions)
+- [Agents](/user-guide/agents)
+- [Settings](/user-guide/settings)

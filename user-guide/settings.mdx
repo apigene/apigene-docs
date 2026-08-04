@@ -142,6 +142,45 @@ Admins control how much of each API/MCP call is persisted for the [Actions](/use
 
 Configure under **Settings → Organization → Interaction Recording**. Changes apply to new interactions going forward.
 
+### Organization Advanced Settings
+
+Under **Settings → Organization** (Advanced), admins can also configure:
+
+**Response Size Control**
+- Set a maximum response size (bytes)
+- **Alert Only** — log when responses exceed the limit
+- **Auto Truncate** — truncate oversized responses (with guidance for agents)
+- Other modes may include signaling the agent when limits are hit
+
+**Interaction Caching**
+- Enable Redis-backed caching of API responses
+- Configure TTL (seconds) and whether GET, POST, or both are cached
+
+**JSON Compression**
+- Compress large JSON payloads before they reach the model
+- Modes such as **json-compact** or **TOON** (see [toonformat.dev](https://toonformat.dev) for TOON)
+
+**PII Sanitization**
+- Enable masking of sensitive entities before data is shown to the model
+- Configure patterns / entity types in the PII settings modal
+
+**Mock Execution**
+- Return mock responses from OpenAPI examples instead of calling live APIs
+- Optional LLM-generated mocks when examples are missing
+
+**Reasoning Effort**
+- Organization-wide None / Low / Medium / High for supported models
+
+### Branding (Organization)
+
+Admins can white-label the product UI under **Settings → Branding**:
+
+- **Product Name** — display name shown in the UI
+- **Product Icon** — favicon / product mark
+- **Sidebar Logo** — logo in the navigation shell
+
+Save branding to apply across the organization. Clear fields to fall back to defaults.
+
 ### Security Settings
 
 Manage authentication and security policies.
@@ -209,6 +248,28 @@ Connect external services and tools.
 4. Save organization settings
 
 Use **Headers only** or **Disabled** when you need to reduce stored sensitive payloads in Actions history.
+
+### Configure Advanced Performance and Privacy Controls
+
+1. Open **Settings → Organization**
+2. Expand **Advanced** settings
+3. Adjust **Response Size Control**, **Interaction Caching**, **JSON Compression**, **PII Sanitization**, and **Mock Execution** as needed
+4. Save
+
+### Update Branding
+
+1. Open **Settings → Branding**
+2. Set product name, icon, and sidebar logo
+3. Save
+
+### Platform administration pages
+
+Admins may also see:
+
+- **Platform Version** — deployed image / version information for the environment
+- **Platform Test** — run built-in health and API smoke checks against the deployment
+
+Use these when validating upgrades or diagnosing environment issues. They complement [Dashboard](/user-guide/dashboard) and [Insights](/user-guide/insights) rather than replacing them.
 
 ### Adding API Keys for Model Providers
 

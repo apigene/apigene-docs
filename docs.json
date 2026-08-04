@@ -34,6 +34,10 @@
               {
                 "page": "user-guide/applications",
                 "icon": "grid"
+              },
+              {
+                "page": "user-guide/mcp-servers",
+                "icon": "plug"
               }
             ]
           },
@@ -46,7 +50,11 @@
                 "icon": "lightbulb"
               },
               "user-guide/context",
-              "user-guide/chat-history"
+              "user-guide/chat-history",
+              {
+                "page": "user-guide/mcp-apps",
+                "icon": "layout-template"
+              }
             ]
           },
           {
@@ -54,6 +62,10 @@
             "pages": [
               "user-guide/actions",
               "user-guide/dashboard",
+              {
+                "page": "user-guide/insights",
+                "icon": "chart-mixed"
+              },
               "user-guide/audit",
               {
                 "page": "user-guide/settings",

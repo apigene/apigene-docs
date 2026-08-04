@@ -32,13 +32,18 @@ Use the application in Copilot conversations
 
 ## Installing Applications
 
+When you click **+ Install Application**, choose:
+
+- **OpenAPI based** — import from URL, file, or **Postman collection**
+- **MCP Server** — opens the [official native MCP catalog](/user-guide/mcp-servers#install-from-the-official-catalog) (not an OpenAPI install)
+
 ### Method 1: From OpenAPI URL
 
 Install applications directly from a URL:
 
 1. Navigate to **Applications** page
 2. Click **+ Install Application** button
-3. Select **From URL** tab
+3. Choose **OpenAPI based**, then **From URL**
 4. Enter the OpenAPI specification URL
    ```
    https://api.example.com/openapi.json
@@ -58,7 +63,7 @@ Install from a local OpenAPI specification file:
 
 1. Navigate to **Applications** page
 2. Click **+ Install Application** button
-3. Select **From File** tab
+3. Choose **OpenAPI based**, then **From File**
 4. Click to select or drag and drop your file
 5. Click **Install**
 
@@ -67,18 +72,37 @@ Install from a local OpenAPI specification file:
 - Maximum size: 10MB
 - Formats: JSON or YAML
 
+### Method 3: From Postman Collection
+
+Install from a Postman collection. Apigene converts the collection to OpenAPI, then runs the normal application install and reindex flow.
+
+1. Navigate to **Applications** → **+ Install Application**
+2. Choose **OpenAPI based**
+3. Select **From Postman**
+4. Upload your Postman collection file (JSON)
+5. Wait for conversion and install to finish
+6. Configure **Security** before making live calls
+
+<Note>
+Conversion depends on collection structure. Nested folders become tags where possible. Review generated operations after install and reindex if tool metadata looks incomplete.
+</Note>
+
+### Method 4: Native MCP Server
+
+To connect a remote MCP server instead of an OpenAPI spec:
+
+1. Choose **MCP Server** on the install screen, **or** open **MCP** in the main nav
+2. Follow [Native MCP Servers](/user-guide/mcp-servers) — official catalog, registry, or custom URL
+
 ### Installation Process
 
-When you install an application, Apigene:
+When you install an OpenAPI-based application, Apigene:
 
 1. **Checks LLM configuration**
    - Installing or reindexing an application requires at least one model provider configured for the organization
    - If no provider is configured, complete [Settings → AI Models](/user-guide/settings) first, then retry
 
-2. **Validates the specification**
-   - Checks OpenAPI format
-   - Verifies required fields
-   - Identifies errors
+2. **Validates the specification** (or converts Postman → OpenAPI first)
 
 3. **Creates agentic metadata**
    - Generates tool descriptions
@@ -242,12 +266,33 @@ MCP (Model Context Protocol) tools are AI-optimized versions of your API operati
 - Modify parameter hints
 - Add usage examples
 - Set default values
+- Adjust inputs, response handling, and UI templates where available
 
 **Tool Generation**
 - Automatically created during installation
 - One tool per API operation
-- Can be regenerated if needed
-- Updates reflect in Copilot immediately
+- Can be regenerated via **reindex** (see below)
+- Updates reflect in Copilot after reindex completes
+
+### Reindex and agentic metadata
+
+Reindex regenerates MCP tool metadata from the current OpenAPI specification. Use it when:
+
+- You updated the OpenAPI spec
+- Tool descriptions look stale or incomplete
+- Install finished but metadata is still generating
+- Postman conversion produced a coarse operation set you refined in the spec
+
+**How to reindex**
+
+1. Open **Applications** → select the application
+2. Use the **MCP Tools** / metadata area **Reindex** action
+3. Watch status: queued → in progress → success or failure
+4. Keep an organization model provider configured — reindex requires LLM access for agentic metadata
+
+While reindex runs, the UI may show progress labels such as “Reindexing queued” or “Reindexing in progress”. Do not delete the application mid-run.
+
+OpenAPI applications are exposed as Apigene MCP tools for agents and the gateway. That is separate from installing a [native MCP server](/user-guide/mcp-servers). Programmatic creation of an MCP server record from an API name is also available via the [MCP Server API](/api-reference/mcp-server/mcp-create-from-api).
 
 ### Common Parameters
 

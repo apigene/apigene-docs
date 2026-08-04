@@ -130,8 +130,9 @@ Choose which applications and tools your agent can access:
 - Each application exposes actions the agent can call
 
 **MCP Servers**
-- Attach native MCP servers (not OpenAPI→MCP bridges — use Applications for those)
-- Configure per-agent in the **MCP Servers** tab
+- Attach [native MCP servers](/user-guide/mcp-servers) (not OpenAPI→MCP bridges — use Applications for those)
+- Configure per-agent in the applications / MCP attachments area
+- Install servers first from the MCP dashboard, official catalog, or registry
 
 **Per-tool toggles (Setup tab)**
 - Enable or disable individual MCP gateway tools for this agent (e.g. `list_skills`, `run_action`, `get_context`)
@@ -191,9 +192,12 @@ You can also attach skills during [Agent Builder](/user-guide/agent-builder) cre
 
 The **Generative UI** tab (visible after the agent is saved) lets you define visual templates for MCP App results — charts, tables, and custom layouts rendered in supported MCP hosts.
 
-- Start from starter layouts or write a JSON spec
+- Start from starter layouts or write a JSON / json-render style spec
 - Preview with sample state before saving
-- Templates pair with `run_action_ui` and `run_multi_actions_ui` in MCP Gateway
+- Keep dynamic values in template **state** so runtime data can merge
+- Templates pair with `run_action_ui`, `run_multi_actions_ui`, and generative UI tools in MCP Gateway
+
+For org-wide template libraries, GitHub sync, and clone/create flows, see [MCP Apps](/user-guide/mcp-apps).
 
 See [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools) for UI execution tools.
 

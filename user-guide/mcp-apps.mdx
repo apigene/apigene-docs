@@ -1,0 +1,81 @@
+---
+title: 'MCP Apps'
+description: 'Create and manage MCP App UI templates and generative layouts for agents'
+icon: 'layout-template'
+---
+
+## Overview
+
+**MCP Apps** are visual templates that render API or tool results as interactive widgets in MCP-compatible hosts (for example charts, tables, and custom layouts). You manage organization templates under **MCP Apps**, and per-agent generative UI templates on the agent **Generative UI** tab.
+
+MCP Apps complement [native MCP servers](/user-guide/mcp-servers) and [OpenAPI applications](/user-guide/applications): they control **how results look**, not which backend you connect.
+
+## Accessing MCP Apps
+
+Navigate to **MCP Apps** from the main menu (admin). The list shows templates grouped by application, with search and actions to create, clone, edit, or delete.
+
+## Create a template
+
+1. Open **MCP Apps**
+2. Click **Create Template**
+3. Choose the target application (API / MCP app name)
+4. Define the template id and layout (starter layouts or JSON / json-render style specs, depending on editor)
+5. Preview with sample state when available
+6. Save
+
+Templates can be used by MCP tools such as `run_action_ui`, `run_multi_actions_ui`, and generative UI tools when MCP App UI is enabled on your deployment. See [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools).
+
+## Edit, clone, and delete
+
+- **Edit** — open the template editor for an existing template
+- **Clone** — duplicate a template to another id or app context
+- **Delete** — remove a template from the organization library
+
+Cloning is useful when you want a variant layout without rewriting the base template.
+
+## GitHub Sync
+
+MCP Apps supports optional **GitHub Sync** for template source control:
+
+1. **Connect** a GitHub repository
+2. **Push** local templates to the repo
+3. **Pull** remote changes into Apigene
+4. Review **Sync History**
+5. **Disconnect** when you no longer need sync
+
+Use sync when multiple builders maintain templates outside the UI or you need review workflows in Git.
+
+## Generative UI on agents
+
+Each agent can also manage generative UI templates after the agent is saved:
+
+1. Open **Agents** → select an agent → **Generative UI**
+2. Create or edit templates used when that agent renders MCP App results
+3. Preview with sample state
+4. Save the agent
+
+Agent templates pair with gateway tools `show_generative_ui`, template CRUD tools, and `show_generative_ui_from_template`. Prefer putting dynamic values in template **state** so runtime data can merge cleanly.
+
+### Editor tips
+
+- Start from a starter layout when available, then customize
+- Keep layouts focused on one job (one chart, one table, one form)
+- Preview before attaching the agent to external MCP clients
+- Disable unused UI tools under agent **Setup → Enable MCP Tools** for least privilege
+
+## When templates apply
+
+| Path | When to use |
+|------|-------------|
+| **MCP Apps** library | Org-wide action-result templates reused across agents/apps |
+| **Agent → Generative UI** | Agent-specific generative layouts for MCP hosts |
+| **Gateway tools** | Runtime render from Claude/Cursor/other MCP clients |
+
+Feature availability depends on deployment flags for MCP App UI / generative UI.
+
+## Related
+
+- [Agents — Generative UI](/user-guide/agents#generative-ui-templates)
+- [MCP Gateway Resources](/user-guide/mcp-gateway/mcp-gateway-resources)
+- [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools)
+- [Native MCP Servers](/user-guide/mcp-servers)
