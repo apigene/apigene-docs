@@ -12,49 +12,31 @@
     "tabs": [
       {
         "tab": "User Guide",
-        "url": "user-guide",
         "groups": [
           {
             "group": "Overview",
             "pages": [
+              "index",
               "user-guide/introduction"
             ]
           },
           {
             "group": "Getting Started",
             "pages": [
-              {
-                "page": "user-guide/copilot",
-                "icon": "message-circle"
-              },
-              {
-                "page": "user-guide/agent-builder",
-                "icon": "wrench"
-              },
-              {
-                "page": "user-guide/applications",
-                "icon": "grid"
-              },
-              {
-                "page": "user-guide/mcp-servers",
-                "icon": "plug"
-              }
+              "user-guide/copilot",
+              "user-guide/agent-builder",
+              "user-guide/applications",
+              "user-guide/mcp-servers"
             ]
           },
           {
             "group": "Core Features",
             "pages": [
               "user-guide/agents",
-              {
-                "page": "user-guide/skills",
-                "icon": "lightbulb"
-              },
+              "user-guide/skills",
               "user-guide/context",
               "user-guide/chat-history",
-              {
-                "page": "user-guide/mcp-apps",
-                "icon": "layout-template"
-              }
+              "user-guide/mcp-apps"
             ]
           },
           {
@@ -62,24 +44,15 @@
             "pages": [
               "user-guide/actions",
               "user-guide/dashboard",
-              {
-                "page": "user-guide/insights",
-                "icon": "chart-mixed"
-              },
+              "user-guide/insights",
               "user-guide/audit",
-              {
-                "page": "user-guide/settings",
-                "icon": "cog"
-              }
+              "user-guide/settings"
             ]
           },
           {
             "group": "MCP Gateway",
             "pages": [
-              {
-                "page": "user-guide/mcp-gateway/mcp-gateway-overview",
-                "icon": "server"
-              },
+              "user-guide/mcp-gateway/mcp-gateway-overview",
               "user-guide/mcp-gateway/mcp-gateway-authentication",
               "user-guide/mcp-gateway/mcp-gateway-resources",
               "user-guide/mcp-gateway/mcp-gateway-tools",
@@ -91,7 +64,6 @@
       },
       {
         "tab": "API Reference",
-        "url": "api-reference",
         "groups": [
           {
             "group": "API Documentation",
@@ -230,4 +202,3 @@
     }
   }
 }
-
