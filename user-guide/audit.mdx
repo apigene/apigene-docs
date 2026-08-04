@@ -17,7 +17,8 @@ Audit logs capture system-level events including:
 - **Context changes**: Create, update, delete operations
 - **User management**: Role changes, access grants/revokes
 - **Security updates**: Credential changes, permission modifications
-- **Settings changes**: Configuration updates
+- **Settings changes**: Organization configuration updates (`org_settings`)
+- **API tokens**: Generation of organization or user API access tokens (`api_token`)
 
 ## Accessing Audit Logs
 
@@ -50,7 +51,8 @@ Each audit log entry displays:
 - **MCP Server**: MCP configurations
 - **Context**: Context items
 - **User**: User account changes
-- **Settings**: System configuration
+- **Settings** / **org_settings**: Organization configuration
+- **API token** (`api_token`): Access token generation events
 
 **Resource ID**
 - Unique identifier of affected resource
@@ -80,6 +82,8 @@ Options:
 - Agent  
 - MCP Server
 - Context
+- Organization settings (org_settings)
+- API token (api_token)
 ```
 
 **Action Filter**

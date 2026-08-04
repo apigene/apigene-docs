@@ -17,6 +17,8 @@ Every time Copilot interacts with an application, it creates an action record th
 - **Status information**: Success or failure
 - **User context**: Who initiated the action
 
+How much of the request/response body is stored depends on your organization's **Interaction Recording** policy (full bodies, headers only, or disabled). See [Settings](/user-guide/settings#interaction-recording-organization).
+
 ## Accessing Actions
 
 Navigate to **Actions** from the main navigation menu to view all your API call history.
@@ -183,6 +185,10 @@ Click on any action to view complete details:
 - Formatted and syntax-highlighted
 - Expandable/collapsible sections
 - Copy to clipboard functionality
+
+<Note>
+If your organization uses **Headers only** interaction recording, request and response **bodies are redacted**. You still see headers and payload size metadata. If recording is **Disabled**, new actions are not stored. Admins configure this under [Settings → Organization → Interaction Recording](/user-guide/settings#interaction-recording-organization).
+</Note>
 
 **Response Size**
 - Raw response size in bytes/KB/MB

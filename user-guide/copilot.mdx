@@ -119,6 +119,43 @@ Reference specific resources in your messages:
 - **@context**: Include context items in the conversation
 - **@threads**: Reference previous conversation threads
 
+### Commands (Saved Prompts)
+
+Reuse frequent prompts without retyping them. Commands are personal saved prompts you can insert into chat.
+
+**Create a command**
+1. Type a prompt in the chat input
+2. Click the **bookmark** button to open **Save command**
+3. Give it a name, optionally bind an agent, and save
+
+You can also manage commands under **Settings → Personal → Commands** (add, edit, or delete).
+
+**Use a command**
+1. Type `/` in the chat input
+2. Search or select a saved command
+3. The prompt is inserted (and the bound agent is mentioned when one is attached)
+
+Commands are stored in your personal settings and follow you across chats.
+
+### Follow-up Suggestions
+
+When enabled, Copilot shows short **Continue with** chips under the latest assistant reply. Click a chip to send that follow-up as your next message.
+
+Enable or disable under **Settings → Personal → Chat → Follow-up suggestions**. Off by default.
+
+### Message Queue
+
+While Copilot is still streaming a reply, you can keep typing and send the next message. Queued messages appear above the input (up to **5** per thread). You can:
+
+- **Remove** a queued message before it sends
+- **Send now** to interrupt the current run and flush that message when ready
+
+If the queue is full, wait for a slot or remove an item before adding another.
+
+### Use Case Proposals
+
+In Chat and Agent Builder, ask Copilot to suggest concrete use cases for your apps (for example, “Suggest use cases for Jira and Slack”). Copilot can show a **use case proposals** card you can review and act on, similar to skill proposal cards in Agent Builder.
+
 ## Tool Control
 
 ### Tool Choice Modes
@@ -220,6 +257,7 @@ When errors occur:
 
 - `Cmd/Ctrl + Enter`: Send message
 - `Cmd/Ctrl + K`: Open command palette
+- `/`: Open saved commands (when the input is a slash command)
 - `Escape`: Cancel current operation
 - `↑`: Edit previous message
 

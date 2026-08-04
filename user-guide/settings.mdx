@@ -30,6 +30,14 @@ Personal preferences and account information.
 - Language preferences
 - Notification settings
 
+**Chat**
+- **Follow-up suggestions** — after each reply, show short clickable prompts to continue the conversation (off by default)
+
+**Commands**
+- Personal saved prompts inserted with `/` in chat
+- Optionally bind a command to an agent
+- Add, edit, or delete from Settings, or save from chat with the bookmark button
+
 **Keyboard Shortcuts**
 - View available shortcuts
 - Customize key bindings
@@ -45,6 +53,10 @@ Organization-level configurations.
 - Workspace ID
 - Default settings for new users
 - Feature access control
+
+**Interaction Recording**
+- Control what request/response data is stored in [Actions](/user-guide/actions) history
+- Modes: **Full recording**, **Headers only**, or **Disabled** (see below)
 
 **Billing & Usage**
 - Current plan details
@@ -102,6 +114,10 @@ Configure AI model preferences and access.
 - Optional **LLM-generated mocks** for realistic placeholder data when examples are missing
 - Useful for demos and development without live credentials
 
+**Interaction Recording**
+- Organization setting under Settings → Organization
+- Controls whether Actions history stores full payloads, headers only, or nothing
+
 **API Keys**
 - Add provider API keys
 - Test key validity
@@ -113,6 +129,18 @@ Configure AI model preferences and access.
 - Configure model fallbacks
 - Set model per use case
 - Cost optimization preferences
+
+### Interaction Recording (Organization)
+
+Admins control how much of each API/MCP call is persisted for the [Actions](/user-guide/actions) page:
+
+| Mode | What is stored |
+|------|----------------|
+| **Full recording** (default) | Complete request and response bodies |
+| **Headers only** | Headers and payload sizes; bodies are not persisted (shown as redacted in Actions) |
+| **Disabled** | No new interaction records; Actions will not show new entries |
+
+Configure under **Settings → Organization → Interaction Recording**. Changes apply to new interactions going forward.
 
 ### Security Settings
 
@@ -159,6 +187,28 @@ Connect external services and tools.
 - Data retention policies
 
 ## Common Configuration Tasks
+
+### Enable Follow-up Suggestions
+
+1. Open **Settings → Personal → Chat**
+2. Turn on **Follow-up suggestions**
+3. Save your personal settings
+4. In Copilot Chat, look for **Continue with** chips under the latest assistant reply
+
+### Manage Commands
+
+1. Open **Settings → Personal → Commands** to add, edit, or delete saved prompts
+2. Or in chat, click the **bookmark** on the prompt input to **Save command**
+3. Type `/` in chat to insert a command (optionally with a bound agent)
+
+### Configure Interaction Recording
+
+1. Open **Settings → Organization**
+2. Find **Interaction Recording**
+3. Choose **Full recording**, **Headers only**, or **Disabled**
+4. Save organization settings
+
+Use **Headers only** or **Disabled** when you need to reduce stored sensitive payloads in Actions history.
 
 ### Adding API Keys for Model Providers
 

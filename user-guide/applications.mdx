@@ -71,17 +71,21 @@ Install from a local OpenAPI specification file:
 
 When you install an application, Apigene:
 
-1. **Validates the specification**
+1. **Checks LLM configuration**
+   - Installing or reindexing an application requires at least one model provider configured for the organization
+   - If no provider is configured, complete [Settings → AI Models](/user-guide/settings) first, then retry
+
+2. **Validates the specification**
    - Checks OpenAPI format
    - Verifies required fields
    - Identifies errors
 
-2. **Creates agentic metadata**
+3. **Creates agentic metadata**
    - Generates tool descriptions
    - Extracts parameter information
    - Creates operation summaries
 
-3. **Initializes configuration**
+4. **Initializes configuration**
    - Sets up security placeholders
    - Creates default settings
    - Prepares for first use
