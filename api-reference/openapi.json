@@ -170,7 +170,7 @@
                "Spec"
             ],
             "summary":"Spec Get",
-            "description":"Get information about a specific spec.\n\nRetrieves detailed information about a spec identified by its API name.\n\nParameters:\n- api_name (str): The name of the spec to retrieve information for.\n\nReturns:\n- SpecInfo: Information about the specified spec.\n\nRaises:\n- HTTPException(404): If the spec with the provided API name is not found.\n- HTTPException(500): If an error occurs while fetching the spec information.",
+            "description":"Get information about a specific spec.\n\nsecurity_info and shared_security_info are omitted by default. Pass include_security=true as an organization admin to receive those fields.\n\nParameters:\n- api_name (str): The name of the spec to retrieve information for.\n- include_security (bool): When true (org admin only), include security_info and shared_security_info.\n\nReturns:\n- SpecInfo: Information about the specified spec.\n\nRaises:\n- HTTPException(403): If include_security=true and the user is not an org admin.\n- HTTPException(404): If the spec with the provided API name is not found.\n- HTTPException(500): If an error occurs while fetching the spec information.",
             "operationId":"spec_get",
             "security":[
                {
@@ -188,6 +188,17 @@
                      "type":"string",
                      "title":"Api Name"
                   }
+               },
+               {
+                  "name":"include_security",
+                  "in":"query",
+                  "required":false,
+                  "schema":{
+                     "type":"boolean",
+                     "default":false,
+                     "title":"Include Security"
+                  },
+                  "description":"When true, include security_info and shared_security_info. Requires an organization admin role."
                }
             ],
             "responses":{
@@ -200,6 +211,9 @@
                         }
                      }
                   }
+               },
+               "403":{
+                  "description":"Forbidden — include_security requires an organization admin role"
                },
                "422":{
                   "description":"Validation Error",
