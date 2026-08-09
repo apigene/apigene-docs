@@ -1,0 +1,210 @@
+---
+title: Changelog
+description: Latest product updates and announcements for Apigene
+rss: true
+---
+
+End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
+
+<Update label="August 9, 2026" description="v5.12.0" tags={["Workflows", "MCP", "Copilot"]}>
+  ## Workflow dry-run, outputs, and richer run insights
+
+  Simulate workflows before going live, shape final results with an output node, and inspect each step more clearly.
+
+  ### What's new
+  - **Dry-run / simulation** — Run a workflow without side effects to validate logic, see step status on the graph, and review inputs and outputs in the inspector
+  - **Output node (`apigene.output`)** — Define the final structured result of a workflow run
+  - **On-error handling** — Configure how workflows respond when a step fails
+  - **Richer expressions** — Inline object and array literals and improved nesting in workflow expressions
+  - **MCP** — `run_workflow` supports `dry_run` and optional step data in results
+
+  ### Improvements
+  - Copy and download workflow run results as JSON
+  - Step tracing, elapsed time, and result size in the workflows UI
+  - Resizable workflow inspector and clearer run status visualization
+</Update>
+
+<Update label="August 7, 2026" description="v5.11.0" tags={["Workflows", "MCP", "Copilot"]}>
+  ## Approvals, LLM steps, and parallel joins
+
+  Pause for human approval, call an LLM inside a workflow, and join parallel branches before continuing.
+
+  ### What's new
+  - **Human-in-the-loop approvals** — Pause a run for review, then approve or reject and resume from Copilot or MCP (`resume_workflow`)
+  - **LLM node (`apigene.llm`)** — Call a language model as a first-class workflow step
+  - **Join node (`apigene.join`)** — Wait for parallel branches and continue with combined results
+  - **Richer conditions** — More string operators for `if` / expression logic
+
+  ### Improvements
+  - Clearer graph UI for approved, rejected, and waiting nodes
+  - Better workflow compile and lint error messages
+</Update>
+
+<Update label="August 6, 2026" description="v5.10.0" tags={["Workflows", "MCP", "Copilot", "Dashboard"]}>
+  ## Agent workflows and chat pinning
+
+  Build, lint, and run multi-step agent workflows from Copilot and MCP, and keep important chats pinned.
+
+  ### What's new
+  - **Workflows on agents** — Create and manage workflows from a dedicated Workflows tab
+  - **Workflow graph editor** — Design steps visually with improved layout and node tooling
+  - **Workflow linting** — Catch compile issues early with actionable hints
+  - **MCP workflow tools** — Author, run, and manage workflows from MCP clients
+  - **Pin chat threads** — Pin important conversations in the sidebar
+  - **Dashboard analytics** — Conversation analytics on the dashboard
+
+  ### Improvements
+  - Clearer message timestamps in chat
+  - More reliable interactive / streaming app handling in chat
+</Update>
+
+<Update label="August 5, 2026" description="v5.9.1" tags={["Copilot"]}>
+  ## Chat layout fix
+
+  ### Fixes
+  - Empty chat is centered again (layout no longer stretches when there are no messages)
+</Update>
+
+<Update label="August 5, 2026" description="v5.9.0" tags={["Copilot", "Apps", "Security"]}>
+  ## Interactive apps in chat and safer secrets
+
+  ### What's new
+  - **Interactive apps in chat** — Richer in-conversation app experiences alongside assistant replies
+
+  ### Improvements
+  - Interaction history masks sensitive values
+  - Application / spec APIs no longer return stored security secrets in list and update responses
+</Update>
+
+<Update label="August 5, 2026" description="v5.8.0" tags={["Tasks", "Copilot", "Apps", "Settings"]}>
+  ## Tasks, chat search, and app secrets
+
+  Schedule and run tasks from Copilot, find threads faster, and manage provider secrets more safely.
+
+  ### What's new
+  - **Tasks** — Create, schedule, and run tasks from the product navigation and task management UI
+  - **Model per task** — Choose which chat model a task uses
+  - **Thread search and filters** — Search and filter conversations in the sidebar
+  - **Provider secret management** — Clearer handling of secrets for application / provider configuration
+
+  ### Improvements
+  - Faster chat loading and paginated thread history
+  - “Run now” for tasks no longer times out behind long-running proxies
+  - Task names must be unique within the organization
+  - MCP lists can include tool details when needed
+</Update>
+
+<Update label="August 4, 2026" description="v5.7.1" tags={["Agents", "Copilot"]}>
+  ## Agent skills download and clearer errors
+
+  ### What's new
+  - **Download agent skills** — Export an agent's skill harness as a downloadable package from the agent editor
+
+  ### Improvements
+  - Friendlier error screens with **Try again** and **Go home** instead of the default crash page
+</Update>
+
+<Update label="August 2, 2026" description="v5.6.0" tags={["Copilot"]}>
+  ## Chat file handling and prompt input
+
+  ### Improvements
+  - More reliable file handling in chat and the prompt input
+  - More responsive prompt input layout on smaller screens
+</Update>
+
+<Update label="July 30, 2026" description="v5.5.1" tags={["Copilot", "Apps", "Settings"]}>
+  ## Use-case proposals and app server URL
+
+  ### What's new
+  - **Use-case proposals in chat** — Prompt input can surface suggested use cases to get started faster
+  - **Server URL selection** — Choose and validate the application server URL in app settings
+
+  ### Improvements
+  - Smoother loading behavior on the audit logs page
+</Update>
+
+<Update label="July 30, 2026" description="v5.5.0" tags={["Copilot", "Settings", "Security", "Audit"]}>
+  ## Chat commands, follow-ups, and audit coverage
+
+  Save reusable chat prompts, control follow-up suggestions, and see more sensitive activity in audit.
+
+  ### What's new
+  - **Chat commands (prompt presets)** — Save, pick, and reuse prompts from the chat input, including agent selection
+  - **Follow-up suggestions** — Toggle suggested follow-up prompts in chat settings
+  - **Personal settings snapshots** — Manage settings snapshots from personal settings
+  - **Broader audit logging** — Audit entries for API token generation and organization settings changes
+
+  ### Improvements
+  - Interaction / action views handle redacted request bodies safely
+  - Organizations can control when interaction bodies are recorded
+  - Prompt commands are sorted by name for easier browsing
+</Update>
+
+<Update label="July 27, 2026" description="v5.4.0" tags={["Copilot", "Skills", "Apps", "Models"]}>
+  ## Chat message queue, skills download, and clearer model errors
+
+  Keep typing while the assistant works, download skill docs, and get clearer Bedrock feedback.
+
+  ### What's new
+  - **Message queue** — Queue follow-up messages while a chat response is still running
+  - **Download `SKILL.md`** — Export skill documentation from the skills table
+  - **More file types in chat** — Broader file support in the prompt input
+  - **LLM checks on install** — Installing an application checks that a model provider is configured
+
+  ### Improvements
+  - Clearer Bedrock chat errors and filtering of unavailable / end-of-life models
+  - Agent icons display correctly in the tool picker and selected-agent list
+  - Better reindexing status feedback on application metadata
+</Update>
+
+<Update label="July 21, 2026" description="v5.3.0" tags={["Auth", "Self-hosted"]}>
+  ## Keycloak authentication
+
+  ### What's new
+  - **Keycloak auth provider** — Sign in with Keycloak for deployments that use enterprise IdP authentication
+</Update>
+
+<Update label="July 20, 2026" description="v5.2.0" tags={["Copilot", "Models"]}>
+  ## Reasoning support and new models
+
+  ### What's new
+  - **Model reasoning** — Copilot supports generic model reasoning with configurable reasoning effort
+  - **Fable 5** — Fable 5 available as a chat model option
+</Update>
+
+<Update label="July 1, 2026" description="v5.1.1" tags={["Apps", "Mock"]}>
+  ## Mock execution for API actions
+
+  Test applications without hitting live APIs.
+
+  ### What's new
+  - **Mock execution mode** — Generate mock API responses for interactions when mock mode is enabled
+  - **Optional LLM fallback for mocks** — Prefer schema-based mocks by default; optionally fall back to an LLM when examples are insufficient
+  - **Force reindex** — Force an application reindex when refreshing agentic metadata
+</Update>
+
+<Update label="June 29, 2026" description="v5.1.0" tags={["Skills", "Settings"]}>
+  ## Skills upload UX and branding polish
+
+  ### Improvements
+  - Tabbed skill upload dialog with clearer file mapping
+  - More consistent branding and localization across Copilot
+</Update>
+
+<Update label="June 25, 2026" description="v5.0.0" tags={["Models", "Skills", "Auth", "Settings"]}>
+  ## Apigene 5.0 — org models, skill registry, and self-serve auth
+
+  First 5.x release: tenant-scoped models, discoverable skills, and Apigene-native sign-in.
+
+  ### What's new
+  - **Org-scoped model credentials** — LLM keys come from **Settings → Models** per organization (no shared global `OPENAI_API_KEY` on the API)
+  - **Amazon Bedrock & Microsoft Foundry** — Configure Bedrock (including API-key auth) and Azure / Microsoft Foundry providers with clearer validation
+  - **Skill registry** — Find and install skills from the skill registry in Agent Builder
+  - **Apigene authentication** — Native Apigene sign-in adapter and sign-in UI (alongside existing providers)
+  - **Self-service organizations** — Admins can create an organization during signup
+  - **GPT-5.5** — GPT-5.5 available in the model list
+
+  ### Improvements
+  - Searchable model picker with collapsible providers
+  - Clearer organization settings layout with sticky save for unsaved changes
+</Update>
