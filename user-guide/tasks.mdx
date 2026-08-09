@@ -1,0 +1,74 @@
+---
+title: 'Tasks'
+description: 'Schedule and run saved prompts from Copilot'
+icon: 'clock'
+---
+
+## Overview
+
+**Tasks** are saved prompts you can run on demand or on a schedule. Each task stores a prompt, a chat model, an optional agent, and a schedule (manual, daily, or weekly).
+
+Use Tasks when you want the same instruction to run repeatedly — for example a morning standup digest, a weekly status check, or a reusable slash command in chat.
+
+<Note>
+Tasks are different from [Workflows](/user-guide/workflows) (deterministic multi-step graphs) and [Skills](/user-guide/skills) (reusable instruction packages for agents).
+</Note>
+
+## Accessing Tasks
+
+1. Open Apigene Copilot
+2. Click **Tasks** in the main navigation (available to org admins and non-member roles that can manage tasks)
+
+You can also manage tasks from chat: type `/` in the composer to open the Tasks picker.
+
+## Create a task
+
+1. Go to **Tasks**
+2. Click **Create New Task** (or **Create Your First Task** when the list is empty)
+3. Fill in the form:
+   - **Name** — unique for your account; spaces become hyphens
+   - **Prompt** — the message that runs when the task executes
+   - **Model** — chat model used for the run (required)
+   - **Also attach agent** (optional) — bind an agent so runs use that agent's tools and instructions
+   - **Frequency** — **Manual**, **Daily** (time in UTC), or **Weekly** (day + time in UTC)
+   - **Continue in same chat** — append to one thread across runs, or start a new chat each run
+4. Click **Save**
+
+From chat, open the `/` Tasks picker and choose **Add new task** to use the same form.
+
+## Edit, pause, and run
+
+| Action | How |
+|--------|-----|
+| **Edit** | Click the row or use **Edit** in the row menu |
+| **Pause / Resume** | Use the pause control on the row (Active ↔ Paused) |
+| **Run now** | Row menu → **Run now** — queues the task in the background |
+| **Delete** | Row menu → **Delete** |
+
+After **Run now**, Apigene queues the execution and shows toast feedback. When the run finishes, results appear as a chat thread (open from the toast when offered). The table shows a **Last run** status when available.
+
+<Tip>
+Schedule times are always in **UTC**. Convert from your local timezone when setting Daily or Weekly runs.
+</Tip>
+
+## Using tasks in chat
+
+1. In Copilot chat, type `/`
+2. Pick a task from the list
+3. The prompt (and attached agent, if any) is applied to the composer so you can send or edit it
+
+This is useful for prompts you reuse often without opening the Tasks page.
+
+## Good to know
+
+- Task names must be **unique** for your user (case-insensitive)
+- Visibility is private to you in the current Tasks UI
+- Concurrent **Run now** on the same task may be rejected while a run is already queued or in progress
+- Scheduled and manual runs use the model saved on the task
+
+## Related
+
+- [Workflows](/user-guide/workflows) — multi-step agent graphs with simulate and approvals
+- [Agents](/user-guide/agents) — attach an agent to a task for tool access
+- [Copilot](/user-guide/copilot) — chat experience where `/` tasks live
+- [Task API](/api-reference/task/task-list) — REST endpoints for automation

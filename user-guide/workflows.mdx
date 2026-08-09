@@ -1,0 +1,142 @@
+---
+title: 'Workflows'
+description: 'Multi-step agent graphs you can run, simulate, and approve'
+icon: 'diagram-project'
+---
+
+## Overview
+
+**Workflows** are executable multi-step graphs attached to an agent. Each workflow has nodes (actions, branches, joins, LLM steps, approvals, and outputs) connected into a path the Apigene engine runs from start to finish.
+
+Use workflows when you need a **deterministic** sequence — with branching, parallel joins, human approval, and a clear final result — rather than a free-form chat turn.
+
+| Feature | Best for |
+|---------|----------|
+| [Workflows](/user-guide/workflows) | Compiled multi-step automation with run/simulate/approve |
+| [Tasks](/user-guide/tasks) | Scheduled or on-demand saved prompts |
+| [Skills](/user-guide/skills) | Reusable procedures the agent loads as guidance |
+
+## Where to find them
+
+1. Open **Agents**
+2. Select an agent
+3. Open the **Workflows** tab
+
+From there you can list workflows, open the graph, run, simulate, and delete. Creating and editing the graph is done through **Copilot chat** (with that agent selected) or **MCP Gateway** tools — the Workflows tab is primarily for viewing and running.
+
+## View the graph
+
+Open a workflow to see the read-only graph:
+
+- Nodes are color-coded by type (action, condition, join, LLM, approve, output, and more)
+- Click a node to inspect parameters and, after a traced run, step input/output
+- Pan, zoom, search steps, and use the minimap to navigate large graphs
+
+## Run a workflow
+
+1. Open the workflow (or use **Run** from the list)
+2. Provide **runtime inputs** as JSON (merged over any stored defaults)
+3. Optionally enable:
+   - **Include step data** — keep per-step traces (required for **Simulate**)
+   - **Dry run** — walk the graph without live API / MCP / LLM side effects (approvals auto-pass)
+4. Click **Run**
+
+When the run finishes, Copilot shows status feedback. In chat, **Run Workflow** tool cards show a green / yellow / red status indicator and the workflow name.
+
+### Run statuses
+
+| Status | Meaning |
+|--------|---------|
+| `succeeded` | Workflow completed; use the final `result` |
+| `failed` | A step failed; check `failed_step_id` when present |
+| `waiting_human` | An **approve** node is waiting — use the approval card or `resume_workflow` |
+| `waiting_auth` | Credentials needed — authenticate, then run again |
+| `rejected` | An approval was rejected (and no reject path continued) |
+
+## Simulate on the graph
+
+After a successful run **with step data**:
+
+1. Click **Simulate** (or **Simulate on graph** from the run dialog)
+2. Watch steps light up from Start through the run path to End
+3. **Pause** to inspect any node’s details in the side panel
+4. **Resume** or **Reset** as needed
+
+Simulate is the best way to demo and debug a workflow path without re-hitting live systems every time — pair it with **Dry run** for a fully safe rehearsal.
+
+## Human approval (HITL)
+
+Workflows can include an **approve** node. When the run reaches it, status becomes `waiting_human` and Copilot shows an approval card:
+
+- **Approve** or **Reject**
+- Optionally edit preview fields before approving
+- The run continues via resume (same user who started the run)
+
+From MCP clients, call `resume_workflow` with the `run_id` and `decision`.
+
+## Create and update workflows
+
+Author workflows by asking Copilot (with the agent selected) to create or update them, or by calling MCP tools from Cursor, Claude, or other clients connected to:
+
+```
+https://app.apigene.ai/agent/{agent_name}/mcp
+```
+
+### MCP tools (Agent mode)
+
+| Tool | Purpose |
+|------|---------|
+| `list_workflows` | List workflows (`detailed` optional) |
+| `create_workflow` | Create with `workflow_id`, `description`, `nodes`, `connections` |
+| `get_workflow` | Fetch one workflow |
+| `update_workflow` | Patch name, description, nodes, connections, or inputs |
+| `delete_workflow` | Delete by `workflow_id` |
+| `run_workflow` | Run with `inputs`, optional `include_data`, optional `dry_run` |
+| `resume_workflow` | Continue after HITL with `run_id` and `decision` (`approve` \| `reject`) |
+
+See [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools#list_workflows) for parameter details.
+
+### Example: dry run with traces
+
+```json
+{
+  "tool": "run_workflow",
+  "arguments": {
+    "workflow_id": "onboard-new-hire",
+    "inputs": { "email": "alex@example.com" },
+    "include_data": true,
+    "dry_run": true
+  }
+}
+```
+
+## Node types
+
+Common `apigene.*` node types:
+
+| Type | Role |
+|------|------|
+| `action` | Call an application operation |
+| `if` / `switch` | Branch on conditions |
+| `join` | Wait for parallel branches |
+| `set` / `map` / `filter` | Transform data |
+| `llm` | Call a language model inside the graph |
+| `approve` | Pause for human decision |
+| `output` | Terminal node that defines the public `result` |
+
+Workflows should end in an **output** node so runners get a clear final result.
+
+## Tips for demos and production
+
+- Prefer **Dry run** + **Include step data** when rehearsing
+- Use **Simulate** to walk the path on the graph after the run
+- Keep HITL steps for irreversible actions
+- Store defaults in workflow `inputs`; pass overrides at run time
+
+## Related
+
+- [Agents](/user-guide/agents) — workflows live on an agent
+- [Tasks](/user-guide/tasks) — scheduled prompts (not graphs)
+- [Skills](/user-guide/skills) — procedural guidance for agents
+- [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools) — full tool reference
+- [MCP vs Agent Modes](/user-guide/mcp-gateway/mcp-gateway-modes) — workflows require Agent mode

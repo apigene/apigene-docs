@@ -33,6 +33,8 @@
             "group": "Core Features",
             "pages": [
               "user-guide/agents",
+              "user-guide/workflows",
+              "user-guide/tasks",
               "user-guide/skills",
               "user-guide/context",
               "user-guide/chat-history",
@@ -68,60 +70,239 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference"
+              "api-reference",
+              "api-reference/api-authentication"
             ]
           },
           {
             "group": "API Specs",
             "pages": [
+              "api-reference/spec/specs-list",
               "api-reference/spec/spec-create-from-file",
               "api-reference/spec/spec-create-from-url",
               "api-reference/spec/spec-get",
-              "api-reference/spec/specs-list",
+              "api-reference/spec/spec-delete",
+              "api-reference/spec/spec-get-agentic-metadata",
+              "api-reference/spec/spec-get-agentic-metadata-common-parameteres",
+              "api-reference/spec/spec-scopes",
+              "api-reference/spec/spec-clone",
+              "api-reference/spec/spec-create-agentic-metadata",
+              "api-reference/spec/spec-insights",
+              "api-reference/spec/spec-operation-examples",
+              "api-reference/spec/spec-operation-schema",
+              "api-reference/spec/spec-operations",
+              "api-reference/spec/spec-reindex",
+              "api-reference/spec/spec-reindex-status-active",
+              "api-reference/spec/spec-get-schema",
+              "api-reference/spec/spec-get-shared-security",
+              "api-reference/spec/spec-set-shared-security",
+              "api-reference/spec/spec-summary",
               "api-reference/spec/spec-update",
-              "api-reference/spec/spec-delete"
+              "api-reference/spec/spec-update-agentic-metadata",
+              "api-reference/spec/spec-use-cases",
+              "api-reference/spec/spec-reindex-status"
             ]
           },
           {
             "group": "Interaction",
             "pages": [
+              "api-reference/interaction/get-activity-timeline",
               "api-reference/interaction/interaction-create",
-              "api-reference/interaction/get-summary",
               "api-reference/interaction/list-interactions",
+              "api-reference/interaction/interaction-record-mcp-tool",
+              "api-reference/interaction/get-summary",
+              "api-reference/interaction/get-app-insights",
               "api-reference/interaction/get-interaction-detail"
             ]
           },
           {
             "group": "MCP",
             "pages": [
+              "api-reference/mcp/mcp-app-get-action-details",
               "api-reference/mcp/mcp-app-get-actions",
+              "api-reference/mcp/mcp-appconfig",
               "api-reference/mcp/mcp-apps-list",
               "api-reference/mcp/mcp-apps-search-actions",
-              "api-reference/mcp/mcp-app-execute-action",
               "api-reference/mcp/mcp-get-context",
               "api-reference/mcp/mcp-get-instructions",
-              "api-reference/mcp/mcp-list-contexts"
+              "api-reference/mcp/get-skill",
+              "api-reference/mcp/get-skill-content",
+              "api-reference/mcp/mcp-list-contexts",
+              "api-reference/mcp/list-skills",
+              "api-reference/mcp/mcp-app-execute-action",
+              "api-reference/mcp/mcp-create-skill"
             ]
           },
           {
             "group": "MCP Server",
             "pages": [
-              "api-reference/mcp-server/mcp-server-create",
               "api-reference/mcp-server/mcp-servers-list",
-              "api-reference/mcp-server/mcp-server-get",
-              "api-reference/mcp-server/mcp-server-update",
+              "api-reference/mcp-server/mcp-server-create",
+              "api-reference/mcp-server/mcp-create-from-api",
               "api-reference/mcp-server/mcp-server-delete",
-              "api-reference/mcp-server/mcp-create-from-api"
+              "api-reference/mcp-server/mcp-server-get",
+              "api-reference/mcp-server/mcp-server-refresh-tools",
+              "api-reference/mcp-server/mcp-server-update-tools-cache",
+              "api-reference/mcp-server/mcp-server-update"
+            ]
+          },
+          {
+            "group": "Official MCP Server",
+            "pages": [
+              "api-reference/official-mcp-server/official-mcp-server-list",
+              "api-reference/official-mcp-server/official-mcp-server-create",
+              "api-reference/official-mcp-server/official-mcp-server-get",
+              "api-reference/official-mcp-server/official-mcp-server-update",
+              "api-reference/official-mcp-server/official-mcp-server-delete"
             ]
           },
           {
             "group": "Agent",
             "pages": [
-              "api-reference/agent/agent-create",
+              "api-reference/agent/agent-get-by-name",
               "api-reference/agent/agents-list",
+              "api-reference/agent/agent-create",
+              "api-reference/agent/agent-delete",
               "api-reference/agent/agent-get",
-              "api-reference/agent/agent-update",
-              "api-reference/agent/agent-delete"
+              "api-reference/agent/agent-update"
+            ]
+          },
+          {
+            "group": "Skill",
+            "pages": [
+              "api-reference/skill/skill-list",
+              "api-reference/skill/skill-search",
+              "api-reference/skill/skill-create",
+              "api-reference/skill/skill-upload",
+              "api-reference/skill/skill-validate",
+              "api-reference/skill/skill-get",
+              "api-reference/skill/skill-update",
+              "api-reference/skill/skill-delete",
+              "api-reference/skill/skill-get-file"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "api-reference/workflow/workflow-list",
+              "api-reference/workflow/workflow-create",
+              "api-reference/workflow/workflow-run-get",
+              "api-reference/workflow/workflow-run-resume",
+              "api-reference/workflow/workflow-get",
+              "api-reference/workflow/workflow-update",
+              "api-reference/workflow/workflow-delete",
+              "api-reference/workflow/workflow-run",
+              "api-reference/workflow/workflow-runs-list"
+            ]
+          },
+          {
+            "group": "Task",
+            "pages": [
+              "api-reference/task/task-list",
+              "api-reference/task/task-create",
+              "api-reference/task/task-generate",
+              "api-reference/task/task-get",
+              "api-reference/task/task-update",
+              "api-reference/task/task-delete",
+              "api-reference/task/task-background-run",
+              "api-reference/task/task-get-scheduled-runs-results"
+            ]
+          },
+          {
+            "group": "Context",
+            "pages": [
+              "api-reference/context/context-list",
+              "api-reference/context/context-search",
+              "api-reference/context/context-create",
+              "api-reference/context/context-get",
+              "api-reference/context/context-update",
+              "api-reference/context/context-delete"
+            ]
+          },
+          {
+            "group": "Context Type",
+            "pages": [
+              "api-reference/context-type/context-type-list",
+              "api-reference/context-type/context-type-list-defaults",
+              "api-reference/context-type/context-type-create",
+              "api-reference/context-type/context-type-get",
+              "api-reference/context-type/context-type-update",
+              "api-reference/context-type/context-type-delete"
+            ]
+          },
+          {
+            "group": "GPT",
+            "pages": [
+              "api-reference/gpt/gpts-explore",
+              "api-reference/gpt/gpts-list",
+              "api-reference/gpt/gpt-create",
+              "api-reference/gpt/gpt-create-all",
+              "api-reference/gpt/gpt-create-from-api",
+              "api-reference/gpt/gpt-update",
+              "api-reference/gpt/gpt-redirect-to-authorization",
+              "api-reference/gpt/gpt-delete",
+              "api-reference/gpt/gpt-generate-token",
+              "api-reference/gpt/gpt-get",
+              "api-reference/gpt/gpt-install",
+              "api-reference/gpt/gpt-read-token-id",
+              "api-reference/gpt/gpt-revoke-token",
+              "api-reference/gpt/gpt-uninstall"
+            ]
+          },
+          {
+            "group": "GPT Public",
+            "pages": [
+              "api-reference/gpt-public/app-get-actions",
+              "api-reference/gpt-public/apps-list",
+              "api-reference/gpt-public/apps-search-actions",
+              "api-reference/gpt-public/get-gpt-public-openapi",
+              "api-reference/gpt-public/app-execute-action"
+            ]
+          },
+          {
+            "group": "Integration",
+            "pages": [
+              "api-reference/integration/integrations-list",
+              "api-reference/integration/integrations-published",
+              "api-reference/integration/integration-change-state-all",
+              "api-reference/integration/integration-create-all",
+              "api-reference/integration/integration-change-state",
+              "api-reference/integration/integration-create",
+              "api-reference/integration/integration-delete",
+              "api-reference/integration/generate-integration-info",
+              "api-reference/integration/integration-get"
+            ]
+          },
+          {
+            "group": "UI Templates",
+            "pages": [
+              "api-reference/ui-templates/ui-templates-list-all",
+              "api-reference/ui-templates/ui-templates-list-by-api",
+              "api-reference/ui-templates/ui-templates-list-by-operation",
+              "api-reference/ui-templates/ui-template-get",
+              "api-reference/ui-templates/ui-template-upsert",
+              "api-reference/ui-templates/ui-template-delete",
+              "api-reference/ui-templates/ui-template-set-default"
+            ]
+          },
+          {
+            "group": "Generative UI Templates",
+            "pages": [
+              "api-reference/generative-ui-templates/generative-ui-template-list",
+              "api-reference/generative-ui-templates/generative-ui-template-create",
+              "api-reference/generative-ui-templates/generative-ui-template-get",
+              "api-reference/generative-ui-templates/generative-ui-template-update",
+              "api-reference/generative-ui-templates/generative-ui-template-delete"
+            ]
+          },
+          {
+            "group": "GitHub Sync",
+            "pages": [
+              "api-reference/github-sync/github-sync-connect",
+              "api-reference/github-sync/github-sync-disconnect",
+              "api-reference/github-sync/github-sync-history",
+              "api-reference/github-sync/github-sync-status",
+              "api-reference/github-sync/github-sync"
             ]
           },
           {
@@ -132,52 +313,54 @@
             ]
           },
           {
-            "group": "System",
-            "pages": [
-              "api-reference/system/health-check",
-              "api-reference/system/get-version"
-            ]
-          },
-          {
-            "group": "Task",
-            "pages": [
-              "api-reference/task/task-create",
-              "api-reference/task/task-list",
-              "api-reference/task/task-get",
-              "api-reference/task/task-update",
-              "api-reference/task/task-generate",
-              "api-reference/task/task-background-run",
-              "api-reference/task/task-get-scheduled-runs-results",
-              "api-reference/task/task-delete"
-            ]
-          },
-          {
-            "group": "Context",
-            "pages": [
-              "api-reference/context/context-create",
-              "api-reference/context/context-list",
-              "api-reference/context/context-get",
-              "api-reference/context/context-update",
-              "api-reference/context/context-delete"
-            ]
-          },
-          {
             "group": "Organization",
             "pages": [
-              "api-reference/org/org-create",
-              "api-reference/org/org-get-details",
+              "api-reference/org/retrieve-organization-settings",
               "api-reference/org/org-add-user",
+              "api-reference/org/org-create",
+              "api-reference/org/org-settings-update",
+              "api-reference/org/org-delete",
+              "api-reference/org/org-get-details",
               "api-reference/org/org-remove-user",
-              "api-reference/org/org-generate-token",
-              "api-reference/org/org-delete"
+              "api-reference/org/org-generate-token"
+            ]
+          },
+          {
+            "group": "User",
+            "pages": [
+              "api-reference/user/user-me",
+              "api-reference/user/retrieve-user-settings",
+              "api-reference/user/settings-update",
+              "api-reference/user/user-signup",
+              "api-reference/user/user-token"
             ]
           },
           {
             "group": "Tenant",
             "pages": [
-              "api-reference/tenant/tenant-setup",
+              "api-reference/tenant/get-tenant-info",
               "api-reference/tenant/add-account",
-              "api-reference/tenant/get-tenant-info"
+              "api-reference/tenant/create-license-op",
+              "api-reference/tenant/decode-license-op",
+              "api-reference/tenant/tenant-setup",
+              "api-reference/tenant/update-tenant-license"
+            ]
+          },
+          {
+            "group": "System",
+            "pages": [
+              "api-reference/system/health-check",
+              "api-reference/system/get-platform-version-endpoint",
+              "api-reference/system/get-version"
+            ]
+          },
+          {
+            "group": "Cache",
+            "pages": [
+              "api-reference/cache/get-cache-key",
+              "api-reference/cache/get-tenant-cache-keys",
+              "api-reference/cache/clear-tenant-cache",
+              "api-reference/cache/delete-cache-key"
             ]
           }
         ]
