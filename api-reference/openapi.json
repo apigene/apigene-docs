@@ -5465,7 +5465,7 @@
           "Task"
         ],
         "summary": "Task Generate",
-        "description": "Legacy task generation from API specs \u2014 removed for scheduled commands.",
+        "description": "Legacy task generation from API specs — removed for scheduled commands.",
         "operationId": "task_generate",
         "responses": {
           "200": {
@@ -8971,6 +8971,198 @@
         }
       }
     },
+    "/api/workflows/runs/list": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "List workflow run history (org-wide, summary projection)",
+        "description": "Paginated workflow history. Admins see all; members see their own runs.\n\nReturns summary rows (no steps/inputs/result/checkpoint). Prefer `agent_display_name` / `workflow_name` for UI labels.",
+        "operationId": "workflow_runs_history_list",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "created_at",
+              "title": "Sort By"
+            }
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "title": "Sort Order"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowRunHistoryListRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunHistoryListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workflows/runs/activity-timeline": {
+      "post": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Workflow run activity histogram by status",
+        "description": "Dense histogram over a rolling window (default 7 days), bucketed by time and run status. Admins see org-wide counts; members see only their own runs. Empty buckets are filled with zeros.",
+        "operationId": "workflow_runs_activity_timeline",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowRunActivityTimelineRequest",
+                "default": {
+                  "hours": 168,
+                  "bucket_minutes": 60
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunActivityTimelineResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workflows/runs/{run_id}": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Get a workflow run by id (full detail, no checkpoint)",
+        "description": "Return a persisted workflow run for history/share detail views. Checkpoint data is omitted. Non-admins may only read their own runs.",
+        "operationId": "workflow_run_history_get",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunHistoryDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Run not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/workflows/{agent_name}": {
       "get": {
         "tags": [
@@ -9169,8 +9361,8 @@
         "tags": [
           "Workflows"
         ],
-        "summary": "List HITL (approval) runs for a workflow",
-        "description": "Only runs that hit apigene.approve (waiting_human) are persisted.",
+        "summary": "List runs for a workflow",
+        "description": "List runs for a specific agent workflow. Prefer POST /api/workflows/runs/list for org-wide history.\n\nThis endpoint returns stored runs for the workflow (checkpoint omitted).",
         "operationId": "workflow_runs_list",
         "security": [
           {
@@ -13954,6 +14146,17 @@
             ],
             "description": "Controls what request/response data is persisted for OpenAPI and MCP interactions"
           },
+          "workflow_recording": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowRecordingSettings"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Controls what workflow run history data is persisted"
+          },
           "response_size_control": {
             "anyOf": [
               {
@@ -13996,7 +14199,7 @@
                 "type": "null"
               }
             ],
-            "description": "Mock execution mode \u2014 return OpenAPI-based mock responses instead of calling real APIs"
+            "description": "Mock execution mode — return OpenAPI-based mock responses instead of calling real APIs"
           },
           "reasoning_effort": {
             "anyOf": [
@@ -17198,6 +17401,344 @@
         },
         "type": "object",
         "title": "WorkflowUpdate"
+      },
+      "WorkflowRecordingSettings": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "full",
+              "headers_only",
+              "none"
+            ],
+            "title": "Mode",
+            "description": "Controls what workflow run history is persisted: full (inputs, all step traces, result), headers_only (metadata and sizes only), or none (no history except HITL approval checkpoints required for resume).",
+            "default": "full"
+          }
+        },
+        "type": "object",
+        "title": "WorkflowRecordingSettings"
+      },
+      "WorkflowRunHistoryFilters": {
+        "properties": {
+          "agent_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agent Name",
+            "description": "Filter by agent storage key or display name"
+          },
+          "workflow_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Workflow Id"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "created_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created By"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "search": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Search",
+            "description": "Substring match on run id, workflow name, or agent display name"
+          }
+        },
+        "type": "object",
+        "title": "WorkflowRunHistoryFilters"
+      },
+      "WorkflowRunHistoryListRequest": {
+        "properties": {
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkflowRunHistoryFilters"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "WorkflowRunHistoryListRequest"
+      },
+      "WorkflowRunHistorySummary": {
+        "type": "object",
+        "title": "WorkflowRunHistorySummary",
+        "description": "Summary row for workflow history list (no steps/inputs/result/checkpoint).",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "agent_name": {
+            "type": "string"
+          },
+          "agent_display_name": {
+            "type": "string"
+          },
+          "execution_agent_name": {
+            "type": "string"
+          },
+          "workflow_id": {
+            "type": "string"
+          },
+          "workflow_name": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "duration_ms": {
+            "type": "integer"
+          },
+          "failed_step_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "client_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recording_mode": {
+            "type": "string"
+          },
+          "has_generative_ui": {
+            "type": "boolean"
+          },
+          "inputs_size_bytes": {
+            "type": "integer"
+          },
+          "result_size_bytes": {
+            "type": "integer"
+          },
+          "steps_size_bytes": {
+            "type": "integer"
+          },
+          "payload_redacted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "WorkflowRunHistoryListResponse": {
+        "type": "object",
+        "title": "WorkflowRunHistoryListResponse",
+        "properties": {
+          "runs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowRunHistorySummary"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "runs",
+          "total",
+          "page",
+          "limit"
+        ]
+      },
+      "WorkflowRunHistoryDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WorkflowRunHistorySummary"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "inputs": {},
+              "result": {},
+              "steps": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "generative_ui": {}
+            }
+          }
+        ],
+        "title": "WorkflowRunHistoryDetail",
+        "description": "Full run payload for detail/share views. Checkpoint is never included."
+      },
+      "WorkflowRunActivityTimelineRequest": {
+        "properties": {
+          "hours": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 168,
+            "default": 168,
+            "title": "Hours",
+            "description": "Rolling window in hours (default 7d, max 7d)."
+          },
+          "bucket_minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 60,
+            "default": 60,
+            "title": "Bucket Minutes",
+            "description": "Histogram bin width in minutes."
+          }
+        },
+        "type": "object",
+        "title": "WorkflowRunActivityTimelineRequest"
+      },
+      "WorkflowRunActivityTimelineBucket": {
+        "type": "object",
+        "title": "WorkflowRunActivityTimelineBucket",
+        "properties": {
+          "t": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Bucket start (UTC)"
+          },
+          "succeeded": {
+            "type": "integer",
+            "default": 0
+          },
+          "failed": {
+            "type": "integer",
+            "default": 0
+          },
+          "waiting_human": {
+            "type": "integer",
+            "default": 0
+          },
+          "waiting_auth": {
+            "type": "integer",
+            "default": 0
+          },
+          "rejected": {
+            "type": "integer",
+            "default": 0
+          },
+          "other": {
+            "type": "integer",
+            "default": 0
+          }
+        },
+        "required": [
+          "t"
+        ]
+      },
+      "WorkflowRunActivityTimelineResponse": {
+        "type": "object",
+        "title": "WorkflowRunActivityTimelineResponse",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "bucket_minutes": {
+            "type": "integer"
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowRunActivityTimelineBucket"
+            }
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "bucket_minutes",
+          "series"
+        ]
       }
     },
     "securitySchemes": {

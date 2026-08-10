@@ -6,6 +6,24 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="August 10, 2026" description="v5.13.0" tags={["Workflows", "Copilot", "Settings"]}>
+  ## Workflow History and run simulation replay
+
+  Review past workflow runs like Actions history — filter, share, and replay step-by-step on the graph.
+
+  ### What's new
+  - **Workflows history** — New **Workflows** nav item with org-wide run history (admins see all; members see their own)
+  - **Run detail** — Inputs, step traces, and result with copy/share; default **Simulation** opens the graph replay for the recorded run
+  - **Activity timeline** — Last-7-days histogram by run status with brush-to-filter (same pattern as Actions)
+  - **Workflow Recording** — Organization setting: **Full**, **Headers only**, or **Disabled** (HITL approval checkpoints still persist when disabled so resume works)
+  - **Share links** — Share a run via `/workflow-history/share/{run_id}` with the same detail + simulation UI
+
+  ### Improvements
+  - Real non-dry-run executions are persisted when a workflow id is present (not only approval waits)
+  - Display names for agent and workflow in the history table and detail view
+  - Dry runs are never written to history
+</Update>
+
 <Update label="August 9, 2026" description="v5.12.0" tags={["Workflows", "MCP", "Copilot"]}>
   ## Workflow dry-run, outputs, and richer run insights
 

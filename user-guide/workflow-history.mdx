@@ -1,0 +1,82 @@
+---
+title: 'Workflow History'
+description: 'Monitor, inspect, and replay past agent workflow runs'
+icon: 'diagram-project'
+---
+
+## Overview
+
+**Workflow History** is the run log for agent workflows — similar to [Actions](/user-guide/actions) for individual API calls. Every real (non-dry-run) execution with a workflow id is stored so you can filter, share, inspect inputs/steps/result, and replay the path on the graph.
+
+How much payload is stored depends on your organization's **Workflow Recording** policy. See [Settings](/user-guide/settings#workflow-recording-organization).
+
+## Accessing Workflow History
+
+Navigate to **Workflows** from the main navigation (next to **Actions**) to open the history list.
+
+## List view
+
+Each row typically shows:
+
+- **User** who started the run
+- **Agent** and **workflow** display names
+- **When** it ran (Local or GMT toggle)
+- **Duration**
+- **Status** (icon: succeeded, failed, waiting for approval/auth, and other)
+- Approximate **payload size** when recording includes sizes
+
+### Search and filters
+
+- Search by run id, workflow name, agent, or user
+- Filter by status and date range
+- **Last 7 days** activity chart — click and drag to apply a time range; **Clear** removes the brush selection
+
+## Run details
+
+Open a run to see:
+
+- Summary badges (agent, workflow, user, status, duration, time, and redaction flags when applicable)
+- **Copy ID** / **Share** / **Simulation**
+- **Inputs** and **Output** (Steps / Result tabs) when Simulation is off
+
+Simulation opens by default when the run has a resolvable workflow graph. Toggle **Simulation** off to return to the JSON inputs/output layout.
+
+### Simulation replay
+
+Play, pause, and scrub **waves** to walk recorded step statuses on the workflow graph — the same visual language as dry-run simulation on the agent Workflows tab, driven by the stored run traces.
+
+### Share
+
+**Share** copies a link to `/workflow-history/share/{run_id}`. Recipients in your org (with permission to see the run) get the same detail and simulation UI.
+
+## Who can see which runs?
+
+| Role | Visibility |
+|------|------------|
+| Org admin | All runs in the organization |
+| Member | Only their own runs |
+
+## What is recorded?
+
+| Case | Persisted? |
+|------|------------|
+| Normal / live run with a workflow id | Yes (subject to Workflow Recording) |
+| Dry run | Never |
+| Waiting for human approval | Yes (even if recording is **Disabled**, so resume can continue) |
+
+### Workflow Recording modes
+
+| Mode | What is stored |
+|------|----------------|
+| **Full recording** (default) | Inputs, step traces, and result |
+| **Headers only** | Metadata and payload sizes; bodies redacted in the UI |
+| **Disabled** | No history rows except HITL checkpoints needed for resume |
+
+Configure under **Settings → Organization → Workflow Recording**.
+
+## Related
+
+- [Workflows](/user-guide/workflows) — design and run workflows on an agent
+- [Actions](/user-guide/actions) — API / MCP call history
+- [Settings](/user-guide/settings#workflow-recording-organization) — recording policy
+- API: [List workflow run history](/api-reference/workflow/workflow-runs-history-list), [Get workflow run history](/api-reference/workflow/workflow-run-history-get), [Activity timeline](/api-reference/workflow/workflow-runs-activity-timeline)

@@ -46,6 +46,7 @@
             "group": "Monitoring & Management",
             "pages": [
               "user-guide/actions",
+              "user-guide/workflow-history",
               "user-guide/dashboard",
               "user-guide/insights",
               "user-guide/audit",
@@ -187,6 +188,9 @@
             "pages": [
               "api-reference/workflow/workflow-list",
               "api-reference/workflow/workflow-create",
+              "api-reference/workflow/workflow-runs-history-list",
+              "api-reference/workflow/workflow-run-history-get",
+              "api-reference/workflow/workflow-runs-activity-timeline",
               "api-reference/workflow/workflow-run-get",
               "api-reference/workflow/workflow-run-resume",
               "api-reference/workflow/workflow-get",

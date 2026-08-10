@@ -62,6 +62,10 @@ Organization-level configurations.
 - Control what request/response data is stored in [Actions](/user-guide/actions) history
 - Modes: **Full recording**, **Headers only**, or **Disabled** (see below)
 
+**Workflow Recording**
+- Control what workflow run data is stored in [Workflow History](/user-guide/workflow-history)
+- Modes: **Full recording**, **Headers only**, or **Disabled** (HITL checkpoints still kept for resume)
+
 **Billing & Usage**
 - Current plan details
 - Usage statistics
@@ -122,6 +126,10 @@ Configure AI model preferences and access.
 - Organization setting under Settings → Organization
 - Controls whether Actions history stores full payloads, headers only, or nothing
 
+**Workflow Recording**
+- Organization setting under Settings → Organization
+- Controls whether Workflow History stores full run payloads, metadata only, or nothing (except HITL resume checkpoints)
+
 **API Keys**
 - Add provider API keys
 - Test key validity
@@ -145,6 +153,18 @@ Admins control how much of each API/MCP call is persisted for the [Actions](/use
 | **Disabled** | No new interaction records; Actions will not show new entries |
 
 Configure under **Settings → Organization → Interaction Recording**. Changes apply to new interactions going forward.
+
+### Workflow Recording (Organization)
+
+Admins control how much of each workflow run is persisted for the [Workflow History](/user-guide/workflow-history) page:
+
+| Mode | What is stored |
+|------|----------------|
+| **Full recording** (default) | Inputs, step traces, and result |
+| **Headers only** | Metadata and payload sizes; bodies are redacted in Workflow History |
+| **Disabled** | No new history rows, except HITL approval checkpoints required to resume waiting runs |
+
+Configure under **Settings → Organization → Workflow Recording**. Dry runs are never persisted. Changes apply to new runs going forward.
 
 ### Organization Advanced Settings
 
@@ -252,6 +272,15 @@ Connect external services and tools.
 4. Save organization settings
 
 Use **Headers only** or **Disabled** when you need to reduce stored sensitive payloads in Actions history.
+
+### Configure Workflow Recording
+
+1. Open **Settings → Organization**
+2. Find **Workflow Recording**
+3. Choose **Full recording**, **Headers only**, or **Disabled**
+4. Save organization settings
+
+Use **Headers only** or **Disabled** when you need to reduce stored sensitive payloads in Workflow History. Approval waits still keep the checkpoint needed to resume.
 
 ### Configure Advanced Performance and Privacy Controls
 
