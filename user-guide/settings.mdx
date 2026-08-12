@@ -111,6 +111,12 @@ Configure AI model preferences and access.
 - xAI configuration
 - Amazon Bedrock (IAM access key, secret, region)
 - Microsoft Foundry (Azure OpenAI — service principal or API key, deployments)
+- Exa (web search / content tools)
+
+**Model visibility and custom models**
+- Per provider, open **Models** to show or hide individual models in Copilot pickers
+- Add a custom **model ID** when your provider offers a model that is not in the default list
+- Remove custom models you no longer need; built-in models can only be disabled, not deleted
 
 **Reasoning Effort**
 - Organization-wide setting for how much supported models think before answering
@@ -343,6 +349,25 @@ Enable AI models by adding provider API keys:
 3. Configure authentication (service principal or API key) and add deployments
 4. Each deployment maps to a model name shown in Copilot
 
+**Exa (Web Search)**
+1. Navigate to Settings > Organization > Model Settings
+2. Find **Exa (Web Search)**
+3. Add your Exa API key
+4. Save — Copilot web search and related content tools use Exa when configured
+
+### Model visibility and custom models
+
+Control which models appear in Copilot for your organization:
+
+1. Settings → Organization → Model Settings
+2. Open a configured provider
+3. Click **Models (N/M enabled)**
+4. Toggle models on or off for the org model selector
+5. Optionally type a **model ID** and add it as a custom model
+6. Save organization settings
+
+Disabled models stay configured on the provider but are hidden from users. Custom model IDs are useful when a provider releases a new model before Apigene updates the default catalog.
+
 ### Reasoning Effort
 
 Control extended thinking for supported models:
@@ -374,6 +399,17 @@ Apigene Copilot supports multiple auth backends via `NEXT_PUBLIC_AUTH_PROVIDER`:
 | **keycloak** | Enterprise SSO via Keycloak |
 
 Configure the matching environment variables in your deployment. Contact your administrator for sign-in URLs and client setup.
+
+### OnPrem license (Self-Hosted)
+
+Self-hosted installs start on a trial. When Apigene provides a signed license token:
+
+1. Settings → Organization
+2. Copy your **organization ID** if Apigene asks for it when issuing the license
+3. Paste the token under **Apply license token**
+4. Click **Apply license**
+
+A valid token ends the trial for that organization. You can paste a new token later to renew or replace the current license. API equivalent: [`POST /api/org/apply_license`](/api-reference/org/org-apply-license).
 
 ### Configuring Application Defaults
 

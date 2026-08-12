@@ -6,6 +6,41 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="August 12, 2026" description="v5.15.0" tags={["Dashboard", "Settings", "Models", "Copilot", "Self-hosted", "API"]}>
+  ## LLM cost dashboard, model visibility, and Exa web search
+
+  Estimate chat spend, control which models appear in selectors, configure Exa for web search, and apply OnPrem licenses.
+
+  ### What's new
+  - **LLM cost on Dashboard** — Conversations tab shows estimated spend over time, by model, by provider, and by user (toggle cost vs tokens)
+  - **Workflow analytics on Dashboard** — Workflows tab with KPIs, runs over time, success rate, duration, failures by step, and breakdowns by agent / user / workflow
+  - **Date range presets** — Quick ranges on the Dashboard date picker
+  - **Model visibility** — Per-provider **Models** menu in org settings to show or hide models in the Copilot selector
+  - **Custom model IDs** — Add provider-specific model IDs so they appear alongside built-in options
+  - **Exa (Web Search)** — Configure an Exa API key under organization model providers for web search / content tools
+  - **OnPrem license apply** — Self-hosted admins paste a signed license token in **Settings → Organization** (`POST /api/org/apply_license`)
+
+  ### Improvements
+  - Clearer trial and license messaging for self-hosted installs
+</Update>
+
+<Update label="August 12, 2026" description="v5.14.0" tags={["Workflows", "Copilot", "MCP"]}>
+  ## Map loops, richer expressions, and workflow polish
+
+  Iterate arrays with clear loop/done ports, and write more expressive workflow formulas.
+
+  ### What's new
+  - **`apigene.map` loop / done** — Loop body on the first output; **done** arm receives the collected items array (n8n-style Loop Over Items)
+  - **Nullish coalescing (`??`)** — Prefer defaults only when a value is `null` (unlike `||`, which also skips `0` / `""` / `false`)
+  - **`find` and `filter_by`** — Look up or filter array objects by field in workflow expressions
+  - **Flatter `set` assignments** — Assignment lists accept a simpler flat array shape when authoring workflows
+
+  ### Improvements
+  - Clearer map edge labels and inspector hints in the workflow graph
+  - Light-theme consistency across Copilot UI
+  - More reliable simulation step indexing and feedback
+</Update>
+
 <Update label="August 10, 2026" description="v5.13.0" tags={["Workflows", "Copilot", "Settings"]}>
   ## Workflow History and run simulation replay
 

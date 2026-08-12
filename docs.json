@@ -324,6 +324,7 @@
               "api-reference/org/org-add-user",
               "api-reference/org/org-create",
               "api-reference/org/org-settings-update",
+              "api-reference/org/org-apply-license",
               "api-reference/org/org-delete",
               "api-reference/org/org-get-details",
               "api-reference/org/org-remove-user",
@@ -338,17 +339,6 @@
               "api-reference/user/settings-update",
               "api-reference/user/user-signup",
               "api-reference/user/user-token"
-            ]
-          },
-          {
-            "group": "Tenant",
-            "pages": [
-              "api-reference/tenant/get-tenant-info",
-              "api-reference/tenant/add-account",
-              "api-reference/tenant/create-license-op",
-              "api-reference/tenant/decode-license-op",
-              "api-reference/tenant/tenant-setup",
-              "api-reference/tenant/update-tenant-license"
             ]
           },
           {

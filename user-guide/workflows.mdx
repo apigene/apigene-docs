@@ -119,12 +119,35 @@ Common `apigene.*` node types:
 | `action` | Call an application operation |
 | `if` / `switch` | Branch on conditions |
 | `join` | Wait for parallel branches |
-| `set` / `map` / `filter` / `summarize` | Transform or aggregate data |
+| `set` / `filter` / `summarize` | Transform or aggregate data |
+| `map` | Iterate an array — **loop** body per item, then **done** with the collected list |
 | `llm` | Call a language model inside the graph |
+| `generative_ui` | Render a generative UI result from the workflow |
 | `approve` | Pause for human decision |
 | `output` | Terminal node that defines the public `result` |
 
 Workflows should end in an **output** node so runners get a clear final result.
+
+### Map (loop over items)
+
+`apigene.map` follows an n8n-style **Loop Over Items** pattern:
+
+- **Loop** (`main[0]`) — runs once per item; use `$json` for the current item and `$index` for the 0-based index
+- **Done** (`main[1]`) — runs after all items succeed; `$json` is the collected array (also available as `$node.<mapId>.json.items`)
+- If any iteration fails, the map fails and **done does not run**
+
+Wire enrichment steps on the loop port; bind tables, UI, or the final output on the done port.
+
+### Expressions
+
+Workflow expressions use `={{ ... }}` with:
+
+- Arithmetic and compares (`+ - * /`, `== != > >= < <=`)
+- Logical operators (`&&`, `||`) and nullish coalescing (`??`)
+- Optional paths (`?.`, `?[`)
+- Helpers such as `find(arr, field, matchValue[, returnField])` and `filter_by(arr, field, value)` for nested lookups (for example Gmail headers)
+
+Example: `={{ $json.items?.length ?? 0 }}`
 
 ## Tips for demos and production
 

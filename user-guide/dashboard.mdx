@@ -6,7 +6,7 @@ icon: 'chart-line'
 
 ## Overview
 
-The Dashboard provides a comprehensive view of your Apigene Copilot usage. It visualizes API calls, performance metrics, and user activity, helping you understand how your team uses applications and identify optimization opportunities.
+The Dashboard provides a comprehensive view of your Apigene Copilot usage across **Conversations** (chat and LLM spend), **Workflows** (run health), and **Actions** (API calls). Use it to understand adoption, cost, and reliability.
 
 <Frame>
   <img src="/images/product/dashboard.png" alt="Dashboard with daily action usage chart" style={{ borderRadius: '0.5rem' }} />
@@ -18,28 +18,78 @@ Navigate to **Dashboard** from the main navigation menu to view your analytics.
 
 ## Dashboard Features
 
+### Tabs
+
+| Tab | Focus |
+|-----|--------|
+| **Conversations** | Chat volume, tokens, and estimated LLM cost |
+| **Workflows** | Workflow run volume, success rate, duration, and failures |
+| **Actions** | API / application call volume, status codes, and usage by user |
+
 ### Date Range Selection
 
 Control the time period for your analytics:
 
-**Date Pickers**
-- **Start Date**: Beginning of the analysis period
-- **End Date**: End of the analysis period
+**Presets and date pickers**
+- Quick presets (for example 7 / 30 / 90 days) plus custom start and end dates
 - **Default**: Last 30 days
 
 **Usage**
-1. Click on the start date field
-2. Select your desired start date
-3. Click on the end date field
-4. Select your desired end date
-5. Dashboard updates automatically
+1. Pick a preset, or click the start / end date fields
+2. Select your desired range
+3. Dashboard updates automatically across the active tab
 
 **Tips**
 - Use shorter ranges for detailed analysis
 - Use longer ranges for trend identification
-- Common ranges: 7 days, 30 days, 90 days, 1 year
 
-## Analytics Charts
+## Conversations
+
+### Conversation activity
+
+**What It Shows**
+- Threads over time
+- Threads by user
+- Average tokens per conversation
+
+**Use Cases**
+- Track Copilot adoption
+- Spot power users and quiet periods
+- Correlate chat volume with LLM spend
+
+### LLM usage and cost
+
+**What It Shows**
+- Daily LLM usage with a **cost / tokens** toggle (input vs output)
+- Estimated spend by model and by provider
+- LLM usage by user
+
+Costs are **list-price estimates** from known model pricing — useful for trends and chargeback, not an invoice.
+
+**Use Cases**
+- Identify expensive models or providers
+- Attribute spend to users
+- Decide which models to keep enabled in [Settings](/user-guide/settings)
+
+## Workflows
+
+### Workflow KPIs and trends
+
+**What It Shows**
+- Total runs, success rate, average duration, and runs waiting on approval
+- Runs over time and by status
+- Success rate and average duration over time
+- Breakdowns by workflow, agent, and user
+- Failures by step (where runs fail most often)
+
+**Use Cases**
+- Monitor automation reliability
+- Find slow or failing steps
+- See which agents and workflows drive the most volume
+
+Pair with [Workflow History](/user-guide/workflow-history) to open a specific run and simulate it on the graph.
+
+## Actions
 
 ### Daily Action Usage (Total)
 
@@ -163,8 +213,8 @@ comprehensive analytics and insights here.
 
 **Getting Started Steps**
 1. Configure your apps in the Applications section
-2. Start making actions in Copilot
-3. View your usage analytics in Dashboard
+2. Start making actions and chats in Copilot (and run workflows when ready)
+3. Open Dashboard tabs for Conversations, Workflows, and Actions
 
 ## Interpreting Your Data
 
@@ -413,8 +463,10 @@ The Dashboard is optimized for mobile viewing:
 ## Next Steps
 
 - [Review specific actions](/user-guide/actions) for detailed debugging
+- [Open Workflow History](/user-guide/workflow-history) for individual workflow runs
 - [Open Insights](/user-guide/insights) for per-agent performance analytics
 - [Configure applications](/user-guide/applications) to improve success rates
+- [Manage models and spend controls](/user-guide/settings) in organization settings
 - [Create agents](/user-guide/agents) for common workflows
 - [Check audit logs](/user-guide/audit) for configuration changes
 

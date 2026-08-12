@@ -2582,6 +2582,53 @@
         ]
       }
     },
+    "/api/org/apply_license": {
+      "post": {
+        "tags": [
+          "Org"
+        ],
+        "summary": "Apply OnPrem License",
+        "description": "OnPrem only: apply a signed license JWT to the current organization. Clears the trial once a valid, non-expired token bound to this org is stored.",
+        "operationId": "org_apply_license",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyLicenseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplyLicenseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/gpt/{genai_app}/delete": {
       "delete": {
         "tags": [
@@ -5465,7 +5512,7 @@
           "Task"
         ],
         "summary": "Task Generate",
-        "description": "Legacy task generation from API specs — removed for scheduled commands.",
+        "description": "Legacy task generation from API specs \u2014 removed for scheduled commands.",
         "operationId": "task_generate",
         "responses": {
           "200": {
@@ -5610,285 +5657,6 @@
             }
           }
         }
-      }
-    },
-    "/api/tenant/setup": {
-      "post": {
-        "tags": [
-          "Tenant"
-        ],
-        "summary": "Tenant Setup",
-        "description": "Public endpoint to provision a single-tenant environment using a license.\nIt validates the license, creates tenant DB, registers the first admin, and returns an org token.",
-        "operationId": "tenant_setup",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TenantSetupRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TenantSetupResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/tenant/info": {
-      "get": {
-        "tags": [
-          "Tenant"
-        ],
-        "summary": "Get Tenant Info",
-        "description": "Returns metadata about the tenant including tier and members, using the license_token for lookup.",
-        "operationId": "tenant_info",
-        "parameters": [
-          {
-            "name": "license_token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "License Token"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/tenant/update_license": {
-      "post": {
-        "tags": [
-          "Tenant"
-        ],
-        "summary": "Update Tenant License",
-        "description": "Updates the tenant's license and tier using a new license_token.",
-        "operationId": "tenant_update_license",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LicenseUpdateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/tenant/create_license": {
-      "post": {
-        "tags": [
-          "Tenant"
-        ],
-        "summary": "Create License Op",
-        "description": "Create a signed license token for a tenant. Only available in non-SaaS deployments.",
-        "operationId": "tenant_create_license",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateLicenseRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreateLicenseResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/tenant/decode_license": {
-      "post": {
-        "tags": [
-          "Tenant"
-        ],
-        "summary": "Decode License Op",
-        "description": "Decode a license token and return its claims. Only available in non-SaaS deployments.",
-        "operationId": "tenant_decode_license",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DecodeLicenseRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DecodeLicenseResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/tenant/add_account": {
-      "post": {
-        "tags": [
-          "Tenant"
-        ],
-        "summary": "Add Account",
-        "description": "Add a new account (org) to an existing tenant. Requires a valid tenant_org_token as a Bearer token in the Authorization header.",
-        "operationId": "tenant_add_account",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddAccountRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddAccountResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
       }
     },
     "/api/mcp/app_get_actions": {
@@ -14199,7 +13967,7 @@
                 "type": "null"
               }
             ],
-            "description": "Mock execution mode — return OpenAPI-based mock responses instead of calling real APIs"
+            "description": "Mock execution mode \u2014 return OpenAPI-based mock responses instead of calling real APIs"
           },
           "reasoning_effort": {
             "anyOf": [
@@ -17739,6 +17507,64 @@
           "bucket_minutes",
           "series"
         ]
+      },
+      "ApplyLicenseRequest": {
+        "properties": {
+          "license_token": {
+            "type": "string",
+            "title": "License Token",
+            "description": "Signed OnPrem license JWT"
+          }
+        },
+        "type": "object",
+        "required": [
+          "license_token"
+        ],
+        "title": "ApplyLicenseRequest"
+      },
+      "ApplyLicenseResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id"
+          },
+          "license_issued_at": {
+            "type": "string",
+            "title": "License Issued At"
+          },
+          "license_expires_at": {
+            "type": "string",
+            "title": "License Expires At"
+          },
+          "license_plan": {
+            "type": "string",
+            "title": "License Plan"
+          },
+          "license_issued_to": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License Issued To"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "tenant_id",
+          "license_issued_at",
+          "license_expires_at",
+          "license_plan"
+        ],
+        "title": "ApplyLicenseResponse"
       }
     },
     "securitySchemes": {
