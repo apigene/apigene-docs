@@ -205,6 +205,33 @@ Configuration:
 - Dynamic value substitution
 ```
 
+#### Credential scope (Basic / Bearer / API key)
+
+For static schemes (API key, Bearer, Basic), choose how secrets are stored:
+
+| Scope | Behavior |
+|-------|----------|
+| **Org-shared** (default) | One secret for the whole organization — everyone uses the same credentials |
+| **Per-user** | Each person connects their own Basic / Bearer / API key |
+
+**When to use per-user**
+- Each teammate has their own provider account or personal token
+- You do not want a shared org secret
+- Chat prompts users to connect before calling the API
+
+**How to enable**
+1. Open **Applications** > [Application Name] > **Security**
+2. Select a static scheme (API key, Bearer, or Basic)
+3. Set **Credential scope** to **Per-user**
+4. Turn off shared security if it is still enabled (shared org secrets conflict with per-user scope)
+
+**How each user connects**
+1. On the Security tab, under **User credentials**, click **Connect**
+2. Complete the connect-credentials form (or follow the connect link shown in chat when login is required)
+3. Use **Clear credentials** to remove your personal secret without changing the org scope
+
+OAuth flows continue to use their normal connect / authorize path; credential scope applies to static Basic / Bearer / API key schemes.
+
 #### Security Setup Steps
 
 1. **Identify Authentication Method**
@@ -212,20 +239,23 @@ Configuration:
    - Look at the Security tab
    - Note required credentials
 
-2. **Obtain Credentials**
+2. **Choose credential scope**
+   - Org-shared for a single team secret
+   - Per-user when each member must use their own key
+
+3. **Obtain Credentials**
    - Generate API keys from provider
    - Complete OAuth flow if needed
-   - Get service account credentials
+   - Get service account or personal credentials
 
-3. **Configure in Apigene**
-   - Enter credentials in Security tab
-   - Test connection if available
-   - Save configuration
+4. **Configure in Apigene**
+   - Org-shared: enter credentials in the Security tab and save
+   - Per-user: each user clicks **Connect** (or uses the chat connect link)
 
-4. **Verify Setup**
+5. **Verify Setup**
    - Use application in Copilot
    - Check for authentication errors
-   - Update if credentials expire
+   - Update or clear credentials when they expire
 
 ### API Operations
 
@@ -386,18 +416,18 @@ Remove applications you no longer need:
 ### Security Status
 
 **✓ Configured** (Green)
-- Authentication is set up
+- Authentication is set up (org-shared secret saved, or per-user credentials connected)
 - Application is ready to use
 - API calls will succeed
 
 **⚠️ Not Configured** (Red)
-- Missing credentials
+- Missing credentials (org secret not saved, or you have not connected yet in per-user mode)
 - Application cannot make API calls
 - Configuration required
 
 **🔄 Needs Update** (Yellow)
 - Credentials may be expired
-- Security scheme changed
+- Security scheme or credential scope changed
 - Reconfiguration recommended
 
 ### Connection Status
@@ -448,7 +478,7 @@ Remove applications you no longer need:
 ### Maintenance
 
 **Monitor Usage**
-- Check Dashboard for application usage
+- Check Insights for application usage
 - Identify unused applications
 - Review API call success rates
 - Monitor for errors
@@ -573,6 +603,6 @@ For supported applications:
 
 - [Use applications in Copilot](/user-guide/copilot) to execute API operations
 - [Create agents](/user-guide/agents) with specific application access
-- [Monitor usage](/user-guide/dashboard) in the dashboard
+- [Monitor usage](/user-guide/insights) in Insights
 - [View API call logs](/user-guide/actions) for debugging
 

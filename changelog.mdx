@@ -6,6 +6,24 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="August 15, 2026" description="v5.16.0" tags={["Applications", "Insights", "Copilot", "Agent Builder"]}>
+  ## Per-user credentials, unified Insights, and Agent Builder in the nav
+
+  Let each teammate connect their own API secrets, find analytics under Insights, and open Agent Builder from the sidebar.
+
+  ### What's new
+  - **Per-user app credentials** — On an application's **Security** tab, set **Credential scope** to **Per-user** (Basic / Bearer / API key). Each person connects their own secret via **Connect** / **Clear credentials** (or the connect-credentials link from chat)
+  - **Org-shared vs per-user** — Keep org-wide shared secrets when you want one key for everyone; switch to per-user when each member must use their own
+  - **Agents tab in Insights** — Org rollup of agent performance (volume, success rate, duration, errors) plus drill-down into a single agent
+  - **Agent Builder in navigation** — Open Agent Builder from the main sidebar and user menu (next to New Chat)
+
+  ### Improvements
+  - **Insights replaces Dashboard** — Conversations, Workflows, Actions, and Agents analytics live under **Insights** (the separate Dashboard page is gone)
+  - **RTL-aware chat** — Hebrew and Arabic messages, chips, and input align correctly (auto LTR/RTL)
+  - **Reasoning duration** — Elapsed time shown while the model is thinking
+  - **Chat polish** — Message actions appear on hover; clearer model-selector loading; Chat / Agent Builder mode control stays in a consistent place
+</Update>
+
 <Update label="August 12, 2026" description="v5.15.0" tags={["Dashboard", "Settings", "Models", "Copilot", "Self-hosted", "API"]}>
   ## LLM cost dashboard, model visibility, and Exa web search
 

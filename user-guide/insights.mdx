@@ -1,53 +1,108 @@
 ---
 title: 'Insights'
-description: 'Per-agent analytics for success rate, latency, usage trends, and tool performance'
+description: 'Organization analytics for conversations, agents, workflows, and actions'
 icon: 'chart-mixed'
 ---
 
 ## Overview
 
-**Insights** provides deeper, **per-agent** analytics beyond the organization-wide [Dashboard](/user-guide/dashboard). Use it to understand how a specific agent performs: volume, success rate, response times, peak usage, application mix, and slow or frequent actions.
+**Insights** is the analytics home for your organization. Use it to monitor Copilot adoption and LLM spend, agent performance, workflow reliability, and API action volume.
+
+<Note>
+In Apigene 5.16, Insights replaces the separate **Dashboard** page. Bookmarks to Dashboard open the same analytics under Insights.
+</Note>
 
 ## Accessing Insights
 
-Navigate to **Insights** from the main navigation (admin). Select an agent and date range to load charts and tables.
+Navigate to **Insights** from the main navigation (admin). Pick a tab and date range to load charts and tables.
 
-## What you can analyze
+## Tabs
 
-Depending on available data for the selected agent and period, Insights can show:
+| Tab | Focus |
+|-----|--------|
+| **Conversations** | Chat volume, tokens, and estimated LLM cost |
+| **Agents** | Agent performance rollup and per-agent drill-down |
+| **Workflows** | Workflow run volume, success rate, duration, and failures |
+| **Actions** | API / application call volume, status codes, and usage by user |
 
-- **Totals** — action / interaction volume
-- **Success rate** — successful vs failed calls
-- **Response times** — latency trends
-- **Usage trends** — volume over time
-- **Peak days and hours** — when the agent is busiest
-- **Application distribution** — which apps the agent calls most
-- **Size comparison** — payload or response size patterns when recorded
-- **Top and slowest actions** — hotspots for optimization
-- **Cache performance** — hit/miss style signals when caching is enabled
-- **User engagement** — which users drive agent activity
+### Date range
 
-Empty or sparse charts usually mean the agent has little traffic in the selected range — widen the dates or confirm the agent is being used in Copilot or via MCP.
+- Quick presets (for example 7 / 30 / 90 days) plus custom start and end dates
+- **Default**: Last 30 days
+- Changing the range updates charts on the active tab (except where Agents uses its own agent-scoped controls)
 
-## How Insights differs from Dashboard
+## Conversations
 
-| | Dashboard | Insights |
-|--|-----------|----------|
-| Scope | Organization-wide | Per agent |
-| Focus | Overall adoption and health | Agent-specific performance |
-| Typical use | Capacity and team usage | Tuning one agent’s tools and apps |
+### Activity
 
-Use Dashboard for org trends, then Insights when debugging a single agent’s reliability or cost drivers.
+- Threads over time
+- Threads by user
+- Average tokens per conversation
+
+Use this to track Copilot adoption and spot power users or quiet periods.
+
+### LLM usage and cost
+
+- Daily LLM usage with a **cost / tokens** toggle (input vs output)
+- Estimated spend by model and by provider
+- LLM usage by user
+
+Costs are **list-price estimates** from known model pricing — useful for trends and chargeback, not an invoice. Pair with [Settings](/user-guide/settings) to hide expensive models or add custom model IDs.
+
+## Agents
+
+### Org rollup
+
+The **Agents** tab opens with a lightweight org summary:
+
+- Total interactions
+- Average duration
+- Success rate and error rate
+- Volume across agents
+
+### Per-agent detail
+
+Select an agent to load deeper charts and tables:
+
+- Totals and success rate
+- Response-time trends
+- Usage over time, peak days and hours
+- Application mix
+- Top and slowest actions
+- Cache performance (when caching is enabled)
+- User engagement
+
+Empty or sparse charts usually mean little traffic in the selected range — widen the dates or confirm the agent is used in Copilot or via MCP.
+
+## Workflows
+
+- Total runs, success rate, average duration, and runs waiting on approval
+- Runs over time and by status
+- Success rate and average duration over time
+- Breakdowns by workflow, agent, and user
+- Failures by step (where runs fail most often)
+
+Pair with [Workflow History](/user-guide/workflow-history) to open a specific run and simulate it on the graph.
+
+## Actions
+
+- Daily action volume and trends
+- Status-code mix (success vs client/server errors)
+- Usage by user and by application
+
+Drill into [Actions](/user-guide/actions) for request/response detail when investigating spikes or failures.
 
 ## Tips
 
-- Compare peak hours with business workflows to spot unexpected automation
-- Investigate slowest actions together with [Actions](/user-guide/actions) detail and compare
+- Use shorter ranges for incident analysis; longer ranges for trends
+- Investigate slowest agent actions together with Actions history
 - If payloads look incomplete, check [Interaction Recording](/user-guide/settings#interaction-recording-organization)
+- After fixing credentials or parameters, re-check Insights to confirm error rates drop
 
 ## Related
 
-- [Dashboard](/user-guide/dashboard)
 - [Actions](/user-guide/actions)
+- [Workflow History](/user-guide/workflow-history)
 - [Agents](/user-guide/agents)
+- [Applications](/user-guide/applications)
 - [Settings](/user-guide/settings)

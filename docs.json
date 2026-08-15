@@ -47,7 +47,6 @@
             "pages": [
               "user-guide/actions",
               "user-guide/workflow-history",
-              "user-guide/dashboard",
               "user-guide/insights",
               "user-guide/audit",
               "user-guide/settings"
