@@ -237,7 +237,6 @@
           {
             "group": "GPT",
             "pages": [
-              "api-reference/gpt/gpts-explore",
               "api-reference/gpt/gpts-list",
               "api-reference/gpt/gpt-create",
               "api-reference/gpt/gpt-create-all",
@@ -247,10 +246,8 @@
               "api-reference/gpt/gpt-delete",
               "api-reference/gpt/gpt-generate-token",
               "api-reference/gpt/gpt-get",
-              "api-reference/gpt/gpt-install",
               "api-reference/gpt/gpt-read-token-id",
-              "api-reference/gpt/gpt-revoke-token",
-              "api-reference/gpt/gpt-uninstall"
+              "api-reference/gpt/gpt-revoke-token"
             ]
           },
           {
@@ -261,20 +258,6 @@
               "api-reference/gpt-public/apps-search-actions",
               "api-reference/gpt-public/get-gpt-public-openapi",
               "api-reference/gpt-public/app-execute-action"
-            ]
-          },
-          {
-            "group": "Integration",
-            "pages": [
-              "api-reference/integration/integrations-list",
-              "api-reference/integration/integrations-published",
-              "api-reference/integration/integration-change-state-all",
-              "api-reference/integration/integration-create-all",
-              "api-reference/integration/integration-change-state",
-              "api-reference/integration/integration-create",
-              "api-reference/integration/integration-delete",
-              "api-reference/integration/generate-integration-info",
-              "api-reference/integration/integration-get"
             ]
           },
           {
