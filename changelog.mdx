@@ -6,6 +6,26 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="August 16, 2026" description="v5.17.0" tags={["Insights", "Copilot", "Chat", "Navigation"]}>
+  ## Insights exports, chat drag-and-drop, and a cleaner sidebar
+
+  Pick custom date ranges and export charts from Insights, attach files by dropping them into chat, and navigate with a collapsible sidebar and smoother page transitions.
+
+  ### What's new
+  - **Custom date ranges in Insights** — Choose an absolute start and end date (not only presets); Agents analytics respects the same window
+  - **Chart export** — Download Insights charts as CSV, PNG, or SVG, with summary stats on chart cards
+  - **Drag-and-drop attachments** — Drop files onto the chat input to attach them
+  - **Collapsible sidebar** — Collapse the nav to icon mode; chat thread groups can expand/collapse and remember your preference
+  - **Richer image generation** — Generate images with OpenAI GPT image models and DALL·E options (model, size, and quality)
+
+  ### Improvements
+  - **Built-in tools cleanup** — Unused default tools (NanoBanana image, 3D/animation, HTTP, web content) are hidden from @ mentions and workflows
+  - **Cleaner chat display** — Mention prefixes are stripped from user messages when viewing and copying
+  - **Smoother navigation** — Light transition when moving between pages; consistent page headers across the app
+  - **Deep-linkable tabs** — Agent editor and Insights tabs stay in sync with the URL
+  - **Workflow inspector** — Clearer node summaries without duplicated metadata
+</Update>
+
 <Update label="August 15, 2026" description="v5.16.0" tags={["Applications", "Insights", "Copilot", "Agent Builder"]}>
   ## Per-user credentials, unified Insights, and Agent Builder in the nav
 
