@@ -98,7 +98,14 @@ Agent Builder drafts a structured system prompt (role, guidelines, boundaries) a
 
 ### 5. Validate and create
 
-Configuration is validated (name format, required instructions, valid app/MCP references), then the agent is created.
+Configuration is validated before the agent is created:
+
+- **Name** — required; up to 64 characters; letters, numbers, spaces, hyphens, underscores
+- **Description** — required; up to 300 characters; short summary of what the agent does
+- **Instructions** — required; up to 4,000 characters; system prompt / behavior
+- Valid application, MCP, skill, and context references (OpenAPI-backed MCP proxies must be attached as **APIs**, not native MCP servers)
+
+Agent Builder prompts for a description and instructions if either is missing.
 
 ### 6. Review setup
 
@@ -111,9 +118,10 @@ Immediately after creation:
 
 Agent Builder enforces concise names:
 
-- **2–3 words** maximum (e.g. "Dev Assistant", "Support Bot")
+- **2–3 words** recommended (e.g. "Dev Assistant", "Support Bot"); hard limit **64 characters**
 - Letters, numbers, spaces, hyphens (`-`), and underscores (`_`) only
 - Avoid long compound names like "Dev Flow Assistant (GitHub + Jira)"
+- **Description** (max 300 characters) and **instructions** (max 4,000 characters) are both required at creation time
 
 ## Example prompts
 

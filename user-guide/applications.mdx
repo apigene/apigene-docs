@@ -277,10 +277,11 @@ View and manage all available API endpoints:
 - Status codes
 
 **Search and Filter**
-- Search by operation name
-- Filter by HTTP method
-- Filter by tags
-- Sort by various criteria
+- Search by operation name or description
+- Filter by HTTP method (GET, POST, etc.)
+- Filter by **path prefix** (e.g. `/api/v1/users`)
+- Filter by one or more **tags**
+- Clear filters to reset the list; pagination respects the active filter set
 
 ### MCP Tools Configuration
 
@@ -307,6 +308,20 @@ MCP (Model Context Protocol) tools are AI-optimized versions of your API operati
 - One tool per API operation
 - Can be regenerated via **reindex** (see below)
 - Updates reflect in Copilot after reindex completes
+
+### Agentic metadata list
+
+Access via **Applications** > [Application Name] > **Metadata** tab
+
+Browse and manage generated agentic metadata for each operation:
+
+**Search and Filter**
+- Search by operation ID or description
+- Filter by metadata **type**
+- Filter by **priority rating** (1 = highest priority, 10 = lowest)
+- Results sort by rating so high-value operations surface first
+
+Use these filters on large specs to find operations that need description or rating edits before reindexing.
 
 ### Reindex and agentic metadata
 

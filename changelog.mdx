@@ -6,6 +6,23 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="August 17, 2026" description="v5.18.0" tags={["Settings", "Models", "Applications", "Agent Builder", "Insights"]}>
+  ## Outbound proxy, OpenRouter/Bedrock model control, and application filtering
+
+  Route integration calls through a corporate HTTP proxy, choose which OpenRouter and Bedrock models appear in Copilot, filter large application specs, and enforce stricter Agent Builder validation.
+
+  ### What's new
+  - **Outbound HTTP proxy** — Admins set an org-wide proxy URL under **Settings → Organization → Outbound network**; all outbound API calls from integrations and actions use it (leave empty for direct egress)
+  - **OpenRouter model visibility** — Enable or disable individual OpenRouter models in org settings, including models fetched live from your OpenRouter account
+  - **Bedrock model visibility** — Same per-model toggles for Amazon Bedrock; the model list is loaded from your AWS account instead of a fixed catalog
+  - **Metadata filters** — On an application's **Metadata** tab, filter agentic metadata by **type** and **priority rating** (1–10) in addition to search
+  - **Operations filters** — On **Operations**, filter by HTTP method, path prefix, and tags when managing large OpenAPI specs
+
+  ### Improvements
+  - **Agent Builder validation** — Creating an agent requires both a **description** and **instructions**; name (64), description (300), and instructions (4,000) character limits match the API
+  - **Insights date ranges** — Custom start/end dates in Insights include the full selected UTC days (fixes edge cases with absolute date windows)
+</Update>
+
 <Update label="August 16, 2026" description="v5.17.0" tags={["Insights", "Copilot", "Chat", "Navigation"]}>
   ## Insights exports, chat drag-and-drop, and a cleaner sidebar
 

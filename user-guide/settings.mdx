@@ -109,13 +109,16 @@ Configure AI model preferences and access.
 - Anthropic configuration
 - Google AI configuration
 - xAI configuration
+- OpenRouter configuration
 - Amazon Bedrock (IAM access key, secret, region)
 - Microsoft Foundry (Azure OpenAI — service principal or API key, deployments)
 - Exa (web search / content tools)
 
 **Model visibility and custom models**
 - Per provider, open **Models** to show or hide individual models in Copilot pickers
-- Add a custom **model ID** when your provider offers a model that is not in the default list
+- Supported for OpenAI, Anthropic, Google, xAI, **OpenRouter**, and **Amazon Bedrock**
+- **OpenRouter** and **Bedrock** load the available model list from your configured credentials (live catalog); toggle models on or off or use **Enable all** / **Disable all**
+- Add a custom **model ID** when your provider offers a model that is not in the default list (static-catalog providers)
 - Remove custom models you no longer need; built-in models can only be disabled, not deleted
 
 **Reasoning Effort**
@@ -197,6 +200,9 @@ Under **Settings → Organization** (Advanced), admins can also configure:
 **Mock Execution**
 - Return mock responses from OpenAPI examples instead of calling live APIs
 - Optional LLM-generated mocks when examples are missing
+
+**Outbound network**
+- Optional HTTP proxy URL for all outbound integration and action API calls (corporate egress)
 
 **Reasoning Effort**
 - Organization-wide None / Low / Medium / High for supported models
@@ -340,8 +346,15 @@ Enable AI models by adding provider API keys:
 **Amazon Bedrock**
 1. Navigate to Settings > Organization > Model Settings
 2. Find **Amazon Bedrock**
-3. Enter IAM **Access Key ID**, **Secret Access Key**, and **Region**
-4. Save and test — available Bedrock models appear in the Copilot model selector
+3. Enter IAM **Access Key ID**, **Secret Access Key**, and **Region** (or a Bedrock API key where supported)
+4. Save and test — available models are loaded from your AWS account
+5. Open **Models** to enable or disable individual Bedrock models in the Copilot selector
+
+**OpenRouter**
+1. Navigate to Settings > Organization > Model Settings
+2. Find **OpenRouter**
+3. Add your OpenRouter API key and save
+4. Open **Models** to enable or disable models from the built-in catalog and your live OpenRouter account list
 
 **Microsoft Foundry**
 1. Navigate to Settings > Organization > Model Settings
@@ -362,11 +375,11 @@ Control which models appear in Copilot for your organization:
 1. Settings → Organization → Model Settings
 2. Open a configured provider
 3. Click **Models (N/M enabled)**
-4. Toggle models on or off for the org model selector
-5. Optionally type a **model ID** and add it as a custom model
+4. Toggle models on or off for the org model selector (use **Enable all** or **Disable all** when available)
+5. For OpenAI, Anthropic, Google, and xAI, optionally type a **model ID** and add it as a custom model
 6. Save organization settings
 
-Disabled models stay configured on the provider but are hidden from users. Custom model IDs are useful when a provider releases a new model before Apigene updates the default catalog.
+Disabled models stay configured on the provider but are hidden from users. Custom model IDs are useful when a provider releases a new model before Apigene updates the default catalog. **OpenRouter** and **Bedrock** use dynamically fetched catalogs — you enable or disable models from the list returned for your credentials rather than adding custom IDs.
 
 ### Reasoning Effort
 
@@ -387,6 +400,16 @@ For development and demos without live API credentials:
 2. Enable **Mock Execution Mode** — returns OpenAPI example responses instead of real API calls
 3. Optionally enable **LLM-generated mocks** for realistic values when examples are absent
 4. Save — Copilot uses mocks for application actions until you disable the setting
+
+### Outbound HTTP proxy
+
+For corporate or locked-down networks, route outbound integration and action API calls through an HTTP proxy:
+
+1. Settings → Organization → **Outbound network**
+2. Enter an **HTTP proxy URL** (must start with `http://` or `https://`, e.g. `https://proxy.corp.example.com:8080`)
+3. Save organization settings
+
+Apigene uses this proxy for all outbound HTTP/HTTPS requests when calling third-party APIs from integrations and actions. Clear the field and save to return to direct egress. Stored as `proxy_server_url` on the organization.
 
 ### Authentication Providers (Self-Hosted)
 
