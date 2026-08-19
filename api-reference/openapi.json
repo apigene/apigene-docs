@@ -2474,7 +2474,7 @@
           "Org"
         ],
         "summary": "Retrieve Organization settings",
-        "description": "Retrieves organization settings. model_registry secrets are returned as last4 by default. Pass include_secrets=true as an org admin to receive full secrets.",
+        "description": "Retrieves organization settings. Secrets (model_registry API keys and openlegacy.api_key) are returned as last4 by default. Pass include_secrets=true as an org admin to receive full secrets.",
         "operationId": "org_settings_get",
         "security": [
           {
@@ -13338,6 +13338,48 @@
         ],
         "title": "OperationMetric"
       },
+      "OpenLegacySettings": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "Whether OpenLegacy Hub integration is enabled for this organization",
+            "default": false
+          },
+          "agent_builder_enabled": {
+            "type": "boolean",
+            "title": "Agent Builder Enabled",
+            "description": "Expose OpenLegacy Hub projects in Agent Builder app scope picker",
+            "default": false
+          },
+          "hub_server_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hub Server Url",
+            "description": "OpenLegacy Hub Server URL"
+          },
+          "api_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Api Key",
+            "description": "OpenLegacy Hub API key"
+          }
+        },
+        "type": "object",
+        "title": "OpenLegacySettings"
+      },
       "OrgSettings": {
         "properties": {
           "proxy_server_url": {
@@ -13475,6 +13517,17 @@
             ],
             "title": "Reasoning Effort",
             "description": "Portable model reasoning effort for Copilot chat across providers. None disables forced reasoning; low/medium/high map to each provider's native thinking controls. When unset, Copilot defaults to medium."
+          },
+          "openlegacy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OpenLegacySettings"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "OpenLegacy Hub connection settings (server URL and API key)"
           }
         },
         "type": "object",

@@ -411,6 +411,18 @@ For corporate or locked-down networks, route outbound integration and action API
 
 Apigene uses this proxy for all outbound HTTP/HTTPS requests when calling third-party APIs from integrations and actions. Clear the field and save to return to direct egress. Stored as `proxy_server_url` on the organization.
 
+### Open Legacy
+
+Connect the organization to OpenLegacy Hub:
+
+1. Settings → Organization → **Open Legacy**
+2. Enable **Enable OpenLegacy** and enter the **OpenLegacy Hub Server URL** (must start with `http://` or `https://`, e.g. `https://api.ol-hub.com/backend`)
+3. Enter the **API Key** (Bearer JWT from OpenLegacy Hub)
+4. Optionally enable **Use in Agent Builder** to show Hub projects in the Agent Builder Apps picker (selecting a project includes all contract methods as read-only context)
+5. Save organization settings
+
+Stored keys are shown as the last 4 characters. Enter a new key to replace it. Stored as `openlegacy` on the organization (`enabled`, `agent_builder_enabled`, `hub_server_url`, `api_key`).
+
 ### Authentication Providers (Self-Hosted)
 
 Apigene Copilot supports multiple auth backends via `NEXT_PUBLIC_AUTH_PROVIDER`:

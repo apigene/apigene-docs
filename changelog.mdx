@@ -6,6 +6,34 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="August 19, 2026" description="v5.20.0" tags={["OpenLegacy", "Agent Builder", "Copilot", "Settings"]}>
+  ## OpenLegacy Hub in Agent Builder, scoped apps, and chat history fixes
+
+  Connect OpenLegacy Hub from org settings, pick Hub projects in Agent Builder, and keep Copilot mode and thread titles in sync as you move between chats.
+
+  ### What's new
+  - **OpenLegacy Hub** — Under **Settings → Organization → Open Legacy**, enable the Hub, set the Hub Server URL and API key, and optionally **Use in Agent Builder**
+  - **Hub projects in Agent Builder** — Hub projects appear in the Apps picker; selecting a project includes contract methods as read-only context for use-case proposals
+  - **Builder app scope** — Limit Agent Builder recommendations to the apps (and Hub projects) you selected for that thread
+  - **Expandable use-case summaries** — Open a proposal on the card to read the full summary without leaving chat
+
+  ### Improvements
+  - Historic threads restore Copilot vs Agent Builder mode without a UI flash
+  - Sidebar chat history updates when a thread is renamed or the list changes
+  - Clearer agent delete confirmation (localized title and button)
+  - Organization settings sections use consistent icons and borders
+</Update>
+
+<Update label="August 17, 2026" description="v5.19.0" tags={["Copilot", "Chat"]}>
+  ## Collapsed tool calls in chat
+
+  Long sequences of tool use no longer fill the transcript with one card per call.
+
+  ### Improvements
+  - **Collapsed tool calls** — Consecutive tool invocations in a message collapse into a compact group; expand to inspect an individual call
+  - Same collapse behavior in public/shared chat views
+</Update>
+
 <Update label="August 17, 2026" description="v5.18.0" tags={["Settings", "Models", "Applications", "Agent Builder", "Insights"]}>
   ## Outbound proxy, OpenRouter/Bedrock model control, and application filtering
 
