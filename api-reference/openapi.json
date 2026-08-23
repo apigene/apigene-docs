@@ -13364,6 +13364,16 @@
             "title": "Hub Server Url",
             "description": "OpenLegacy Hub Server URL"
           },
+          "auth_type": {
+            "type": "string",
+            "title": "Auth Type",
+            "description": "How to send Hub credentials: bearer uses Authorization: Bearer; api_key uses the x-api-key header",
+            "enum": [
+              "bearer",
+              "api_key"
+            ],
+            "default": "bearer"
+          },
           "api_key": {
             "anyOf": [
               {
@@ -13374,7 +13384,7 @@
               }
             ],
             "title": "Api Key",
-            "description": "OpenLegacy Hub API key"
+            "description": "OpenLegacy Hub credential (Bearer JWT or API key, per auth_type)"
           }
         },
         "type": "object",
@@ -13527,7 +13537,7 @@
                 "type": "null"
               }
             ],
-            "description": "OpenLegacy Hub connection settings (server URL and API key)"
+            "description": "OpenLegacy Hub connection settings (server URL, auth type, and credential)"
           }
         },
         "type": "object",

@@ -38,7 +38,7 @@ Use the application in Copilot conversations
 
 When you click **+ Install Application**, choose:
 
-- **OpenAPI based** — import from URL, file, or **Postman collection**
+- **OpenAPI based** — import from URL, file, **Postman collection**, or an **OpenLegacy Hub** project
 - **MCP Server** — opens the [official native MCP catalog](/user-guide/mcp-servers#install-from-the-official-catalog) (not an OpenAPI install)
 
 ### Method 1: From OpenAPI URL
@@ -91,7 +91,18 @@ Install from a Postman collection. Apigene converts the collection to OpenAPI, t
 Conversion depends on collection structure. Nested folders become tags where possible. Review generated operations after install and reindex if tool metadata looks incomplete.
 </Note>
 
-### Method 4: Native MCP Server
+### Method 4: From OpenLegacy Hub
+
+Install a Hub project's OpenAPI as an application. Hub must be connected under **Settings → Organization → Open Legacy** (including **Use in Agent Builder**). See [OpenLegacy Hub](/user-guide/openlegacy).
+
+1. Navigate to **Applications** → **+ Install Application**
+2. Choose **OpenAPI based**, then **OpenLegacy Hub**
+3. Search and select a Hub project (method count, last updated, and an **Installed** badge appear when relevant)
+4. Click **Install** (or **Open** if that project is already installed)
+
+The Hub card is shown only when the organization can reach Hub. Installation uses the same index and metadata flow as a file or URL import.
+
+### Method 5: Native MCP Server
 
 To connect a remote MCP server instead of an OpenAPI spec:
 

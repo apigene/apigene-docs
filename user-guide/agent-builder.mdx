@@ -55,6 +55,7 @@ You can also open **Agents** from the main menu (`/agents`, `/agent/new`, `/agen
 Agent Builder uses specialized tools to help you end-to-end:
 
 - **Discover applications** — search APIs and MCP servers, browse a preloaded catalog of installed and official integrations
+- **OpenLegacy Hub** — when Hub is enabled, include Hub projects in app scope; Builder can provision a Hub skill and attach **ol-hub** when you build from those projects (see [OpenLegacy Hub](/user-guide/openlegacy))
 - **Generate and refine instructions** — AI-drafted system prompts based on your use case
 - **Skills** — search your org library and [skills.sh](https://skills.sh), propose skills to attach, and wait for your approval before creating the agent
 - **Create and update agents** — name, description, instructions, applications, MCP servers, contexts, and skills
@@ -91,6 +92,8 @@ If your use case maps to reusable workflows (SEO, code review, deploy runbooks, 
 Skipped skills do not block agent creation.
 
 Agent Builder (and Chat) can also show a **use case proposals** card when you ask for suggested workflows across apps — review the proposals before acting on them. See [Copilot → Use Case Proposals](/user-guide/copilot#use-case-proposals).
+
+If **Use in Agent Builder** is on for [OpenLegacy Hub](/user-guide/openlegacy), Hub projects appear in the Apps picker. Selecting a project includes contract methods as read-only context. When you **Build** a use case that includes Hub projects, Agent Builder attaches the **ol-hub** application and provisions a project-scoped skill so the agent can run Hub test flows without rediscovering methods each turn.
 
 ### 4. Generate instructions
 
@@ -145,6 +148,11 @@ List my agents and show which applications each one uses.
 Build a PR review agent. Search for skills related to code review and attach the best match.
 ```
 
+**OpenLegacy Hub**
+```
+Build an agent for the Hub projects in this thread that can run contract test flows.
+```
+
 ## After Agent Builder creates an agent
 
 Fine-tune in the **Agents** editor:
@@ -190,9 +198,15 @@ See [Agents](/user-guide/agents) for the full editor reference.
 
 Yes. Open the agent → **Skills** tab, or browse the [Skills](/user-guide/skills) library and attach from there.
 
+### Hub projects are missing from the Apps picker
+
+- Enable **Use in Agent Builder** under **Settings → Organization → Open Legacy** and confirm **Test connection** succeeds
+- See [OpenLegacy Hub](/user-guide/openlegacy) for install, Builder wiring, and troubleshooting
+
 ## Next steps
 
 - [Agents](/user-guide/agents) — edit instructions, tools, generative UI, and setup export
 - [Skills](/user-guide/skills) — org skill library and registry
+- [OpenLegacy Hub](/user-guide/openlegacy) — connect Hub, install projects, and build Hub-ready agents
 - [Copilot](/user-guide/copilot) — use your agent in Chat mode
 - [MCP Gateway](/user-guide/mcp-gateway/mcp-gateway-overview) — connect agents to external AI clients

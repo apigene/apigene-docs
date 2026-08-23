@@ -413,15 +413,19 @@ Apigene uses this proxy for all outbound HTTP/HTTPS requests when calling third-
 
 ### Open Legacy
 
-Connect the organization to OpenLegacy Hub:
+Connect the organization to OpenLegacy Hub. After Hub is connected you can [install Hub projects as applications](/user-guide/openlegacy#install-a-hub-project-as-an-application) and [build Hub-ready agents](/user-guide/openlegacy#build-an-agent-from-hub-projects).
 
 1. Settings → Organization → **Open Legacy**
 2. Enable **Enable OpenLegacy** and enter the **OpenLegacy Hub Server URL** (must start with `http://` or `https://`, e.g. `https://api.ol-hub.com/backend`)
-3. Enter the **API Key** (Bearer JWT from OpenLegacy Hub)
-4. Optionally enable **Use in Agent Builder** to show Hub projects in the Agent Builder Apps picker (selecting a project includes all contract methods as read-only context)
-5. Save organization settings
+3. Choose **Authentication**: **API Key** (`x-api-key` header) or **Bearer token** (`Authorization: Bearer`)
+4. Enter the matching **API Key** or **Bearer Token**
+5. Click **Test connection** to verify the URL and credential (unsaved values are used; last-4 credentials reuse the stored secret)
+6. Optionally enable **Use in Agent Builder** to show Hub projects in the Agent Builder Apps picker (selecting a project includes all contract methods as read-only context)
+7. Save organization settings
 
-Stored keys are shown as the last 4 characters. Enter a new key to replace it. Stored as `openlegacy` on the organization (`enabled`, `agent_builder_enabled`, `hub_server_url`, `api_key`).
+Stored credentials are shown as the last 4 characters. Enter a new value to replace them. Stored as `openlegacy` on the organization (`enabled`, `agent_builder_enabled`, `hub_server_url`, `auth_type`, `api_key`).
+
+Full walkthrough: [OpenLegacy Hub](/user-guide/openlegacy).
 
 ### Authentication Providers (Self-Hosted)
 

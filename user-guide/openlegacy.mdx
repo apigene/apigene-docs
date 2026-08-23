@@ -1,0 +1,106 @@
+---
+title: 'OpenLegacy Hub'
+description: 'Connect OpenLegacy Hub, install Hub projects as applications, and build Hub-ready agents'
+icon: 'cube'
+---
+
+## Overview
+
+**OpenLegacy Hub** connects your organization to Hub so Copilot can use Hub projects as applications and Agent Builder can design agents around those contracts.
+
+After you enable Hub for the organization, you can:
+
+- Install a Hub project's OpenAPI as an [application](/user-guide/applications)
+- Include Hub projects in [Agent Builder](/user-guide/agent-builder) app scope and use-case proposals
+- Create agents that call Hub test flows through a provisioned skill
+
+<Note>
+Hub integration is organization-wide. You need permission to edit **Settings → Organization**.
+</Note>
+
+## Connect OpenLegacy Hub
+
+1. Go to **Settings → Organization → Open Legacy**
+2. Enable **Enable OpenLegacy**
+3. Enter the **OpenLegacy Hub Server URL** (must start with `http://` or `https://`, e.g. `https://api.ol-hub.com/backend`)
+4. Choose **Authentication**:
+   - **API Key** — sent as the `x-api-key` header
+   - **Bearer token** — sent as `Authorization: Bearer` (JWT from Hub)
+5. Enter the matching credential
+6. Click **Test connection** to verify the URL and credential (unsaved form values are fine; a last-4 stored secret is reused)
+7. Optionally enable **Use in Agent Builder** so Hub projects appear in the Agent Builder Apps picker
+8. Save organization settings
+
+Stored credentials are shown as the last 4 characters. Enter a new value to replace them.
+
+Stored as `openlegacy` on the organization (`enabled`, `agent_builder_enabled`, `hub_server_url`, `auth_type`, `api_key`).
+
+See also [Settings → Open Legacy](/user-guide/settings#open-legacy).
+
+## Install a Hub project as an application
+
+Use this when you want the project's OpenAPI available like any other app (operations, security, Copilot tools).
+
+1. Connect Hub as above, including **Use in Agent Builder**
+2. Go to **Applications → + Install Application**
+3. Choose **OpenAPI based** if prompted, then select **OpenLegacy Hub**
+4. Search and select a Hub project (method count and last updated appear on each row)
+5. Click **Install**
+
+Already-installed projects show an **Installed** badge. Click **Open** to go to that application.
+
+Installation fetches the project's OpenAPI from Hub, then runs the same index and metadata flow as a normal spec import. Configure [Security](/user-guide/applications#security-configuration) on the new application before making live calls.
+
+<Note>
+Installing an application requires at least one model provider configured for the organization. If install is blocked, complete [Settings → AI Models](/user-guide/settings) first.
+</Note>
+
+The **OpenLegacy Hub** install card appears only when Hub is enabled, reachable, and available for Agent Builder.
+
+## Build an agent from Hub projects
+
+1. Enable **Use in Agent Builder** in organization Open Legacy settings
+2. Open **Agent Builder** and pick Hub projects in the Apps picker (selecting a project includes contract methods as read-only context)
+3. Ask for use cases, or describe the agent you want
+4. Review the **use case proposals** card, then **Build**
+
+When a use case includes Hub projects, Agent Builder:
+
+- Attaches the **ol-hub** OpenAPI application so the agent can call Hub actions
+- Provisions (creates or updates) a project-scoped skill named like `ol-hub-{project}` with baked contract, method, and flow IDs
+- Instructs the agent to run Hub **test flows** from that skill instead of discovering projects and methods on every turn
+
+You can inspect the provisioned skill later under [Skills](/user-guide/skills) and the agent under [Agents](/user-guide/agents).
+
+## Troubleshooting
+
+### I do not see OpenLegacy Hub on the install page
+
+- Confirm **Enable OpenLegacy** and **Use in Agent Builder** are on, then save
+- Confirm **Test connection** succeeds
+- Refresh **Applications → Install Application**
+
+### Test connection fails
+
+- Check the Hub Server URL (include the Hub backend path, e.g. `/backend`)
+- Confirm **API Key** vs **Bearer token** matches how your Hub tenant authenticates
+- Replace a last-4 stored secret with the full credential if you recently rotated it
+
+### Agent Builder does not list Hub projects
+
+- **Use in Agent Builder** must be enabled
+- Hub must be reachable (use **Test connection**)
+- Start a new Agent Builder thread and open the Apps picker again
+
+### The agent cannot run Hub test flows
+
+- Confirm the agent has the **ol-hub** application attached
+- Open the provisioned `ol-hub-…` skill and confirm it lists method and flow IDs
+- Configure security on **ol-hub** (and on any installed Hub project apps) so live calls can authenticate
+
+## Next steps
+
+- [Applications](/user-guide/applications) — install Hub OpenAPI and configure security
+- [Agent Builder](/user-guide/agent-builder) — create agents from Hub use cases
+- [Skills](/user-guide/skills) — review provisioned Hub skills
+- [Settings](/user-guide/settings#open-legacy) — Hub URL, auth type, and test connection
