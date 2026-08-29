@@ -6,6 +6,24 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="August 29, 2026" description="v5.22.13" tags={["Workflows", "Agents", "Actions", "Copilot", "Applications"]}>
+  ## Visual workflow editing, URL-safe agent names, and host-screen Actions
+
+  Edit agent workflows on the graph (opt-in), create a workflow from the Agents page, and inspect 3270-style host screens in Actions.
+
+  ### What's new
+  - **Visual workflow editor** — On an agent's **Workflows** tab, open a workflow and click **Edit** to add, connect, and inspect steps on the graph. **Save** compiles and stores the draft; **View** leaves edit mode and discards unsaved changes
+  - **New workflow** — Create a named workflow from the list (starts with a Set values step). You can still author or update graphs from Copilot chat or MCP
+  - **URL-safe agent names** — New agent names are lowercase kebab-case (`support-agent`). Spaces and underscores become hyphens as you type
+  - **Terminal response tab** — When an action response includes a host/terminal screen (`screenText`), Actions and shared action views show a **Terminal** tab with the rendered screen
+
+  ### Improvements
+  - Agent and MCP pickers in chat show connection status, sort more consistently, and keep the MCP status panel above the tools list
+  - Mermaid diagrams in chat auto-fit to the message so large charts stay readable
+  - Postman collection import reports clearer conversion errors (including collections with comments or stray quotes)
+  - Insights user charts merge duplicate accounts that share the same email
+</Update>
+
 <Update label="August 22, 2026" description="v5.22.0" tags={["OpenLegacy", "Applications", "Agent Builder", "Settings"]}>
   ## Install Hub projects as apps, Hub auth options, and Builder Hub skills
 

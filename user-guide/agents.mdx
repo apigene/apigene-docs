@@ -72,9 +72,9 @@ For most users, start in Agent Builder and refine in the editor afterward.
 ### Step 2: Configure Basic Information
 
 **Agent Name**
-- Choose a descriptive name
-- Examples: "GitHub Bot", "Customer Support Assistant", "Data Analyzer"
-- Keep it short and memorable
+- Use lowercase kebab-case: letters, numbers, and hyphens only (for example `github-bot`, `support-agent`)
+- Spaces and underscores are converted to hyphens as you type
+- Maximum 64 characters; keep it short so MCP URLs stay readable
 
 **Agent Description** (Optional)
 - Explain the agent's purpose
@@ -175,7 +175,7 @@ Choose which applications and tools your agent can access:
 
 1. Click **Save** to create your agent
 2. Test it immediately in a new chat
-3. Mention the agent using `@agent_name`
+3. Mention the agent using `@support-agent` (kebab-case name)
 4. Refine instructions based on results
 
 ## Agent Editor Tabs
@@ -190,6 +190,7 @@ After creating an agent, the editor is organized into tabs:
 | **Skills** | Org skills from your [Skills](/user-guide/skills) library |
 | **Context** | Reusable context items |
 | **Generative UI** | Visual templates for MCP App results (available after first save) |
+| **Workflows** | List, create, visually edit, run, and simulate agent workflows |
 | **Setup** | MCP client connection instructions, per-tool toggles, managed setup export |
 
 ## Skills
@@ -229,7 +230,7 @@ Invoke agents in your conversations:
 
 **Direct Mention**
 ```
-@GitHub Bot please create an issue for the login bug
+@github-bot please create an issue for the login bug
 ```
 
 **Implicit Usage**

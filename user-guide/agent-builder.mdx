@@ -103,7 +103,7 @@ Agent Builder drafts a structured system prompt (role, guidelines, boundaries) a
 
 Configuration is validated before the agent is created:
 
-- **Name** — required; up to 64 characters; letters, numbers, spaces, hyphens, underscores
+- **Name** — required; up to 64 characters; lowercase kebab-case (`support-agent`). Spaces and underscores become hyphens
 - **Description** — required; up to 300 characters; short summary of what the agent does
 - **Instructions** — required; up to 4,000 characters; system prompt / behavior
 - Valid application, MCP, skill, and context references (OpenAPI-backed MCP proxies must be attached as **APIs**, not native MCP servers)
@@ -119,11 +119,11 @@ Immediately after creation:
 
 ## Agent naming guidelines
 
-Agent Builder enforces concise names:
+Agent Builder enforces concise, URL-safe names:
 
-- **2–3 words** recommended (e.g. "Dev Assistant", "Support Bot"); hard limit **64 characters**
-- Letters, numbers, spaces, hyphens (`-`), and underscores (`_`) only
-- Avoid long compound names like "Dev Flow Assistant (GitHub + Jira)"
+- **2–3 words** recommended (e.g. `dev-assistant`, `support-bot`); hard limit **64 characters**
+- Lowercase letters, numbers, and hyphens only (`support-agent`). Spaces and underscores become hyphens as you type
+- Avoid long compound names like `dev-flow-assistant-github-jira`
 - **Description** (max 300 characters) and **instructions** (max 4,000 characters) are both required at creation time
 
 ## Example prompts
@@ -135,7 +135,7 @@ Create an agent that helps our sales team query Salesforce and draft follow-up e
 
 **Clone and adapt**
 ```
-Clone my "Support Bot" agent and add Gmail so it can read customer threads.
+Clone my support-bot agent and add Gmail so it can read customer threads.
 ```
 
 **List and inspect**
@@ -163,6 +163,7 @@ Fine-tune in the **Agents** editor:
 - **Skills** — org skills library
 - **Context** — reusable knowledge items
 - **Generative UI** — visual templates for MCP App results (after the agent is saved)
+- **Workflows** — create, visually edit, run, and simulate graphs
 - **Setup** — MCP URLs, per-tool toggles, and managed setup export
 
 See [Agents](/user-guide/agents) for the full editor reference.

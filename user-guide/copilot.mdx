@@ -124,10 +124,16 @@ File attachments are available in **Chat** mode. Agent Builder focuses on agent 
 
 ### Mentions
 
-Reference specific resources in your messages:
+Type `@` in the chat input to pick a resource:
+
 - **@agents**: Invoke a specific agent to handle the request
+- **@applications / MCP**: Attach an application or native MCP server; the picker shows connection status (connected, idle, or disconnected) above the tools list
 - **@context**: Include context items in the conversation
 - **@threads**: Reference previous conversation threads
+
+### Diagrams
+
+When the assistant replies with a Mermaid chart (flowchart, sequence, and similar), the diagram auto-fits in the message so large charts stay readable without horizontal scrolling.
 
 ### Commands (Saved Prompts)
 
@@ -263,9 +269,10 @@ When errors occur:
 - Use descriptive titles for easy reference
 
 **Use Mentions**
+- Type `@` to pick an agent, application, MCP server, or workflow
+- The picker shows MCP connection status (connected, idle, or disconnected) above the tools list
 - Mention specific agents for specialized tasks
 - Reference context items for consistent data
-- Link related conversation threads
 
 ### Performance Tips
 

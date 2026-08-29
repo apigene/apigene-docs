@@ -22,15 +22,28 @@ Use workflows when you need a **deterministic** sequence — with branching, par
 2. Select an agent
 3. Open the **Workflows** tab
 
-From there you can list workflows, open the graph, run, simulate, and delete. Creating and editing the graph is done through **Copilot chat** (with that agent selected) or **MCP Gateway** tools — the Workflows tab is primarily for viewing and running.
+From there you can list workflows, create a new one, open the graph, **Edit** it visually, run, simulate, and delete. You can also create or update graphs through **Copilot chat** (with that agent selected) or **MCP Gateway** tools.
 
-## View the graph
+## View and edit the graph
 
-Open a workflow to see the read-only graph:
+Open a workflow to see the graph:
 
 - Nodes are color-coded by type (action, condition, join, LLM, approve, output, and more)
 - Click a node to inspect parameters and, after a traced run, step input/output
 - Pan, zoom, search steps, and use the minimap to navigate large graphs
+
+If you have edit access, click **Edit** to change the graph in place:
+
+1. Add steps from the palette: **Action**, **Condition**, **Approval**, **Set values**, **Result**, and **AI step**
+2. Drag from a handle to connect steps. **Backspace** or **Delete** removes the selected step or link
+3. Edit the workflow name and description in the header, and inspect or update the selected node in the side panel
+4. Click **Save** to compile and store the draft
+
+**View** leaves edit mode and discards unsaved changes. Simulation is disabled while you are editing — leave edit mode to replay a run on the graph.
+
+<Note>
+The visual palette covers linear steps plus if / approve branches. Map, switch, and join nodes created from Copilot or MCP still appear on the graph and can be inspected; rewiring those loop or case handles is done from chat or MCP.
+</Note>
 
 ## Run a workflow
 
@@ -76,7 +89,9 @@ From MCP clients, call `resume_workflow` with the `run_id` and `decision`.
 
 ## Create and update workflows
 
-Author workflows by asking Copilot (with the agent selected) to create or update them, or by calling MCP tools from Cursor, Claude, or other clients connected to:
+On the agent's **Workflows** tab, click **New workflow**, enter a name and description, and create. The id is derived from the name (for example `Account update` → `account-update`). The new graph starts with a **Set values** step — open it, click **Edit**, add steps, then **Save**.
+
+You can also ask Copilot (with the agent selected) to create or update a workflow, or call MCP tools from Cursor, Claude, or other clients connected to:
 
 ```
 https://app.apigene.ai/agent/{agent_name}/mcp

@@ -190,6 +190,8 @@ Click on any action to view complete details:
 - Expandable/collapsible sections
 - Copy to clipboard functionality
 
+When the response includes a host/terminal screen (`screenText` — typical of 3270-style or MCP host sessions), a **Terminal** tab appears next to the raw and processed views. It renders the screen text, input fields, and cursor so you can inspect the host UI without reading the JSON payload. The same tab is available on shared action links.
+
 <Note>
 If your organization uses **Headers only** interaction recording, request and response **bodies are redacted**. You still see headers and payload size metadata. If recording is **Disabled**, new actions are not stored. Admins configure this under [Settings → Organization → Interaction Recording](/user-guide/settings#interaction-recording-organization).
 </Note>
