@@ -70,6 +70,23 @@ Some MCP servers require user or client authorization before tools work:
 
 If tools stay empty after install, authorize first, then use **Test tools**.
 
+## Login, logout, and switch OAuth account
+
+Native MCP OAuth tokens are stored per Apigene user. Use **Login** and **Logout** on the MCP dashboard (row menu, server detail, or the @mention picker).
+
+**Login**
+1. Click **Login**
+2. Complete the provider login in the popup
+3. This stores **your** token for Copilot and for the MCP gateway (agents in Cursor / Claude)
+
+**Logout / switch account**
+1. Click **Logout** to clear **your** Copilot session and gateway token
+2. Click **Login** and sign in with the other account
+
+These actions do not delete the MCP server. Other users' tokens are unchanged.
+
+API: [MCP Server Login](/api-reference/mcp-server/mcp-server-login) · [MCP Server Logout](/api-reference/mcp-server/mcp-server-logout)
+
 ## Test MCP tools
 
 1. Open **Test tools** for an installed server

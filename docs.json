@@ -144,6 +144,8 @@
               "api-reference/mcp-server/mcp-server-delete",
               "api-reference/mcp-server/mcp-server-get",
               "api-reference/mcp-server/mcp-server-refresh-tools",
+              "api-reference/mcp-server/mcp-server-login",
+              "api-reference/mcp-server/mcp-server-logout",
               "api-reference/mcp-server/mcp-server-update-tools-cache",
               "api-reference/mcp-server/mcp-server-update"
             ]

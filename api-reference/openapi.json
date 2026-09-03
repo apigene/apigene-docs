@@ -6598,6 +6598,98 @@
         }
       }
     },
+    "/api/mcp-server/login/{server_id}": {
+      "post": {
+        "tags": [
+          "MCP Server"
+        ],
+        "summary": "Mcp Server Login",
+        "description": "Start an OAuth login for the current user on a native MCP server.\n\nDiscovers OAuth metadata, registers the client if needed, and returns an\nauthorization URL. Completing the flow stores a gateway token so Copilot\nand agents in Cursor / Claude can use the new credentials.",
+        "operationId": "mcp_server_login",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Server Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/mcp-server/logout/{server_id}": {
+      "post": {
+        "tags": [
+          "MCP Server"
+        ],
+        "summary": "Mcp Server Logout",
+        "description": "Clear the current user's MCP OAuth token for a native MCP server.\n\nDeletes only this user's stored token (Mongo + Redis) and drops cached\nMCP clients so Copilot and the MCP gateway both re-authorize on next use.\nIdempotent: succeeds when no token is stored.",
+        "operationId": "mcp_server_logout",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Server Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/mcp-server/create_from_api": {
       "post": {
         "tags": [
@@ -6697,7 +6789,7 @@
           "Agent"
         ],
         "summary": "Agents List",
-        "description": "List all agents for the current tenant.\n\nArgs:\n    current_user: The current authenticated user\n    tenant: The tenant database\n    agent_type: Optional filter by agent type\n\nReturns:\n    List[Agent]: List of agents\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(500): If database operation fails or other error occurs",
+        "description": "List agents visible to the current user.\n\nIncludes the user's own agents (private and public) and org-shared\n(public) agents. Other users' private agents are omitted.\n\nArgs:\n    current_user: The current authenticated user\n    tenant: The tenant database\n    agent_type: Optional filter by agent type\n\nReturns:\n    List[Agent]: List of agents\n\nRaises:\n    HTTPException(400): If input validation fails\n    HTTPException(500): If database operation fails or other error occurs",
         "operationId": "agents_list",
         "security": [
           {
