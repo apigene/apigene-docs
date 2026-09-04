@@ -100,15 +100,15 @@ https://app.apigene.ai/agent/{agent_name}/mcp
 
 ### MCP tools (Agent mode)
 
-| Tool | Purpose |
-|------|---------|
-| `list_workflows` | List workflows (`detailed` optional) |
-| `create_workflow` | Create with `workflow_id`, `description`, `nodes`, `connections` |
-| `get_workflow` | Fetch one workflow |
-| `update_workflow` | Patch name, description, nodes, connections, or inputs |
-| `delete_workflow` | Delete by `workflow_id` |
-| `run_workflow` | Run with `inputs`, optional `include_data`, optional `dry_run` |
-| `resume_workflow` | Continue after HITL with `run_id` and `decision` (`approve` \| `reject`) |
+| Tool | Purpose | Mode |
+|------|---------|------|
+| `list_workflows` | List workflows (`detailed` optional) | Live and design |
+| `create_workflow` | Create with `workflow_id`, `description`, `nodes`, `connections` | Design only |
+| `get_workflow` | Fetch one workflow | Live and design |
+| `update_workflow` | Patch name, description, nodes, connections, or inputs | Design only |
+| `delete_workflow` | Delete by `workflow_id` | Design only |
+| `run_workflow` | Run with `inputs`, optional `include_data`, optional `dry_run` | Live and design |
+| `resume_workflow` | Continue after HITL with `run_id` and `decision` (`approve` \| `reject`) | Live and design |
 
 See [MCP Gateway Tools](/user-guide/mcp-gateway/mcp-gateway-tools#list_workflows) for parameter details.
 

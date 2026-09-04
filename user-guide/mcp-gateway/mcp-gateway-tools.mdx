@@ -262,7 +262,7 @@ Only call generative UI tools when the user **explicitly** asks for interactive 
 
 Render a one-off generative UI from an inline json-render spec.
 
-**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+**Available in:** Both MCP and Agent modes, when generative UI is enabled. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 **Parameters:**
 - `title` (string, optional): Heading shown above the widget
@@ -302,7 +302,7 @@ List saved generative UI templates for the agent from the MCP connection URL.
 
 Persist a new generative UI template for reuse.
 
-**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+**Available in:** Both MCP and Agent modes, when generative UI is enabled. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 **Parameters:**
 - `template_id` (string, required): Unique template id (client-provided)
@@ -319,7 +319,7 @@ Put all dynamic values in `state`, not as literals in `elements`. `show_generati
 
 Patch an existing template.
 
-**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+**Available in:** Both MCP and Agent modes, when generative UI is enabled. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 **Parameters:**
 - `template_id` (string, required): Template to update
@@ -343,7 +343,7 @@ Load one template including its full `generative_spec`.
 
 Remove a saved template.
 
-**Available in:** Both MCP and Agent modes, when generative UI is enabled.
+**Available in:** Both MCP and Agent modes, when generative UI is enabled. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 **Parameters:**
 - `template_id` (string, required)
@@ -442,7 +442,7 @@ Search for contexts with flexible filtering.
 
 Create a new context in the system.
 
-**Available in:** Agent mode only
+**Available in:** Agent mode only. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 **Parameters:**
 - `name` (string, required): Unique context name
@@ -536,7 +536,7 @@ Return the full `SKILL.md` content for a skill (YAML front matter plus Markdown 
 
 Create a new skill and attach it to the current agent. Content should follow the [Agent Skills specification](https://github.com/agentskills/agentskills/blob/main/docs/specification.mdx) (valid name format, description length, structured front matter, reasonably sized body with long reference material in `references/` when needed).
 
-**Available in:** Agent mode only
+**Available in:** Agent mode only. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 **Parameters:**
 - `name` (string, required): Skill name (lowercase, hyphens; per spec)
@@ -582,7 +582,7 @@ List workflows for the current agent.
 
 Create a workflow (`workflow_id`, `description`, `nodes`, `connections`; optional `name`, `inputs`).
 
-**Available in:** Agent mode only
+**Available in:** Agent mode only. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 ### get_workflow
 
@@ -594,13 +594,13 @@ Fetch one workflow by `workflow_id` (`detailed` optional).
 
 Update an existing workflow by `workflow_id` (optional fields: `description`, `name`, `nodes`, `connections`, `inputs`).
 
-**Available in:** Agent mode only
+**Available in:** Agent mode only. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 ### delete_workflow
 
 Delete a workflow by `workflow_id`.
 
-**Available in:** Agent mode only
+**Available in:** Agent mode only. **Design-mode only** — hidden from viewers of a shared agent in live MCP.
 
 ### run_workflow
 
@@ -685,41 +685,43 @@ Author templates in the Copilot **Agents** editor (**Generative UI** tab) or ent
 
 ## Complete Tool Index
 
-| Tool | MCP mode | Agent mode |
-|------|----------|------------|
-| `list_actions` | ✅ | ✅ |
-| `search_actions` | ✅ | ✅ |
-| `run_action` | ✅ | ✅ |
-| `run_action_batch` | ✅ | ✅ |
-| `run_multi_actions` | ✅ | ✅ |
-| `run_action_ui` | ✅* | ✅* |
-| `run_multi_actions_ui` | ✅* | ✅* |
-| `show_generative_ui` | ✅* | ✅* |
-| `list_generative_ui_templates` | ✅* | ✅* |
-| `create_generative_ui_template` | ✅* | ✅* |
-| `update_generative_ui_template` | ✅* | ✅* |
-| `get_generative_ui_template` | ✅* | ✅* |
-| `delete_generative_ui_template` | ✅* | ✅* |
-| `show_generative_ui_from_template` | ✅* | ✅* |
-| `get_instructions` | — | ✅ |
-| `list_available_apps` | — | ✅ |
-| `list_contexts` | — | ✅ |
-| `get_context` | — | ✅ |
-| `search_contexts` | — | ✅ |
-| `add_context` | — | ✅ |
-| `list_skills` | — | ✅ |
-| `get_skill` | — | ✅ |
-| `get_skill_content` | — | ✅ |
-| `add_skill` | — | ✅ |
-| `list_workflows` | — | ✅ |
-| `create_workflow` | — | ✅ |
-| `get_workflow` | — | ✅ |
-| `update_workflow` | — | ✅ |
-| `delete_workflow` | — | ✅ |
-| `run_workflow` | — | ✅ |
-| `resume_workflow` | — | ✅ |
+| Tool | MCP mode | Agent live | Agent design |
+|------|----------|------------|--------------|
+| `list_actions` | ✅ | ✅ | ✅ |
+| `search_actions` | ✅ | ✅ | ✅ |
+| `run_action` | ✅ | ✅ | ✅ |
+| `run_action_batch` | ✅ | ✅ | ✅ |
+| `run_multi_actions` | ✅ | ✅ | ✅ |
+| `run_action_ui` | ✅* | ✅* | ✅* |
+| `run_multi_actions_ui` | ✅* | ✅* | ✅* |
+| `show_generative_ui` | ✅* | — | ✅* |
+| `list_generative_ui_templates` | ✅* | ✅* | ✅* |
+| `create_generative_ui_template` | ✅* | — | ✅* |
+| `update_generative_ui_template` | ✅* | — | ✅* |
+| `get_generative_ui_template` | ✅* | ✅* | ✅* |
+| `delete_generative_ui_template` | ✅* | — | ✅* |
+| `show_generative_ui_from_template` | ✅* | ✅* | ✅* |
+| `get_instructions` | — | ✅ | ✅ |
+| `list_available_apps` | — | ✅ | ✅ |
+| `list_contexts` | — | ✅ | ✅ |
+| `get_context` | — | ✅ | ✅ |
+| `search_contexts` | — | ✅ | ✅ |
+| `add_context` | — | — | ✅ |
+| `list_skills` | — | ✅ | ✅ |
+| `get_skill` | — | ✅ | ✅ |
+| `get_skill_content` | — | ✅ | ✅ |
+| `add_skill` | — | — | ✅ |
+| `list_workflows` | — | ✅ | ✅ |
+| `create_workflow` | — | — | ✅ |
+| `get_workflow` | — | ✅ | ✅ |
+| `update_workflow` | — | — | ✅ |
+| `delete_workflow` | — | — | ✅ |
+| `run_workflow` | — | ✅ | ✅ |
+| `resume_workflow` | — | ✅ | ✅ |
 
 \* Requires MCP App UI / generative UI features to be enabled on your deployment. Individual tools can also be disabled per agent via **Setup** → MCP tool toggles in the Agents editor.
+
+**Agent design** tools (`add_skill`, `add_context`, workflow create/update/delete, `show_generative_ui`, and generative UI template create/update/delete) are registered for the agent creator and hidden from other users in live MCP. Details: [Design-mode vs live-mode tools](/user-guide/mcp-gateway/mcp-gateway-modes#design-mode-vs-live-mode-tools).
 
 ## Response Formatting
 

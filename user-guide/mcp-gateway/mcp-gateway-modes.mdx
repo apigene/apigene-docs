@@ -55,7 +55,40 @@ MCP mode provides core action execution capabilities:
 
 **Endpoint (design / draft)**: `https://app.apigene.ai/agent/{genai_app}/design/mcp`
 
-> **Note**: `{genai_app}` is the name of the agent or MCP that is configured in Apigene admin. Connect clients that should run the published agent to the live URL. The design URL reads and writes the unpublished draft (create or delete skills, workflows, and templates) until you [publish](/user-guide/agents#draft-live-and-version-history). Viewers of a shared agent do not see those owner-only tools.
+> **Note**: `{genai_app}` is the name of the agent or MCP that is configured in Apigene admin. Connect clients that should run the published agent to the live URL. The design URL reads and writes the unpublished draft until you [publish](/user-guide/agents#draft-live-and-version-history).
+
+## Design-mode vs live-mode tools
+
+Agent mode tools fall into two groups. **Live-mode** tools stay available to anyone who can use the shared agent. **Design-mode** tools are authoring mutations: they are registered for the agent creator (typically on the design URL) and are hidden from other users in live MCP.
+
+### Design-mode only (creator)
+
+These tools are not available to viewers of a shared agent:
+
+| Tool | Purpose |
+|------|---------|
+| `add_skill` | Create a skill on the agent |
+| `add_context` | Create a context |
+| `create_workflow` | Persist a new workflow |
+| `update_workflow` | Edit a stored workflow |
+| `delete_workflow` | Delete a stored workflow |
+| `show_generative_ui` | Render ad-hoc json-render UI from an inline spec |
+| `create_generative_ui_template` | Create a UI template |
+| `update_generative_ui_template` | Edit a UI template |
+| `delete_generative_ui_template` | Delete a UI template |
+
+### Live mode (creator and viewers)
+
+Everyone with access to the agent can list, read, search, and run:
+
+- Actions: `list_actions`, `search_actions`, `run_action`, `run_action_batch`, `run_multi_actions`, and UI variants when enabled
+- Agent: `get_instructions`, `list_available_apps`
+- Contexts: `list_contexts`, `get_context`, `search_contexts`
+- Skills: `list_skills`, `get_skill`, `get_skill_content`
+- Workflows: `list_workflows`, `get_workflow`, `run_workflow`, `resume_workflow`
+- Generative UI: `list_generative_ui_templates`, `get_generative_ui_template`, `show_generative_ui_from_template`
+
+See the [complete tool index](/user-guide/mcp-gateway/mcp-gateway-tools#complete-tool-index) for MCP vs Agent mode plus design vs live.
 
 ### Capabilities
 
