@@ -51,9 +51,11 @@ MCP mode provides core action execution capabilities:
 
 ## Agent Mode
 
-**Endpoint**: `https://app.apigene.ai/agent/{genai_app}/mcp`
+**Endpoint (live)**: `https://app.apigene.ai/agent/{genai_app}/mcp`
 
-> **Note**: `{genai_app}` is the name of the agent or MCP that is configured in Apigene admin.
+**Endpoint (design / draft)**: `https://app.apigene.ai/agent/{genai_app}/design/mcp`
+
+> **Note**: `{genai_app}` is the name of the agent or MCP that is configured in Apigene admin. Connect clients that should run the published agent to the live URL. The design URL reads and writes the unpublished draft (create or delete skills, workflows, and templates) until you [publish](/user-guide/agents#draft-live-and-version-history). Viewers of a shared agent do not see those owner-only tools.
 
 ### Capabilities
 

@@ -112,9 +112,11 @@ Each message supports:
 ### File Attachments
 
 Upload files to enhance your conversations:
-1. Click the attachment icon in the message input
-2. Select files from your computer
-3. Copilot analyzes and uses the file content in responses
+1. Click the **+** button in the message input and select files
+2. Drag and drop files onto the chat
+3. Paste a screenshot (`⌘V` / `Ctrl+V`) while the chat input is focused — useful after a screen capture to the clipboard
+
+Copilot analyzes and uses the file content in responses.
 
 **Supported formats:** images (`image/*`), PDF (`.pdf`), plain text and code files (`text/*`), and other readable text-based files. Binary files that cannot be read as text prompt you to describe what you need instead.
 
@@ -124,12 +126,13 @@ File attachments are available in **Chat** mode. Agent Builder focuses on agent 
 
 ### Mentions
 
-Type `@` in the chat input to pick a resource:
+Type `@` in the chat input to pick a resource. The picker is split into columns:
 
-- **@agents**: Invoke a specific agent to handle the request
-- **@applications / MCP**: Attach an application or native MCP server; the picker shows connection status (connected, idle, or disconnected) above the tools list
-- **@context**: Include context items in the conversation
-- **@threads**: Reference previous conversation threads
+- **Agents** — invoke a specific agent (and its workflows)
+- **MCP** — attach an application or native MCP server; the picker shows connection status (connected, idle, or disconnected). Use **Login** / **Logout** on a native OAuth server to connect or switch your account
+- **Tools** — built-in tools available in chat
+
+You can also mention **@context** items and previous **@threads**.
 
 ### Diagrams
 
@@ -176,7 +179,7 @@ If [OpenLegacy Hub](/user-guide/openlegacy) is connected for Agent Builder, Hub 
 
 ### Chat Preferences
 
-Open **Chat Preferences** (shortcut **⇧⌘L** / Shift+Cmd+L on supported layouts) to personalize how Copilot behaves in chat:
+Open **Chat Preferences** (shortcut **⇧⌘L** / **Shift+Ctrl+L**) to personalize how Copilot behaves in chat:
 
 - **User instructions / personalization** — how you want to be addressed, role, traits, and related fields
 - **MCP instructions** — optional per-MCP-server customization for tool behavior
@@ -269,9 +272,9 @@ When errors occur:
 - Use descriptive titles for easy reference
 
 **Use Mentions**
-- Type `@` to pick an agent, application, MCP server, or workflow
-- The picker shows MCP connection status (connected, idle, or disconnected) above the tools list
-- Mention specific agents for specialized tasks
+- Type `@` to browse **Agents**, **MCP**, and **Tools** in separate columns
+- The MCP column shows connection status (connected, idle, or disconnected)
+- Mention a specific agent for specialized tasks
 - Reference context items for consistent data
 
 ### Performance Tips
@@ -288,10 +291,13 @@ When errors occur:
 
 ## Keyboard Shortcuts
 
-- `Cmd/Ctrl + Enter`: Send message
-- `Cmd/Ctrl + K`: Open command palette
+Labels use **⌘** on macOS and **Ctrl** on Windows.
+
+- `⌘/Ctrl + Enter`: Send message
+- `⌘/Ctrl + K`: Open command palette
 - `/`: Open [Tasks](/user-guide/tasks) picker (saved prompts)
-- `Shift + Cmd/Ctrl + L`: Open Chat Preferences (when available)
+- `Shift + ⌘/Ctrl + L`: Open Chat Preferences (when available)
+- `⌘/Ctrl + V`: Paste a screenshot or file into chat when the input is focused
 - `Escape`: Cancel current operation
 - `↑`: Edit previous message
 

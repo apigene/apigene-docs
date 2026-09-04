@@ -49,10 +49,10 @@ Manage who can use your agents:
 - Easy visibility toggle
 
 ### Version Control
-Track changes and improvements:
-- Edit instructions over time
-- Update tool configurations
-- Maintain agent consistency
+Edit in **draft**, then **publish** when chat and MCP should pick up the change:
+- **Save** writes the draft only — live stays on the last published version
+- **Publish** (Versions tab) creates a numbered version and points live at it
+- Compare, restore a snapshot into draft, or switch live to an earlier version without changing the MCP URL
 
 ## Creating an Agent
 
@@ -191,7 +191,8 @@ After creating an agent, the editor is organized into tabs:
 | **Context** | Reusable context items |
 | **Generative UI** | Visual templates for MCP App results (available after first save) |
 | **Workflows** | List, create, visually edit, run, and simulate agent workflows |
-| **Setup** | MCP client connection instructions, per-tool toggles, managed setup export |
+| **Versions** | Draft vs live, publish, compare, and version history (available after first save) |
+| **Setup** | Live and design MCP URLs, per-tool toggles, managed setup export |
 
 ## Skills
 
@@ -222,6 +223,50 @@ On the **Setup** tab, expand **Managed agent setup (YAML / JSON)** to export a c
 
 Copy as YAML or JSON for use in compatible deployment workflows.
 
+## MCP connection URLs
+
+On the **Setup** tab, copy the URL that matches how the client should use the agent:
+
+| URL | What it uses |
+|-----|----------------|
+| `/agent/{name}/mcp` | Published **live** version (chat, Cursor, Claude, and other runtime clients) |
+| `/agent/{name}/design/mcp` | Unpublished **draft** — create or delete skills, workflows, and templates until you publish |
+
+Example design URL:
+
+```
+https://app.apigene.ai/agent/{name}/design/mcp
+```
+
+Viewers of a shared agent can connect to the live URL. Design and mutation tools are hidden unless you own the agent.
+
+## Draft, live, and version history
+
+After the first save, the editor and agent cards show:
+
+- A **vN** chip for the current live version
+- A **Draft** chip when unpublished changes exist
+
+**Save** updates draft only. Chat, Tasks, and `/agent/{name}/mcp` keep using live until you publish.
+
+### Publish
+
+1. Open the agent → **Versions**
+2. Review the draft vs live summary (instructions, apps, MCP servers, skills, context, workflows, UI templates, tools)
+3. Click **Publish**, optionally add a note, and confirm
+
+Publish creates the next numbered version and points live at it. The public MCP URL does not change.
+
+### History
+
+The Versions table lists each published snapshot. Open a row for details, or use the row menu to:
+
+- **Compare with live** — side-by-side diff of instructions and attachments
+- **Restore into draft** — copy that version into draft (overwrites unpublished edits)
+- **Switch live here** — point live at an earlier version without rewriting draft
+
+New agents start version history on the first save (`v1`). Existing agents keep working as live; further saves stay in draft until you publish.
+
 ## Using Agents
 
 ### In Copilot
@@ -248,26 +293,27 @@ When you use an agent:
 
 ### Viewing Agents
 
-The Agents page shows two sections:
+The Agents page lists every agent you can see (no 50-item cap). Cards show live version and a **Draft** chip when unpublished changes exist.
 
 **My Agents**
 - Agents you created
 - Private agents
-- Full control to edit or delete
+- Full control to edit, publish, or delete
 
 **Shared Agents**
 - Public agents from your organization
 - Created by team members
-- View-only access
+- View-only access (live version only)
 
 ### Editing Agents
 
 1. Find your agent in "My Agents"
 2. Click the **Edit** icon
 3. Modify instructions, tools, or settings
-4. Click **Save Changes**
+4. Click **Save** to update the **draft**
+5. Open **Versions** and **Publish** when new chats and MCP should use the change
 
-Changes take effect immediately in new conversations.
+Until you publish, existing conversations and the runtime MCP URL keep the last live version.
 
 ### Deleting Agents
 

@@ -121,6 +121,10 @@ Configure AI model preferences and access.
 - Add a custom **model ID** when your provider offers a model that is not in the default list (static-catalog providers)
 - Remove custom models you no longer need; built-in models can only be disabled, not deleted
 
+**Extra HTTP headers**
+- On each model provider, expand **Extra headers** to send additional request headers on every call (for example Anthropic `anthropic-workspace-id`)
+- Empty names are ignored; headers are stored with the provider config and applied in Copilot
+
 **Reasoning Effort**
 - Organization-wide setting for how much supported models think before answering
 - Options: None, Low, Medium, High
@@ -361,6 +365,12 @@ Enable AI models by adding provider API keys:
 2. Find **Microsoft Foundry** (Azure OpenAI)
 3. Configure authentication (service principal or API key) and add deployments
 4. Each deployment maps to a model name shown in Copilot
+
+**Extra HTTP headers**
+1. Open the provider card under Settings → Organization → Model Settings
+2. Expand **Extra headers**
+3. Add header name and value pairs (for example `anthropic-workspace-id` on Anthropic)
+4. Save — Copilot sends these headers on every request to that provider
 
 **Exa (Web Search)**
 1. Navigate to Settings > Organization > Model Settings

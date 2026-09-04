@@ -6,6 +6,62 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="September 4, 2026" description="Agents" tags={["Agents", "MCP", "Copilot"]}>
+  ## Draft and live agent versions
+
+  Edit an agent without changing what chat and MCP run until you publish.
+
+  ### What's new
+  - **Draft vs live** — **Save** updates the draft. Chat and the runtime MCP URL keep using the published **live** version
+  - **Publish** — On the agent's **Versions** tab, publish the draft (optional note) to create a numbered version and point live at it
+  - **Version history** — Compare draft to live, inspect a snapshot, restore a version into draft, or switch live to an earlier version (the MCP URL stays the same)
+  - **Live and Draft chips** — Agent cards and the editor show the live version (`vN`) and a **Draft** chip when unpublished changes exist
+  - **Design MCP** — `https://app.apigene.ai/agent/{name}/design/mcp` reads and writes the draft (skills, workflows, templates). The usual `/agent/{name}/mcp` URL stays on live
+  - **Owner-only edits** — Viewers of a shared agent can use the live agent but do not see design or mutation tools
+
+  ### Improvements
+  - Agents list is no longer limited to the first 50 agents
+</Update>
+
+<Update label="September 3, 2026" description="Copilot" tags={["MCP", "Copilot"]}>
+  ## Native MCP login/logout and OS-aware shortcuts
+
+  Sign in to a native MCP server as yourself, and see the right modifier key for your OS.
+
+  ### What's new
+  - **Login / Logout** — On the MCP dashboard, server detail, or @mention picker, complete OAuth in a popup or log out to switch accounts. Tokens are per user and apply to Copilot and the MCP gateway
+  - **OS-aware shortcuts** — Shortcut labels show `Ctrl` on Windows and `⌘` on macOS
+
+  ### Improvements
+  - Native MCP tool lists follow pagination so servers with many tools are fully cached
+</Update>
+
+<Update label="August 31, 2026" description="Copilot" tags={["Copilot", "Chat"]}>
+  ## Paste screenshots into chat
+
+  Attach a screenshot from the clipboard without saving it first.
+
+  ### What's new
+  - **Paste screenshot** — With the chat input focused, press `⌘V` / `Ctrl+V` to attach a clipboard image (screen capture, copied image, or a file copied from Finder / Explorer)
+</Update>
+
+<Update label="August 30, 2026" description="v5.22.17" tags={["Copilot", "Skills", "Workflows", "Settings"]}>
+  ## Mention picker columns, skill zip upload, and workflow help
+
+  Find agents, MCP servers, and tools faster, upload a full skill folder, and look up workflow node docs on the graph.
+
+  ### What's new
+  - **Mention picker columns** — Type `@` to browse **Agents**, **MCP**, and **Tools** in separate columns
+  - **Skill folder zip** — **Upload Skill** accepts a `.zip` of an Agent Skills folder (`SKILL.md` at the root or in a wrapper folder), not only a single `SKILL.md`
+  - **Workflow help** — Open in-app help from the graph or a run for node types, expressions, and limits
+  - **Extra HTTP headers** — Admins add per-provider request headers under **Settings → Organization → Model Settings** (for example `anthropic-workspace-id`)
+
+  ### Improvements
+  - Hide or show the workflow mini map; clearer node inspector
+  - Agent Builder shortcut on the Agents page appears when creating a new agent
+  - Chat Agents list updates when an agent is renamed or deleted
+</Update>
+
 <Update label="August 29, 2026" description="v5.22.13" tags={["Workflows", "Agents", "Actions", "Copilot", "Applications"]}>
   ## Visual workflow editing, URL-safe agent names, and host-screen Actions
 
