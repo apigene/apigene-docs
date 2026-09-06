@@ -437,6 +437,22 @@ Stored credentials are shown as the last 4 characters. Enter a new value to repl
 
 Full walkthrough: [OpenLegacy Hub](/user-guide/openlegacy).
 
+### Industry marketplace
+
+Point the Industry Agent Gallery on **Agents** at a private GitHub marketplace repo (Claude plugin layout, e.g. `apigene/apigene-industry-marketplace`).
+
+1. Settings → Organization → **Industry marketplace**
+2. Enable **Enable GitHub marketplace**
+3. Enter the **GitHub repository** as `owner/name` or a `https://github.com/owner/name` URL
+4. Set the **Branch or ref** (default `main`)
+5. Enter a GitHub personal access token with read access to that private repo (`contents:read` or classic `repo`)
+6. Click **Test connection** to confirm `marketplace.json` is readable (uses the token in the form; after save only last 4 characters remain and Test is disabled until you paste a new token)
+7. Save organization settings
+
+Stored tokens are shown as the last 4 characters. Enter a new value to replace them. Stored as `industry_marketplace` on the organization (`enabled`, `repo`, `ref`, `token`). The token never appears in gallery API responses — Copilot reads files through the backend.
+
+A local `INDUSTRY_MARKETPLACE_PATH` env var still overrides this for development.
+
 ### Authentication Providers (Self-Hosted)
 
 Apigene Copilot supports multiple auth backends via `NEXT_PUBLIC_AUTH_PROVIDER`:
