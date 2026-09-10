@@ -9377,6 +9377,19 @@
             "title": "Name",
             "description": "Name of the agent"
           },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name",
+            "description": "Optional UI label shown instead of name. Null falls back to name."
+          },
           "description": {
             "type": "string",
             "title": "Description",
@@ -9482,6 +9495,19 @@
             "type": "string",
             "title": "Name",
             "description": "Name of the agent"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name",
+            "description": "Optional UI label shown instead of name. Empty or omitted falls back to name."
           },
           "description": {
             "type": "string",
@@ -9621,6 +9647,19 @@
             ],
             "title": "Name",
             "description": "Name of the agent"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name",
+            "description": "Optional UI label shown instead of name. Empty string clears the override."
           },
           "description": {
             "anyOf": [
