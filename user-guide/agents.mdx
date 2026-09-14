@@ -76,6 +76,11 @@ For most users, start in Agent Builder and refine in the editor afterward.
 - Spaces and underscores are converted to hyphens as you type
 - Maximum 64 characters; keep it short so MCP URLs stay readable
 
+**Display Name** (Optional)
+- Friendly label shown in chat, agent cards, and pickers (up to 64 characters)
+- Leave empty to show the kebab-case name
+- MCP URLs and `@` mentions still use the agent **name**
+
 **Agent Description** (Optional)
 - Explain the agent's purpose
 - Describe what it's good at
@@ -184,7 +189,7 @@ After creating an agent, the editor is organized into tabs:
 
 | Tab | Purpose |
 |-----|---------|
-| **Instructions** | Name, description, icon, and system prompt |
+| **Instructions** | Name, optional display name, description, icon, and system prompt |
 | **Applications** | OpenAPI integrations attached to the agent |
 | **MCP Servers** | Native MCP server attachments |
 | **Skills** | Org skills from your [Skills](/user-guide/skills) library |
@@ -281,6 +286,8 @@ Invoke agents in your conversations:
 **Implicit Usage**
 The agent's instructions guide the conversation context and behavior.
 
+Pickers and agent cards show the optional **display name**. `@` mentions still use the kebab-case name.
+
 ### Agent Context
 
 When you use an agent:
@@ -293,7 +300,7 @@ When you use an agent:
 
 ### Viewing Agents
 
-The Agents page lists every agent you can see (no 50-item cap). Cards show live version and a **Draft** chip when unpublished changes exist.
+The Agents page lists every agent you can see (no 50-item cap). Cards show the **display name** when set, live version, and a **Draft** chip when unpublished changes exist.
 
 **My Agents**
 - Agents you created
@@ -304,6 +311,10 @@ The Agents page lists every agent you can see (no 50-item cap). Cards show live 
 - Public agents from your organization
 - Created by team members
 - View-only access (live version only)
+
+### Agent Marketplace
+
+When an admin enables [Agent Marketplace](/user-guide/settings#agent-marketplace), the Agents page shows a catalog from a private GitHub repo (Claude plugin layout). Browse by industry or line of business, preview a listing, and install it as an agent in your organization.
 
 ### Editing Agents
 

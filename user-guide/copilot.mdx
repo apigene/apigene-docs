@@ -35,12 +35,12 @@ Copilot can run tools live and render structured results (for example, a searcha
 - View request and response data in real-time
 - Monitor tool invocations as they happen
 
-### Agent Builder Mode
-A dedicated mode for **creating and configuring agents** — not for everyday chat. Agent Builder walks you through discovering integrations, drafting instructions, attaching skills, validating config, and presenting setup cards.
+### Design Agent (Agent Builder)
+A dedicated mode for **creating and configuring agents** — not for everyday chat. In the UI it is labeled **Design Agent**. Use **Create** for a new agent, or **Extend** to add a skill, workflow, or UI to an existing draft (publish stays explicit).
 
-Use **Chat** to talk to your apps and agents. Use **Agent Builder** to define agents as resources.
+Use **Chat** to talk to your apps and agents. Use Design Agent to define agents as resources.
 
-See the full [Agent Builder guide](/user-guide/agent-builder) for workflows, examples, and when to use each mode.
+See the full [Agent Builder](/user-guide/agent-builder) guide for workflows, examples, and when to use each mode.
 
 ### Model Selection
 Choose from multiple AI model providers configured in [Settings](/user-guide/settings):
@@ -53,6 +53,8 @@ Choose from multiple AI model providers configured in [Settings](/user-guide/set
 
 The model selector supports search and collapsible provider groups when you have many models configured.
 
+When an admin enables **Model comparison**, the composer shows **Compare**. Pick a second model and send the same prompt to both. Each comparison doubles token spend and may execute tools twice. See [Settings](/user-guide/settings#model-comparison).
+
 ### Reasoning Models
 For models that support extended thinking, Copilot can show a **reasoning** panel alongside the response. Organization admins set **Reasoning Effort** (None, Low, Medium, High) under Settings → Organization → Model Settings.
 
@@ -61,7 +63,7 @@ For models that support extended thinking, Copilot can show a **reasoning** pane
 ### Starting a New Chat
 
 1. Navigate to the **Copilot** page from the main navigation
-2. Choose **Chat** or **Agent Builder** with the mode toggle on the home screen, or open **Agent Builder** from the sidebar / user menu
+2. Choose **Chat** or **Design Agent** (Agent Builder) with the mode toggle on the home screen, or open **Design Agent** from the sidebar / user menu
 3. Type your request in the message input at the bottom
 4. Press Enter or click Send to start the conversation
 
@@ -187,9 +189,11 @@ Open **Chat Preferences** (shortcut **⇧⌘L** / **Shift+Ctrl+L**) to personali
 
 These preferences are personal. Organization model keys and policies still come from [Settings](/user-guide/settings).
 
-### Right-to-left languages
+### Languages and layout
 
-Copilot detects Hebrew and Arabic in messages, suggestions, and the composer and applies RTL alignment automatically. Code blocks stay LTR for readability.
+Set the Copilot UI language under **Settings → Personal → Language** (English, Español, Deutsch, Français, Português (Brasil), 日本語, עברית). The choice is stored on your user. Auto-generated thread titles use that language.
+
+Hebrew uses a full right-to-left layout. Copilot also detects Hebrew and Arabic in messages, suggestions, and the composer and applies RTL alignment. Code blocks and byte sizes stay LTR for readability.
 
 ## Tool Control
 

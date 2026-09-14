@@ -6,6 +6,49 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="September 14, 2026" description="v5.23.12" tags={["Copilot", "Settings"]}>
+  ## Localization
+
+  Copilot is localized. Choose a language under **Settings → Personal → Language** (including Hebrew with RTL and Japanese). The preference is stored on your user.
+</Update>
+
+<Update label="September 7, 2026" description="v5.23.7" tags={["Copilot", "Settings", "Models"]}>
+  ## Side-by-side model comparison
+
+  Run the same prompt against two models in chat (organization opt-in).
+
+  ### What's new
+  - **Model comparison** — Admins enable it under **Settings → Organization → Advanced → Model comparison**
+  - **Compare** — In chat, pick a second model and send. Chat as many turns as you need, then conclude for a review. Each comparison doubles token spend and may execute tools twice
+</Update>
+
+<Update label="September 6, 2026" description="v5.23.6" tags={["Agents", "Settings", "Copilot"]}>
+  ## Agent Marketplace and sidebar navigation
+
+  Install industry agents from a private GitHub marketplace, and open core pages from the left nav.
+
+  ### What's new
+  - **Agent Marketplace** — On **Agents**, browse and install agents from a Claude-plugin marketplace repo. Admins point the gallery at GitHub under **Settings → Organization → Agent Marketplace**
+  - **Sidebar** — **Agents**, **Tasks**, **Applications**, **Skills**, and **Context** are in the left navigation (not only the app menu)
+
+  ### Improvements
+  - Shared agents stay read-only for non-creators
+</Update>
+
+<Update label="September 5, 2026" description="v5.23.1" tags={["Agents", "Workflows", "Copilot"]}>
+  ## Design Agent Create and Extend
+
+  Design Agent (Agent Builder) splits into creating a new agent versus extending an existing draft.
+
+  ### What's new
+  - **Create** — Define a new agent's instructions, apps, and behavior
+  - **Extend** — Add a skill, workflow, or UI to the draft; **Publish** stays explicit
+  - **Draft chip** — Extend shows **Draft** as soon as a skill, workflow, or UI is added
+
+  ### Improvements
+  - Create workflows from Copilot or MCP. The **New workflow** form is no longer on the agent **Workflows** tab — open a workflow there to **Edit** the graph
+</Update>
+
 <Update label="September 4, 2026" description="v5.23.0" tags={["Agents", "MCP", "Copilot"]}>
   ## Draft and live agent versions
 

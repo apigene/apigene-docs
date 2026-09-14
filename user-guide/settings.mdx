@@ -31,7 +31,7 @@ Personal preferences and account information.
 **Preferences**
 - Default AI model preference
 - Theme (light/dark mode)
-- Language preferences
+- **Language** — UI locale stored on your user (**Settings → Personal → Language**): English, Español, Deutsch, Français, Português (Brasil), 日本語, עברית
 - Notification settings
 
 **Chat**
@@ -210,6 +210,9 @@ Under **Settings → Organization** (Advanced), admins can also configure:
 
 **Reasoning Effort**
 - Organization-wide None / Low / Medium / High for supported models
+
+**Model comparison**
+- Opt-in **Compare** control in Copilot chat (two models side by side). Off by default because each comparison doubles token spend and may run tools twice
 
 ### Branding (Organization)
 
@@ -401,6 +404,24 @@ Control extended thinking for supported models:
 4. Save organization settings
 
 Higher effort may improve complex answers but increases latency and cost.
+
+### Model comparison
+
+Let users run the same prompt against two models in Copilot:
+
+1. Settings → Organization → **Advanced** → **Model comparison**
+2. Enable **Model comparison**
+3. Save organization settings
+
+When it is on, Copilot shows **Compare** on the chat composer. Pick a second model, send, continue the thread as needed, then conclude to generate a review. Stored as `model_comparison.enabled` on the organization (default off).
+
+### Change UI language
+
+1. Open **Settings → Personal → Language**
+2. Choose a locale (English, Español, Deutsch, Français, Português (Brasil), 日本語, עברית)
+3. The UI reloads in that language. Hebrew uses a right-to-left layout
+
+The choice is stored on your user (`language`) and synced across browsers. Auto-generated chat thread titles use the selected language.
 
 ### Mock Execution Mode
 

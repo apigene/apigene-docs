@@ -22,7 +22,7 @@ Use workflows when you need a **deterministic** sequence — with branching, par
 2. Select an agent
 3. Open the **Workflows** tab
 
-From there you can list workflows, create a new one, open the graph, **Edit** it visually, run, simulate, and delete. You can also create or update graphs through **Copilot chat** (with that agent selected) or **MCP Gateway** tools.
+From there you can list workflows, open the graph, **Edit** it visually, run, simulate, and delete. Create or update graphs through **Copilot** / **Design Agent** (with that agent selected) or **MCP Gateway** tools.
 
 ## View and edit the graph
 
@@ -90,13 +90,15 @@ From MCP clients, call `resume_workflow` with the `run_id` and `decision`.
 
 ## Create and update workflows
 
-On the agent's **Workflows** tab, click **New workflow**, enter a name and description, and create. The id is derived from the name (for example `Account update` → `account-update`). The new graph starts with a **Set values** step — open it, click **Edit**, add steps, then **Save**.
+Ask Copilot (with the agent selected) or Design Agent **Extend** to create a workflow, or call MCP `create_workflow` from Cursor, Claude, or other clients connected to the design MCP URL. The id is derived from the name (for example `Account update` → `account-update`). Open the new graph on the agent's **Workflows** tab, click **Edit**, add steps, then **Save**.
 
-You can also ask Copilot (with the agent selected) to create or update a workflow, or call MCP tools from Cursor, Claude, or other clients connected to:
+MCP clients can also create or update workflows when connected to the **design** MCP URL (mutations are design-only):
 
 ```
-https://app.apigene.ai/agent/{agent_name}/mcp
+https://app.apigene.ai/agent/{agent_name}/design/mcp
 ```
+
+Runtime runs use `https://app.apigene.ai/agent/{agent_name}/mcp` (live).
 
 ### MCP tools (Agent mode)
 

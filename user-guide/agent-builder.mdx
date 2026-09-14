@@ -1,14 +1,14 @@
 ---
 title: 'Agent Builder'
-description: 'Create and configure AI agents through a guided conversational workflow'
+description: 'Create and configure AI agents through Design Agent (Create or Extend)'
 icon: 'wrench'
 ---
 
 ## Overview
 
-**Agent Builder** is a dedicated Copilot mode for designing, listing, inspecting, and configuring agents. Use it when you want to **define** an agent as a resource — instructions, applications, MCP servers, skills, and setup — rather than simply **chat** with one.
+**Design Agent** (documented here as Agent Builder) is a dedicated Copilot mode for designing, listing, inspecting, and configuring agents. Use it when you want to **define** an agent as a resource — instructions, applications, MCP servers, skills, and setup — rather than simply **chat** with one.
 
-Chat mode is for having a conversation (optionally with one agent selected via `@`). Agent Builder is for agent management: create, clone, validate, and wire integrations before you use the agent in everyday chat.
+Chat mode is for having a conversation (optionally with one agent selected via `@`). Design Agent is for agent management: **Create** a new agent, or **Extend** an existing draft with skills, workflows, or UI.
 
 <Frame>
   <img src="/images/product/agent-builder.png" alt="Agent Builder mode home screen" style={{ borderRadius: '0.5rem' }} />
@@ -16,37 +16,37 @@ Chat mode is for having a conversation (optionally with one agent selected via `
 
 ## Chat vs Agent Builder
 
-| | **Chat** | **Agent Builder** |
+| | **Chat** | **Design Agent** |
 |---|----------|-------------------|
 | **Purpose** | Ask questions, run tools, use an agent in conversation | Create and configure agents |
-| **Agent selection** | Pick one agent via `@` to shape behavior | Build or edit the agent definition itself |
+| **Agent selection** | Pick one agent via `@` to shape behavior | **Create** a new agent, or **Extend** an existing draft |
 | **Tools available** | Application tools, workflows, MCP actions | Builder tools (search apps, generate instructions, create agent, etc.) |
 | **Best for** | "Read my email", "Summarize this doc" | "Build me a support agent for Slack and Jira" |
 
-If you ask in **Chat** to create an agent, list your agents, or inspect full agent configuration, Copilot will suggest switching to **Agent Builder** and show a one-click **Switch to Agent Builder** card.
+If you ask in **Chat** to create an agent, list your agents, or inspect full agent configuration, Copilot will suggest switching to **Design Agent** and show a one-click shortcut card.
 
 ## Switching to Agent Builder
 
 ### From the sidebar or user menu
 
-Open **Agent Builder** from the main sidebar (next to **New Chat**) or from the user navigation menu. This starts a new Builder-mode session without hunting for the home-screen toggle.
+Open **Design Agent** from the main sidebar (next to **New Chat**) or from the user navigation menu. Choose **Create** or **Extend** depending on whether you are defining a new agent or adding to an existing draft.
 
 ### From the home screen
 
 On a **new chat** (home), use the mode toggle in the top bar:
 
 1. **Chat** — default conversational mode
-2. **Agent Builder** — agent creation and management mode
+2. **Design Agent** — agent creation and management mode (**Create** or **Extend**)
 
-The message input border turns blue in Agent Builder so you can tell which mode you are in at a glance.
+The message input border turns blue in Design Agent so you can tell which mode you are in at a glance.
 
 <Note>
-The Chat / Agent Builder toggle is available on the **home** (new chat) screen. From an ongoing thread, use the in-chat **Switch to Agent Builder** card, the sidebar **Agent Builder** item, or start a **New chat** to change modes.
+The Chat / Design Agent toggle is available on the **home** (new chat) screen. From an ongoing thread, use the in-chat Design Agent shortcut card, the sidebar **Design Agent** item, or start a **New chat** to change modes.
 </Note>
 
 ### From an ongoing chat
 
-When Copilot detects agent-management intent (create, list, clone, inspect config, compare agents), it can show an **Agent Builder** shortcut card in the thread. Click **Switch to Agent Builder** to change mode without leaving the conversation context.
+When Copilot detects agent-management intent (create, list, clone, inspect config, compare agents), it can show a **Design Agent** shortcut card in the thread. Choose **Create** or **Extend** without leaving the conversation context.
 
 You can also open **Agents** from the main menu (`/agents`, `/agent/new`, `/agent/[id]`) for the full agent editor UI.
 
@@ -58,7 +58,8 @@ Agent Builder uses specialized tools to help you end-to-end:
 - **OpenLegacy Hub** — when Hub is enabled, include Hub projects in app scope; Builder can provision a Hub skill and attach **ol-hub** when you build from those projects (see [OpenLegacy Hub](/user-guide/openlegacy))
 - **Generate and refine instructions** — AI-drafted system prompts based on your use case
 - **Skills** — search your org library and [skills.sh](https://skills.sh), propose skills to attach, and wait for your approval before creating the agent
-- **Create and update agents** — name, description, instructions, applications, MCP servers, contexts, and skills
+- **Create and update agents** — name, optional display name, description, instructions, applications, MCP servers, contexts, and skills
+- **Extend an existing agent** — add a skill, workflow, or generative UI to the draft (publish remains a separate step)
 - **Clone agents** — start from an existing agent as a template
 - **Validate configuration** — check names, instructions, and attachments before saving
 - **Present results** — after creation, shows an agent card and setup instructions for connecting to Claude, Cursor, ChatGPT, and other MCP clients
@@ -104,6 +105,7 @@ Agent Builder drafts a structured system prompt (role, guidelines, boundaries) a
 Configuration is validated before the agent is created:
 
 - **Name** — required; up to 64 characters; lowercase kebab-case (`support-agent`). Spaces and underscores become hyphens
+- **Display name** — optional; up to 64 characters; shown in chat and cards instead of `name`
 - **Description** — required; up to 300 characters; short summary of what the agent does
 - **Instructions** — required; up to 4,000 characters; system prompt / behavior
 - Valid application, MCP, skill, and context references (OpenAPI-backed MCP proxies must be attached as **APIs**, not native MCP servers)
@@ -186,10 +188,10 @@ See [Agents](/user-guide/agents) for the full editor reference. Saving in the ed
 
 ## Troubleshooting
 
-### I do not see the Agent Builder toggle
+### I do not see the Design Agent toggle
 
 - Open a **new chat** from the home screen — the toggle is on the new-chat view
-- From an existing thread, use the **Switch to Agent Builder** card or **New chat**
+- From an existing thread, use the **Design Agent** shortcut card or **New chat**
 
 ### Agent Builder created an agent but tools fail in Chat
 

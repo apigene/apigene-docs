@@ -13521,6 +13521,67 @@
         "type": "object",
         "title": "OpenLegacySettings"
       },
+      "ModelComparisonSettings": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "When enabled, Copilot chat shows the Compare control for running a prompt against two models side by side. Each comparison doubles token spend and may execute tools twice, so it is opt-in per organization.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "ModelComparisonSettings"
+      },
+      "IndustryMarketplaceSettings": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "When enabled, Copilot loads the Agent Marketplace from this GitHub repo",
+            "default": false
+          },
+          "repo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repo",
+            "description": "GitHub repository as owner/name or https://github.com/owner/name"
+          },
+          "ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ref",
+            "description": "Branch, tag, or commit SHA (default main)",
+            "default": "main"
+          },
+          "token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Token",
+            "description": "GitHub personal access token with read access to the private repo"
+          }
+        },
+        "type": "object",
+        "title": "IndustryMarketplaceSettings"
+      },
       "OrgSettings": {
         "properties": {
           "proxy_server_url": {
@@ -13669,6 +13730,28 @@
               }
             ],
             "description": "OpenLegacy Hub connection settings (server URL, auth type, and credential)"
+          },
+          "model_comparison": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ModelComparisonSettings"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Opt-in side-by-side model comparison in Copilot chat"
+          },
+          "industry_marketplace": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IndustryMarketplaceSettings"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Private GitHub source for the Agent Marketplace gallery"
           }
         },
         "type": "object",
@@ -14263,6 +14346,18 @@
             ],
             "title": "Prompt Presets",
             "description": "Personal prompt presets (name, prompt text, optional agent)."
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language",
+            "description": "Preferred UI language code, e.g. 'en', 'he', or 'ja'."
           }
         },
         "type": "object",
