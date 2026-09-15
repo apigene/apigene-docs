@@ -2474,7 +2474,7 @@
           "Org"
         ],
         "summary": "Retrieve Organization settings",
-        "description": "Retrieves organization settings. Secrets (model_registry API keys and openlegacy.api_key) are returned as last4 by default. Pass include_secrets=true as an org admin to receive full secrets.",
+        "description": "Retrieves organization settings. Secrets (model_registry API keys, openlegacy.api_key, and industry_marketplace.token) are returned as last4 by default. Pass include_secrets=true to receive full secrets: org admins receive all of them, while members receive model_registry credentials only (needed to run models and tools) with integration tokens still redacted.",
         "operationId": "org_settings_get",
         "security": [
           {
