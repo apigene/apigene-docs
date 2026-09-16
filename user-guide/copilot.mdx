@@ -38,7 +38,7 @@ Copilot can run tools live and render structured results (for example, a searcha
 ### Design Agent (Agent Builder)
 A dedicated mode for **creating and configuring agents** — not for everyday chat. In the UI it is labeled **Design Agent**. Use **Create** for a new agent, or **Extend** to add a skill, workflow, or UI to an existing draft (publish stays explicit).
 
-Use **Chat** to talk to your apps and agents. Use Design Agent to define agents as resources.
+Use **Live** (Chat) to talk to your apps and agents. Switch to **Design** and open **Design Agent** to define agents as resources.
 
 See the full [Agent Builder](/user-guide/agent-builder) guide for workflows, examples, and when to use each mode.
 
@@ -62,8 +62,8 @@ For models that support extended thinking, Copilot can show a **reasoning** pane
 
 ### Starting a New Chat
 
-1. Navigate to the **Copilot** page from the main navigation
-2. Choose **Chat** or **Design Agent** (Agent Builder) with the mode toggle on the home screen, or open **Design Agent** from the sidebar / user menu
+1. Stay in the **Live** workspace (sidebar toggle) and click **New Chat**
+2. To design an agent instead, switch to **Design** and open **Design Agent**, or use the mode toggle on the home screen
 3. Type your request in the message input at the bottom
 4. Press Enter or click Send to start the conversation
 
@@ -102,6 +102,7 @@ When Copilot executes actions, you'll see:
 - **Parameters**: The data being sent to the API
 - **Status indicators**: Success, loading, or error states
 - **Response data**: Full results from the API call
+- **Generative UI**: Interactive widgets (tables, charts, and similar) stay expanded in the tool group instead of collapsing with other calls. Workflow runs that render UI are listed separately from the collapsed group.
 
 ### Message Actions
 
@@ -134,7 +135,7 @@ Type `@` in the chat input to pick a resource. The picker is split into columns:
 - **MCP** — attach an application or native MCP server; the picker shows connection status (connected, idle, or disconnected). Use **Login** / **Logout** on a native OAuth server to connect or switch your account
 - **Tools** — built-in tools available in chat
 
-You can also mention **@context** items and previous **@threads**.
+You can also mention **@context** items and previous **@threads**. On a phone, the mention and model pickers open as sheets so they stay usable above the keyboard.
 
 ### Diagrams
 

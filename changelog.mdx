@@ -6,6 +6,24 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="September 16, 2026" description="v5.23.18" tags={["Copilot", "Agents", "Settings"]}>
+  ## Live and Design workspaces, and Try Now with demo apps
+
+  Switch the sidebar between chatting (**Live**) and building agents (**Design**). Marketplace **Try Now** can provision demo applications so the agent is ready to run.
+
+  ### What's new
+  - **Live / Design** — Toggle **Live** and **Design** in the sidebar. **Live** is chat, **Tasks**, and personal settings. **Design** groups **Build** (Agents, Applications, Skills, Context), **Monitor** (Actions, Workflows, Insights), and **Admin**. Members and phones stay in Live
+  - **Try Now** — On a marketplace plugin, **Try Now** installs (or reuses) the agent, can prepare recommended demo applications, connects the agent to Copilot, and opens chat in **Live**. First-time setup shows a progress sheet; click the spinning button to reopen it
+  - **Generative UI in chat** — Tool groups that render a UI stay expanded; workflow runs that show generative UI are not folded into the collapsed group
+
+  ### Improvements
+  - Light theme contrast
+  - On mobile, the composer stays in view and mention/model pickers open as sheets
+  - Multi-line paste no longer doubles newlines
+  - Organization members can use models configured in org settings
+  - Failed API calls keep request and response data in **Actions** (when recording is on)
+</Update>
+
 <Update label="September 14, 2026" description="v5.23.12" tags={["Copilot", "Settings"]}>
   ## Localization
 
