@@ -6,6 +6,27 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="September 24, 2026" description="v5.24.0" tags={["Agents", "Copilot", "Models"]}>
+  ## Agent zip export and import, and Design Agent Mock Mode
+
+  Move an agent between organizations as a `.zip` bundle, or design against a mock API when the real system is not ready yet.
+
+  ### What's new
+  - **Agent bundle** — On **Versions**, **Export .zip** downloads the draft (instructions, skills, contexts, OpenAPI apps, MCP servers, workflows, and UI templates — not credentials). A published version can be downloaded from its row menu. On **Agents**, **Import** uploads a bundle: missing apps are created and indexed; existing apps are reused as they are. If the agent name already exists, update the draft (owners only) or create a copy
+  - **Mock Mode** — In Design Agent, choose **Mock Mode** (alongside **Create** and **Extend**). Describe a system that does not exist yet; Copilot provisions a mock application, builds an agent on it, and offers **Try in chat**. The session is available when a mock service is configured
+  - **Model catalog** — Built-in pickers include GPT-6 (Astra, Sol, Luna), Claude Opus 5.5 / Fable 5.1 / Sonnet 5, Grok 4.7, and Gemini 3.8 Flash
+
+  ### Improvements
+  - Light-mode status and live/draft badge contrast
+  - Version compare reads older to newer
+  - Use case proposal cards fit a full idea on screen, with app icons on chips
+  - Tool calls show agent display names; RTL chevrons flip correctly
+  - Settings section cards match application tabs
+  - Marketplace **Try Now** waits for spec reindex before creating the agent
+  - Switching **Live** / **Design** refreshes home when the thread was started there
+  - Mock Mode setup shows elapsed time
+</Update>
+
 <Update label="September 16, 2026" description="v5.23.18" tags={["Copilot", "Agents", "Settings"]}>
   ## Live and Design workspaces, and Try Now with demo apps
 

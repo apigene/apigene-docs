@@ -196,7 +196,7 @@ After creating an agent, the editor is organized into tabs:
 | **Context** | Reusable context items |
 | **Generative UI** | Visual templates for MCP App results (available after first save) |
 | **Workflows** | List, create, visually edit, run, and simulate agent workflows |
-| **Versions** | Draft vs live, publish, compare, and version history (available after first save) |
+| **Versions** | Draft vs live, publish, compare, version history, and `.zip` export (available after first save) |
 | **Setup** | Live and design MCP URLs, per-tool toggles, managed setup export |
 
 ## Skills
@@ -266,7 +266,8 @@ Publish creates the next numbered version and points live at it. The public MCP 
 
 The Versions table lists each published snapshot. Open a row for details, or use the row menu to:
 
-- **Compare with live** — side-by-side diff of instructions and attachments
+- **Compare with live** — side-by-side diff of instructions and attachments (older on the left, newer on the right)
+- **Download .zip** — export that published snapshot as an agent bundle (see [Export and import](#export-and-import-a-zip-bundle))
 - **Restore into draft** — copy that version into draft (overwrites unpublished edits)
 - **Switch live here** — point live at an earlier version without rewriting draft
 
@@ -311,6 +312,39 @@ The Agents page lists every agent you can see (no 50-item cap). Cards show the *
 - Public agents from your organization
 - Created by team members
 - View-only access (live version only)
+
+### Export and import a zip bundle
+
+Move an agent between organizations or environments (for example, design in one org and restore in another). The archive is a single `.zip` named `<agent-name>-<timestamp>.zip`. Credentials are never included — reconnect security on imported apps and MCP servers.
+
+The bundle includes:
+
+- Agent name, display name, description, icon, visibility, and instructions
+- Attached skills, contexts, OpenAPI applications, and native MCP servers
+- Workflows and generative UI templates
+- Per-tool enable/disable settings
+
+**Export**
+
+1. Open the agent → **Versions**
+2. Click **Export .zip** to pack the current **draft** (a progress state shows while it packs)
+3. To export a published snapshot instead, open the version’s row menu and choose **Download .zip**
+
+If some resources could not be read, the download still completes and Copilot notes how many warnings were skipped.
+
+**Import**
+
+1. Switch the sidebar to **Design** and open **Build → Agents**
+2. Click **Import** and choose a `.zip` bundle
+3. Review the plan (create vs update, which apps are **new** vs **reuse**)
+4. If an agent with that name already exists:
+   - **Update the existing agent** — replaces the **draft** (only if you own it)
+   - **Create a copy** — pick a new kebab-case name
+5. Click **Import** and wait for applications, skills/contexts/MCP servers, the agent, then workflows and UI templates
+
+Existing applications are left unchanged. Missing applications are uploaded and indexed so their tools appear. After import, Copilot lists what was created, updated, reused, or skipped, and which connections you still need to configure.
+
+You cannot update an agent you do not own — import creates a copy instead. Identity fields such as visibility can apply immediately (outside draft). If the target agent publishes on every save, the imported draft becomes live right away.
 
 ### Agent Marketplace
 

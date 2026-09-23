@@ -36,7 +36,7 @@ Copilot can run tools live and render structured results (for example, a searcha
 - Monitor tool invocations as they happen
 
 ### Design Agent (Agent Builder)
-A dedicated mode for **creating and configuring agents** — not for everyday chat. In the UI it is labeled **Design Agent**. Use **Create** for a new agent, or **Extend** to add a skill, workflow, or UI to an existing draft (publish stays explicit).
+A dedicated mode for **creating and configuring agents** — not for everyday chat. In the UI it is labeled **Design Agent**. Use **Create** for a new agent, **Extend** to add a skill, workflow, or UI to an existing draft (publish stays explicit), or **Mock Mode** to provision a mock application when the real API is not ready yet.
 
 Use **Live** (Chat) to talk to your apps and agents. Switch to **Design** and open **Design Agent** to define agents as resources.
 
@@ -44,10 +44,10 @@ See the full [Agent Builder](/user-guide/agent-builder) guide for workflows, exa
 
 ### Model Selection
 Choose from multiple AI model providers configured in [Settings](/user-guide/settings):
-- **OpenAI** — GPT models
-- **Anthropic** — Claude models
-- **Google** — Gemini models
-- **xAI** — Grok models
+- **OpenAI** — GPT-6 (Astra, Sol, Luna), GPT-5.5, GPT-5.4 (including mini and nano)
+- **Anthropic** — Claude Opus 5.5, Fable 5.1, Sonnet 5, and earlier Claude 4.x models
+- **Google** — Gemini 3.8 Flash and other Gemini 3.x models
+- **xAI** — Grok 4.7, Grok 4, Grok 3
 - **Amazon Bedrock** — AWS-hosted models (IAM credentials)
 - **Microsoft Foundry** — Azure OpenAI deployments
 
@@ -178,7 +178,7 @@ If the queue is full, wait for a slot or remove an item before adding another.
 
 In Chat and Agent Builder, ask Copilot to suggest concrete use cases for your apps (for example, “Suggest use cases for Jira and Slack”). Copilot can show a **use case proposals** card you can review and act on, similar to skill proposal cards in Agent Builder.
 
-If [OpenLegacy Hub](/user-guide/openlegacy) is connected for Agent Builder, Hub projects can appear on those proposals. Building a Hub use case provisions a scoped Hub skill and attaches the **ol-hub** app.
+If [OpenLegacy Hub](/user-guide/openlegacy) is connected for Agent Builder, Hub projects can appear on those proposals. Building a Hub use case provisions a scoped Hub skill and attaches the **ol-hub** app. Proposal cards show app icons on chips so a full idea can stay on screen.
 
 ### Chat Preferences
 

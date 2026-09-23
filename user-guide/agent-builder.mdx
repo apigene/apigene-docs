@@ -1,6 +1,6 @@
 ---
 title: 'Agent Builder'
-description: 'Create and configure AI agents through Design Agent (Create or Extend)'
+description: 'Create and configure AI agents through Design Agent (Create, Extend, or Mock Mode)'
 icon: 'wrench'
 ---
 
@@ -8,7 +8,7 @@ icon: 'wrench'
 
 **Design Agent** (documented here as Agent Builder) is a dedicated Copilot mode for designing, listing, inspecting, and configuring agents. Use it when you want to **define** an agent as a resource — instructions, applications, MCP servers, skills, and setup — rather than simply **chat** with one.
 
-Chat mode is for having a conversation (optionally with one agent selected via `@`). Design Agent is for agent management: **Create** a new agent, or **Extend** an existing draft with skills, workflows, or UI.
+Chat mode is for having a conversation (optionally with one agent selected via `@`). Design Agent is for agent management: **Create** a new agent, **Extend** an existing draft with skills, workflows, or UI, or **Mock Mode** to stand up a mock API and an agent on top of it.
 
 <Frame>
   <img src="/images/product/agent-builder.png" alt="Agent Builder mode home screen" style={{ borderRadius: '0.5rem' }} />
@@ -19,7 +19,7 @@ Chat mode is for having a conversation (optionally with one agent selected via `
 | | **Chat** | **Design Agent** |
 |---|----------|-------------------|
 | **Purpose** | Ask questions, run tools, use an agent in conversation | Create and configure agents |
-| **Agent selection** | Pick one agent via `@` to shape behavior | **Create** a new agent, or **Extend** an existing draft |
+| **Agent selection** | Pick one agent via `@` to shape behavior | **Create** a new agent, **Extend** an existing draft, or **Mock Mode** for a system that does not exist yet |
 | **Tools available** | Application tools, workflows, MCP actions | Builder tools (search apps, generate instructions, create agent, etc.) |
 | **Best for** | "Read my email", "Summarize this doc" | "Build me a support agent for Slack and Jira" |
 
@@ -29,7 +29,7 @@ If you ask in **Chat** to create an agent, list your agents, or inspect full age
 
 ### From the Design workspace
 
-Switch the sidebar to **Design**, then open **Design Agent** (top of the Design sidebar). Choose **Create** or **Extend** depending on whether you are defining a new agent or adding to an existing draft.
+Switch the sidebar to **Design**, then open **Design Agent** (top of the Design sidebar). Choose **Create**, **Extend**, or **Mock Mode** depending on whether you are defining a new agent, adding to an existing draft, or designing against a mock API.
 
 Organization members and phones stay in **Live** and do not see Design Agent.
 
@@ -38,7 +38,7 @@ Organization members and phones stay in **Live** and do not see Design Agent.
 On a **new chat** (home), use the **Live** / **Design** toggle:
 
 1. **Live** (Chat) — default conversational mode
-2. **Design** — agent creation and management mode (**Create** or **Extend**)
+2. **Design** — agent creation and management mode (**Create**, **Extend**, or **Mock Mode**)
 
 The message input border turns blue in Design Agent so you can tell which mode you are in at a glance.
 
@@ -48,7 +48,7 @@ The Live / Design toggle is in the sidebar for admins on desktop. From an ongoin
 
 ### From an ongoing chat
 
-When Copilot detects agent-management intent (create, list, clone, inspect config, compare agents), it can show a **Design Agent** shortcut card in the thread. Choose **Create** or **Extend** without leaving the conversation context.
+When Copilot detects agent-management intent (create, list, clone, inspect config, compare agents), it can show a **Design Agent** shortcut card in the thread. Choose **Create** or **Extend** without leaving the conversation context. Use **Mock Mode** from the Design Agent session toggle when the backend API is not available yet.
 
 You can also open **Build → Agents** in the Design workspace (`/agents`, `/agent/new`, `/agent/[id]`) for the full agent editor UI.
 
@@ -63,6 +63,7 @@ Agent Builder uses specialized tools to help you end-to-end:
 - **Create and update agents** — name, optional display name, description, instructions, applications, MCP servers, contexts, and skills
 - **Extend an existing agent** — add a skill, workflow, or generative UI to the draft (publish remains a separate step)
 - **Clone agents** — start from an existing agent as a template
+- **Mock a missing system** — in **Mock Mode**, provision a mock application and an agent that uses it
 - **Validate configuration** — check names, instructions, and attachments before saving
 - **Present results** — after creation, shows an agent card and setup instructions for connecting to Claude, Cursor, ChatGPT, and other MCP clients
 
@@ -121,6 +122,15 @@ Immediately after creation:
 - An **agent details card** appears in chat (click through to the edit page)
 - An **agent setup** card shows how to connect the agent to external AI clients via MCP
 
+### Mock Mode (system does not exist yet)
+
+When the API is not available yet, switch the Design Agent session to **Mock Mode** (next to **Create** and **Extend**). Describe the domain and the job the agent should own. Agent Builder models a mock REST application, registers it, indexes it, creates the agent, and shows a setup card with elapsed time.
+
+- Ask at most a couple of clarifying questions; provisioning then runs in the browser (typically one to three minutes)
+- After success, **Try in chat** opens **Live** with a starter prompt
+- You can also attach existing applications to the same agent when you name them
+- **Mock Mode** appears only when a mock service is configured for the deployment. If it is missing, the session stays on **Create**
+
 ## Agent naming guidelines
 
 Agent Builder enforces concise, URL-safe names:
@@ -157,6 +167,11 @@ Build a PR review agent. Search for skills related to code review and attach the
 Build an agent for the Hub projects in this thread that can run contract test flows.
 ```
 
+**Mock Mode**
+```
+Mock a fleet-maintenance system with vehicles and work orders, then build an agent that lists overdue jobs.
+```
+
 ## After Agent Builder creates an agent
 
 Fine-tune in the **Agents** editor:
@@ -168,7 +183,7 @@ Fine-tune in the **Agents** editor:
 - **Context** — reusable knowledge items
 - **Generative UI** — visual templates for MCP App results (after the agent is saved)
 - **Workflows** — create, visually edit, run, and simulate graphs
-- **Versions** — publish draft changes to live, compare, and restore snapshots
+- **Versions** — publish draft changes to live, compare, restore snapshots, and export a `.zip` bundle
 - **Setup** — live and design MCP URLs, per-tool toggles, and managed setup export
 
 See [Agents](/user-guide/agents) for the full editor reference. Saving in the editor updates **draft**; [publish](/user-guide/agents#draft-live-and-version-history) when chat and the runtime MCP URL should use the change.
@@ -195,6 +210,11 @@ See [Agents](/user-guide/agents) for the full editor reference. Saving in the ed
 - Switch the sidebar to **Design** (admins, desktop). Members and phones stay in **Live**
 - Open **Design Agent** from the Design sidebar, or use the **Design Agent** shortcut card in a Live thread
 
+### I do not see Mock Mode
+
+- Switch to **Design** and open **Design Agent** on a **new chat** (the session toggle is locked after the first message)
+- Mock Mode needs a mock service on the deployment. If it is not configured, the item is disabled and Copilot stays on **Create**
+
 ### Agent Builder created an agent but tools fail in Chat
 
 - Open the agent in **Agents** → **Applications** / **MCP Servers** and confirm integrations are attached
@@ -212,7 +232,7 @@ Yes. Open the agent → **Skills** tab, or browse the [Skills](/user-guide/skill
 
 ## Next steps
 
-- [Agents](/user-guide/agents) — edit instructions, tools, generative UI, and setup export
+- [Agents](/user-guide/agents) — edit instructions, tools, generative UI, setup export, and `.zip` import/export
 - [Skills](/user-guide/skills) — org skill library and registry
 - [OpenLegacy Hub](/user-guide/openlegacy) — connect Hub, install projects, and build Hub-ready agents
 - [Copilot](/user-guide/copilot) — use your agent in Chat mode
