@@ -6,6 +6,25 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="September 30, 2026" description="v5.24.16" tags={["Copilot", "Chat", "Models"]}>
+  ## OL Terminal in chat
+
+  Work a live mainframe screen beside the conversation, and ask the agent about what is on it.
+
+  ### What's new
+  - **OL Terminal** — When a chat tool returns a host screen, **OL Terminal** opens as a floating window (it starts minimized). Drag it, resize from any corner, go **full screen**, or **dock beside the chat**. Reopen it from the **OL Terminal** pill
+  - **Type on the screen** — Click fields, move the 3270 cursor, and press keys. The next message tells the agent what you did by hand
+  - **Ask OL Gene** — Ask about the screen, a field, or a selected value without leaving the window
+  - **Send to an app** — Hand a value or the screen to another application on the agent. Copilot proposes the action and waits for your OK before anything is written
+  - **Sign-on** — **Log in** when the terminal app needs a session, and **log out of the mainframe**. A dropped session keeps the last screen and shows **Logged out**; **Log in · new session** starts again with your saved sign-on
+  - **Model catalog** — Built-in pickers add GPT-6.1 Sol. Claude Sonnet 5 is replaced by Sonnet 5.5
+
+  ### Improvements
+  - Host screens use OL Terminal colors
+  - The chat header overlays the thread so the conversation uses more of the window
+  - Mock Mode starter prompts use ids from the generated mock data, so **Try in chat** opens on a real record
+</Update>
+
 <Update label="September 24, 2026" description="v5.24.0" tags={["Agents", "Copilot", "Models"]}>
   ## Agent zip export and import, and Design Agent Mock Mode
 

@@ -44,8 +44,8 @@ See the full [Agent Builder](/user-guide/agent-builder) guide for workflows, exa
 
 ### Model Selection
 Choose from multiple AI model providers configured in [Settings](/user-guide/settings):
-- **OpenAI** — GPT-6 (Astra, Sol, Luna), GPT-5.5, GPT-5.4 (including mini and nano)
-- **Anthropic** — Claude Opus 5.5, Fable 5.1, Sonnet 5, and earlier Claude 4.x models
+- **OpenAI** — GPT-6.1 Sol, GPT-6 (Astra, Sol, Luna), GPT-5.5, GPT-5.4 (including mini and nano)
+- **Anthropic** — Claude Opus 5.5, Fable 5.1, Sonnet 5.5, and earlier Claude 4.x models
 - **Google** — Gemini 3.8 Flash and other Gemini 3.x models
 - **xAI** — Grok 4.7, Grok 4, Grok 3
 - **Amazon Bedrock** — AWS-hosted models (IAM credentials)
@@ -94,6 +94,18 @@ Try these example queries to get started:
    - **Balanced models**: Good balance of speed and capability
 
 ## Chat Features
+
+### OL Terminal
+
+When a tool result includes a mainframe (3270-style) screen, **OL Terminal** opens over the chat. It starts minimized; open it from the **OL Terminal** pill.
+
+- **Float, dock, or full screen** — Drag the window, resize it from any corner, **dock beside the chat**, or go full screen. Minimize returns to the pill; reopen comes back to wherever you left it (floating or docked)
+- **Type on the host** — Click a field, move the cursor, and press keys. Your manual actions are included with the next message so the agent knows what changed
+- **Ask OL Gene** — Ask what is on the screen, what a field means, or what to enter. Question chips sit under the screen (or above the composer when the window is minimized)
+- **Send to an app** — Send a value or the whole screen to another application on the agent. Copilot picks an action and waits for your OK before writing
+- **Sign-on** — If the terminal app has no session, **Log in**. **Log out of the mainframe** ends the session; the last screen stays, and **Log in · new session** starts again with your saved sign-on
+
+The same screen can be inspected later from an action's **Terminal** tab. See [Actions](/user-guide/actions).
 
 ### Tool Invocations
 
