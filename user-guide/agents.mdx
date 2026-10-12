@@ -185,7 +185,7 @@ Choose which applications and tools your agent can access:
 
 ## Agent Editor Tabs
 
-After creating an agent, the editor is organized into tabs:
+After creating an agent, the editor is organized into a sticky, full-width tab bar:
 
 | Tab | Purpose |
 |-----|---------|
@@ -244,6 +244,27 @@ https://app.apigene.ai/agent/{name}/design/mcp
 ```
 
 Viewers of a shared agent can connect to the live URL. Design and mutation tools are hidden unless you own the agent.
+
+## Connect to a client
+
+On **Setup**, open **MCP Client** and pick the external product. Two clients added recently:
+
+**AWS Kiro**
+
+1. Choose **AWS Kiro**
+2. Use **Quick install with Kiro**, or follow the steps: Kiro panel → **MCP Servers** → open `~/.kiro/settings/mcp.json` (or `.kiro/settings/mcp.json` in the workspace)
+3. Paste the MCP configuration and save. Kiro reconnects on its own
+
+**AWS AgentCore** (Amazon Bedrock AgentCore)
+
+1. Choose **AWS AgentCore**
+2. Install the AgentCore CLI (`npm install -g @aws/agentcore`), configure AWS credentials, and enable **Claude Sonnet 5.5** for the account in Amazon Bedrock
+3. Open the project folder, or create one with `agentcore create`
+4. Generate an API token on the Setup tab. The harness sends it as the `apigene-api-key` header. Use a token dedicated to this integration; it is stored in the harness configuration in the AWS account
+5. Copy the **agentcore add harness** command and run it in the project folder
+6. Run `agentcore deploy`, then `agentcore invoke`
+
+The project name and harness name together must be at most 40 characters. If deploy reports a name that is too long, shorten `--name`.
 
 ## Draft, live, and version history
 

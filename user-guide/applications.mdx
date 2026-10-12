@@ -9,14 +9,14 @@ icon: 'grid-3x3'
 Applications are the foundation of Apigene Copilot. Each application represents an API or service that Copilot can interact with on your behalf. By installing and configuring applications, you enable AI-powered interactions with your tools and services.
 
 <Frame>
-  <img src="/images/product/applications-list.png" alt="Applications list with search and Install Application" style={{ borderRadius: '0.5rem' }} />
+  <img src="/images/product/applications-list.png" alt="Applications list with search and Add application" style={{ borderRadius: '0.5rem' }} />
 </Frame>
 
 Open the list from the **Design** workspace: **Build → Applications**.
 
 ## What Are Applications?
 
-Applications are API integrations based on OpenAPI specifications. They provide:
+Applications are API integrations. OpenAPI specs, Postman collections, and SOAP WSDLs all become an application the AI can call. They provide:
 - **API Operations**: Individual endpoints the AI can call
 - **MCP Tools**: AI-friendly tools generated from API operations
 - **Security Configuration**: Authentication and credential management
@@ -38,18 +38,22 @@ Use the application in Copilot conversations
 
 ## Installing Applications
 
-When you click **+ Install Application**, choose:
+On **Applications**, **Add application** opens a chooser:
 
-- **OpenAPI based** — import from URL, file, **Postman collection**, or an **OpenLegacy Hub** project
-- **MCP Server** — opens the [official native MCP catalog](/user-guide/mcp-servers#install-from-the-official-catalog) (not an OpenAPI install)
+- **OpenAPI** — paste a specification URL or upload a JSON or YAML file
+- **From Postman** — upload a Postman collection
+- **From SOAP** — upload a WSDL or paste its URL
+- **OpenLegacy Hub** — install a Hub project's OpenAPI (shown when Hub is connected)
+
+**Install MCP Server** on the same page opens the [official native MCP catalog](/user-guide/mcp-servers#install-from-the-official-catalog). That path is not an OpenAPI install.
 
 ### Method 1: From OpenAPI URL
 
 Install applications directly from a URL:
 
-1. Navigate to **Applications** page
-2. Click **+ Install Application** button
-3. Choose **OpenAPI based**, then **From URL**
+1. Navigate to **Applications**
+2. Click **Add application**
+3. Choose **OpenAPI**
 4. Enter the OpenAPI specification URL
    ```
    https://api.example.com/openapi.json
@@ -67,9 +71,9 @@ Install applications directly from a URL:
 
 Install from a local OpenAPI specification file:
 
-1. Navigate to **Applications** page
-2. Click **+ Install Application** button
-3. Choose **OpenAPI based**, then **From File**
+1. Navigate to **Applications**
+2. Click **Add application**
+3. Choose **OpenAPI**, then **Choose file** (or switch from a URL with the file control)
 4. Click to select or drag and drop your file
 5. Click **Install**
 
@@ -82,12 +86,11 @@ Install from a local OpenAPI specification file:
 
 Install from a Postman collection. Apigene converts the collection to OpenAPI, then runs the normal application install and reindex flow.
 
-1. Navigate to **Applications** → **+ Install Application**
-2. Choose **OpenAPI based**
-3. Select **From Postman**
-4. Upload your Postman collection file (JSON)
-5. Wait for conversion and install to finish
-6. Configure **Security** before making live calls
+1. Navigate to **Applications** → **Add application**
+2. Choose **From Postman**
+3. Upload your Postman collection file (JSON)
+4. Wait for conversion and install to finish
+5. Configure **Security** before making live calls
 
 <Note>
 Conversion depends on collection structure. Nested folders become tags where possible. Review generated operations after install and reindex if tool metadata looks incomplete. If conversion fails, the error names the problem (invalid JSON, not a Postman collection, unresolved variables, or comments / stray quotes in the export).
@@ -97,18 +100,33 @@ Conversion depends on collection structure. Nested folders become tags where pos
 
 Install a Hub project's OpenAPI as an application. Hub must be connected under **Settings → Organization → Open Legacy** (including **Use in Agent Builder**). See [OpenLegacy Hub](/user-guide/openlegacy).
 
-1. Navigate to **Applications** → **+ Install Application**
-2. Choose **OpenAPI based**, then **OpenLegacy Hub**
+1. Navigate to **Applications** → **Add application**
+2. Choose **OpenLegacy Hub**
 3. Search and select a Hub project (method count, last updated, and an **Installed** badge appear when relevant)
 4. Click **Install** (or **Open** if that project is already installed)
 
 The Hub card is shown only when the organization can reach Hub. Installation uses the same index and metadata flow as a file or URL import.
 
-### Method 5: Native MCP Server
+### Method 5: From SOAP (WSDL)
 
-To connect a remote MCP server instead of an OpenAPI spec:
+Install a SOAP 1.1 or 1.2 service. Apigene reads the WSDL, converts the selected port to OpenAPI, then runs the normal application install and reindex flow. OpenAPI installs are unchanged.
 
-1. Choose **MCP Server** on the install screen, **or** open **MCP** in the main nav
+1. Navigate to **Applications** → **Add application**
+2. Choose **From SOAP**
+3. Paste a WSDL URL or upload a `.wsdl` or `.xml` file
+4. If the WSDL has more than one SOAP port, choose the port. The list shows the port name, SOAP version, and operations. A single port is selected for you
+5. Optionally click **Add authentication** and choose **HTTP Basic**, **Bearer token**, or **API key**. For an API key, set the header name. The secret itself is entered on **Security** after install
+6. Click **Install**
+
+<Note>
+Only document/literal WSDLs are supported. Encoded bindings are rejected. If the WSDL cannot be read yet, the form explains why; you can still try **Install**.
+</Note>
+
+### Method 6: Native MCP Server
+
+To connect a remote MCP server instead of a spec or WSDL:
+
+1. On **Applications**, click **Install MCP Server**, **or** open **MCP** in the main nav
 2. Follow [Native MCP Servers](/user-guide/mcp-servers) — official catalog, registry, or custom URL
 
 ### Installation Process
@@ -119,7 +137,7 @@ When you install an OpenAPI-based application, Apigene:
    - Installing or reindexing an application requires at least one model provider configured for the organization
    - If no provider is configured, complete [Settings → AI Models](/user-guide/settings) first, then retry
 
-2. **Validates the specification** (or converts Postman → OpenAPI first)
+2. **Validates the specification** (or converts Postman or WSDL → OpenAPI first)
 
 3. **Creates agentic metadata**
    - Generates tool descriptions

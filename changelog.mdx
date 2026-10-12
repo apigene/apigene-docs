@@ -6,6 +6,66 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="October 11, 2026" description="v5.24.24" tags={["Applications", "Copilot"]}>
+  ## Install SOAP services from a WSDL
+
+  Add a SOAP service as an application from a WSDL file or URL. When the service exposes more than one port, choose the port before install.
+
+  ### What's new
+  - **From SOAP** — On **Applications**, click **Add application** and choose **From SOAP**. Paste a WSDL URL or upload a `.wsdl` or `.xml` file. Apigene converts that service to OpenAPI and runs the usual install and index
+  - **SOAP port** — If the WSDL lists more than one port, pick the port (SOAP version and operations are shown) before **Install**. A WSDL with a single port installs that port
+  - **Authentication** — Optionally record **HTTP Basic**, **Bearer token**, or **API key** (with a header name). The secret is entered on the application **Security** tab after install
+
+  ### Improvements
+  - Follow-up suggestion chips are translated, and the arrow points forward in right-to-left languages
+</Update>
+
+<Update label="October 9, 2026" description="v5.24.22" tags={["Agents"]}>
+  ## Agent editor tab bar
+
+  Agent sections sit in a sticky, full-width tab bar so the tabs stay in view while you scroll the editor.
+</Update>
+
+<Update label="October 9, 2026" description="v5.24.21" tags={["Copilot", "Chat", "Models"]}>
+  ## Subagents in chat
+
+  Hand independent work to parallel subagents, including a faster model from the same provider.
+
+  ### What's new
+  - **Subagents** — In Live chat, open **Select operation mode** and turn on **Subagents**. The agent can delegate a self-contained task — for example a batch of large tool results — to a subagent with a fresh context. Several can run at once. Each run is a card with status, task, answer, and model. The switch is off while **Manual** approval is on, and Design Agent **Create** and **Extend** do not use subagents
+  - **Fast model** — A subagent can run on a cheaper model from the same provider (Claude to Haiku, GPT to mini, Gemini to Flash, Grok to mini). The card marks that run **Fast**
+  - **Compare** — When model comparison is on, the candidate has its own **Subagents** switch
+  - **Chat Info** — Token usage is split by model and includes subagent runs
+  - **Model catalog** — Built-in pickers add Claude Haiku 5.5
+</Update>
+
+<Update label="October 7, 2026" description="v5.24.19" tags={["Agents", "MCP"]}>
+  ## Connect an agent to AWS AgentCore
+
+  Add the agent to an Amazon Bedrock AgentCore harness from **Setup**.
+
+  ### What's new
+  - **AWS AgentCore** — On the agent **Setup** tab, choose **AWS AgentCore** under **MCP Client**. Install the AgentCore CLI, open or create a project, generate an API token, and run the **agentcore add harness** command. Then **agentcore deploy** and **agentcore invoke**. Claude Sonnet 5.5 must be enabled for the AWS account in Amazon Bedrock
+  - The project name and harness name together must stay within 40 characters
+
+  ### Improvements
+  - `run_action_ui` includes the template HTML, so ChatGPT can render any generative UI template
+</Update>
+
+<Update label="October 6, 2026" description="v5.24.17" tags={["Workflows", "Agents", "Settings"]}>
+  ## Classify workflow step and Kiro install
+
+  Ask typed questions about workflow data with TypeSafe Jev, and connect an agent to AWS Kiro from Setup.
+
+  ### What's new
+  - **Classify** — Workflows can include an **apigene.classify** step. It sends a payload and named questions (choice, score, or yes/no) to TypeSafe Jev and returns typed answers with probabilities. Branch on those answers with **If** or **Switch**. Inspect questions and answers on the graph; author the step from Copilot or MCP
+  - **TypeSafe Jev** — Admins add the key under **Settings → Organization → Model Settings → TypeSafe Jev (Workflow Classify)**. Classify steps use that key. It is not a chat model. Dry run does not call TypeSafe
+  - **AWS Kiro** — On the agent **Setup** tab, choose **AWS Kiro**. Use **Quick install with Kiro**, or paste the MCP config into `~/.kiro/settings/mcp.json`
+
+  ### Improvements
+  - MCP apps advertise picture-in-picture, so hosts that support it can offer that layout
+</Update>
+
 <Update label="September 30, 2026" description="v5.24.16" tags={["Copilot", "Chat", "Models"]}>
   ## OL Terminal in chat
 

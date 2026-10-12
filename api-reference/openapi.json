@@ -348,6 +348,124 @@
         ]
       }
     },
+    "/api/spec_from_wsdl/": {
+      "post": {
+        "tags": [
+          "Spec"
+        ],
+        "summary": "Spec Create From Wsdl",
+        "description": "Install a SOAP 1.1 or 1.2 service by converting one document/literal WSDL port into an OpenAPI spec, then running the normal spec install. Send JSON with a url, or multipart form data with a file and/or url. When the WSDL has more than one SOAP port, pass port (the port id service/port or the port name). Auth records the scheme only; the secret is set later on the application Security tab.",
+        "operationId": "spec_create_from_wsdl",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecFromWsdlData"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_spec_create_from_wsdl"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "WSDL could not be converted. detail.code SOAP_PORT_REQUIRED means the WSDL has more than one port and port was omitted.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/wsdl_ports/": {
+      "post": {
+        "tags": [
+          "Spec"
+        ],
+        "summary": "Wsdl List Ports",
+        "description": "List SOAP ports in a WSDL without installing it, so the caller can ask which port to use. Send JSON { url } or multipart form data with file and/or url.",
+        "operationId": "wsdl_list_ports",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WsdlPortsRequest"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_wsdl_list_ports"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WsdlPortsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The WSDL could not be read, or it has no SOAP 1.1 or 1.2 document/literal ports.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/spec/{api_name}": {
       "get": {
         "tags": [
@@ -10038,6 +10156,74 @@
         ],
         "title": "Body_spec_create_from_file"
       },
+      "Body_spec_create_from_wsdl": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "description": "WSDL file (.wsdl or .xml). Omit when url is set."
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "description": "WSDL URL. Ignored when file is set."
+          },
+          "port": {
+            "type": "string",
+            "title": "Port",
+            "description": "SOAP port id (service/port) or port name. Required when the WSDL has more than one SOAP port."
+          },
+          "auth_type": {
+            "type": "string",
+            "title": "Auth Type",
+            "default": "none",
+            "enum": ["none", "basic", "bearer", "apiKey"]
+          },
+          "header_name": {
+            "type": "string",
+            "title": "Header Name",
+            "description": "Header name when auth_type is apiKey."
+          },
+          "global_spec": {
+            "type": "boolean",
+            "title": "Global Spec",
+            "default": false
+          },
+          "shared_security_info": {
+            "type": "boolean",
+            "title": "Shared Security Info",
+            "default": false
+          },
+          "create_mcp": {
+            "type": "boolean",
+            "title": "Create Mcp",
+            "default": false
+          },
+          "generate_llm_summary": {
+            "type": "boolean",
+            "title": "Generate Llm Summary",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "Body_spec_create_from_wsdl"
+      },
+      "Body_wsdl_list_ports": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "title": "Body_wsdl_list_ports"
+      },
       "Body_user_token": {
         "properties": {
           "grant_type": {
@@ -14810,6 +14996,109 @@
         ],
         "title": "SpecFromUrlData",
         "description": "Request body model for creating spec from URL."
+      },
+      "SoapAuthData": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "default": "none",
+            "enum": ["none", "basic", "bearer", "apiKey"]
+          },
+          "header_name": {
+            "anyOf": [
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Header Name"
+          }
+        },
+        "type": "object",
+        "title": "SoapAuthData"
+      },
+      "SpecFromWsdlData": {
+        "properties": {
+          "url": {
+            "anyOf": [
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Url"
+          },
+          "port": {
+            "anyOf": [
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Port",
+            "description": "SOAP port id (service/port) or port name. Required when the WSDL has more than one SOAP port."
+          },
+          "auth": {
+            "$ref": "#/components/schemas/SoapAuthData"
+          },
+          "global_spec": {
+            "type": "boolean",
+            "title": "Global Spec",
+            "default": false
+          },
+          "shared_security_info": {
+            "type": "boolean",
+            "title": "Shared Security Info",
+            "default": false
+          },
+          "create_mcp": {
+            "type": "boolean",
+            "title": "Create Mcp",
+            "default": false
+          },
+          "generate_llm_summary": {
+            "type": "boolean",
+            "title": "Generate Llm Summary",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "SpecFromWsdlData",
+        "description": "Create a spec from a WSDL URL. File uploads use multipart on the same route."
+      },
+      "WsdlPort": {
+        "properties": {
+          "service": { "type": "string", "title": "Service" },
+          "port": { "type": "string", "title": "Port" },
+          "id": { "type": "string", "title": "Id", "description": "service/port" },
+          "address": { "type": "string", "title": "Address" },
+          "version": { "type": "string", "title": "Version", "description": "1.1 or 1.2" },
+          "operations": {
+            "type": "array",
+            "items": { "type": "string" },
+            "title": "Operations"
+          }
+        },
+        "type": "object",
+        "required": ["service", "port", "id", "address", "version", "operations"],
+        "title": "WsdlPort"
+      },
+      "WsdlPortsRequest": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "title": "WsdlPortsRequest"
+      },
+      "WsdlPortsResponse": {
+        "properties": {
+          "ports": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/WsdlPort" },
+            "title": "Ports"
+          }
+        },
+        "type": "object",
+        "required": ["ports"],
+        "title": "WsdlPortsResponse"
       },
       "SpecInfo": {
         "properties": {

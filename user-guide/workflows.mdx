@@ -35,7 +35,7 @@ Open a workflow to see the graph:
 
 If you have edit access, click **Edit** to change the graph in place:
 
-1. Add steps from the palette: **Action**, **Condition**, **Approval**, **Set values**, **Result**, and **AI step**
+1. Add steps from the palette: **Action**, **Condition**, **Approval**, **Set values**, **Result**, and **AI step**. **Classify** steps are authored from Copilot or MCP and can be inspected on the graph
 2. Drag from a handle to connect steps. **Backspace** or **Delete** removes the selected step or link
 3. Edit the workflow name and description in the header, and inspect or update the selected node in the side panel
 4. Click **Save** to compile and store the draft
@@ -43,7 +43,7 @@ If you have edit access, click **Edit** to change the graph in place:
 **View** leaves edit mode and discards unsaved changes. Simulation is disabled while you are editing — leave edit mode to replay a run on the graph.
 
 <Note>
-The visual palette covers linear steps plus if / approve branches. Map, switch, and join nodes created from Copilot or MCP still appear on the graph and can be inspected; rewiring those loop or case handles is done from chat or MCP.
+The visual palette covers linear steps plus if / approve branches. Map, switch, join, and classify nodes created from Copilot or MCP still appear on the graph and can be inspected; rewiring loop or case handles is done from chat or MCP.
 </Note>
 
 ## Run a workflow
@@ -140,6 +140,7 @@ Common `apigene.*` node types:
 | `set` / `filter` / `summarize` | Transform or aggregate data |
 | `map` | Iterate an array — **loop** body per item, then **done** with the collected list |
 | `llm` | Call a language model inside the graph |
+| `classify` | Ask TypeSafe Jev typed questions about the current data |
 | `generative_ui` | Render a generative UI result from the workflow |
 | `approve` | Pause for human decision |
 | `output` | Terminal node that defines the public `result` |
@@ -155,6 +156,20 @@ Workflows should end in an **output** node so runners get a clear final result.
 - If any iteration fails, the map fails and **done does not run**
 
 Wire enrichment steps on the loop port; bind tables, UI, or the final output on the done port.
+
+### Classify
+
+`apigene.classify` sends a payload and 1–20 named questions to **TypeSafe Jev** and returns typed answers you can branch on.
+
+- **State** — the data Jev reads (literal or expression). Send only the fields the questions need
+- **Questions** — each question is a **choice**, a **score**, or **noul** (yes/no). Choice questions should include an unclear option rather than blending “unclear” into a confidence score
+- **Model** — optional Jev model version (default `jev-1.13.0`)
+
+The step writes `$json.answers.<name>`, plus model and usage. **Switch** or **If** can branch on an answer. The success port is `main[0]`; an optional error port (`main[1]`) is used when `onError` is `continue`.
+
+An admin must add a **TypeSafe Jev** API key under **Settings → Organization → Model Settings**. Classify does not use the chat model list. **Dry run** walks the step without calling TypeSafe.
+
+The graph inspector shows each question and answer, including the score legend next to score answers. Ask Copilot or the design MCP to add the step; the visual palette does not author classify nodes.
 
 ### Expressions
 

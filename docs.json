@@ -82,6 +82,8 @@
               "api-reference/spec/specs-list",
               "api-reference/spec/spec-create-from-file",
               "api-reference/spec/spec-create-from-url",
+              "api-reference/spec/spec-create-from-wsdl",
+              "api-reference/spec/spec-wsdl-ports",
               "api-reference/spec/spec-get",
               "api-reference/spec/spec-delete",
               "api-reference/spec/spec-get-agentic-metadata",
