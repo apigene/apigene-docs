@@ -6,6 +6,63 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="October 18, 2026" description="v5.24.37" tags={["Security"]}>
+  ## Security updates
+
+  Patched dependencies in Copilot, the MCP gateway, and the workflow runtime, and removed unused kernel headers from the API image.
+
+  ### What's new
+  - **MCP gateway** — Fixed a critical IP-spoofing issue in request forwarding, and updated the MCP SDK and related HTTP libraries
+  - **Copilot** — Updated Next.js, image processing, and source-map handling
+  - **Workflow runtime** — Updated the image's packaging tools
+  - **API image** — The compiler's kernel headers are removed after the image is built
+</Update>
+
+<Update label="October 17, 2026" description="v5.24.35" tags={["Workflows", "Agents"]}>
+  ## Download a workflow Docker service
+
+  Package the published workflow APIs on an agent version as one runnable service.
+
+  ### What's new
+  - **Docker service** — On **Versions**, **Docker service** downloads a zip of the published workflow APIs you select. The file name describes what it contains
+  - **Run steps** — After the download, copy three steps: set `SERVICE_API_KEY` in `runtime.env` (callers send it as a bearer token), build and run, then open `http://localhost:8080/docs` and authorize with that key
+</Update>
+
+<Update label="October 15, 2026" description="v5.24.32" tags={["Workflows", "Agents"]}>
+  ## Workflow step timing
+
+  See how long each step took, and carry a chat agent's handoff into Design Agent.
+
+  ### What's new
+  - **Duration** — The step inspector shows how long each node ran
+  - **Design Agent** — Starting Design Agent from a chat pastes that agent's handoff instruction into the composer
+
+  ### Improvements
+  - View and edit share one **Input**, **Logic**, and **Output** panel, so a step reads the same way in both modes
+  - Workflow help matches the canvas: it no longer lists an End marker
+</Update>
+
+<Update label="October 14, 2026" description="v5.24.30" tags={["Workflows", "Agents", "MCP"]}>
+  ## Publish a workflow as an API
+
+  Turn a workflow into an authenticated HTTP endpoint with an OpenAPI document, and connect the agent to Microsoft Copilot Studio.
+
+  ### What's new
+  - **Workflow API** — On a workflow, open **API** (**Configure OpenAPI**). Publish it as an authenticated endpoint, set the HTTP method and path, and view or download the OpenAPI document. POST and PUT send inputs as a JSON body. GET and DELETE send them as query parameters. **Test** runs the endpoint from the dialog. The URL uses the agent slug. **Unpublish** sits beside close
+  - **Microsoft Copilot Studio** — On the agent **Setup** tab, choose **Microsoft Copilot Studio**. Enable generative orchestration, add an MCP tool, paste the MCP URL, then connect with OAuth 2.0 or an API key and publish the agent
+
+  ### Improvements
+  - MCP OAuth authorize links keep query parameters that were already on the URL
+</Update>
+
+<Update label="October 12, 2026" description="v5.24.26" tags={["Applications", "Copilot"]}>
+  ## OpenLegacy Integration import
+
+  ### Improvements
+  - **Add application** labels the Hub import **OpenLegacy Integration**
+  - Chat follow-up buttons that need a sign-in show **Login to**
+</Update>
+
 <Update label="October 11, 2026" description="v5.24.24" tags={["Applications", "Copilot"]}>
   ## Install SOAP services from a WSDL
 

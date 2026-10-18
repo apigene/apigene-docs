@@ -29,7 +29,8 @@ From there you can list workflows, open the graph, **Edit** it visually, run, si
 Open a workflow to see the graph:
 
 - Nodes are color-coded by type (action, condition, join, LLM, approve, output, and more)
-- Click a node to inspect parameters and, after a traced run, the resolved step input and output
+- Click a node to inspect parameters and, after a traced run, the resolved step input and output. The inspector shows how long that node ran
+- View and edit use the same **Input**, **Logic**, and **Output** panel
 - Pan, zoom, and search steps. Toggle the **mini map** on or off (your preference is remembered)
 - Open **Help** on the graph or a run for node types, expressions, and limits
 
@@ -45,6 +46,20 @@ If you have edit access, click **Edit** to change the graph in place:
 <Note>
 The visual palette covers linear steps plus if / approve branches. Map, switch, join, and classify nodes created from Copilot or MCP still appear on the graph and can be inspected; rewiring loop or case handles is done from chat or MCP.
 </Note>
+
+## Publish as an API
+
+On a workflow, open **API** (**Configure OpenAPI**) to publish it as an authenticated HTTP endpoint.
+
+1. Set the description, HTTP method, and path. The URL uses the agent slug
+2. POST and PUT send inputs as a JSON body. GET and DELETE send them as query parameters
+3. View or download the OpenAPI document
+4. **Test** runs the endpoint from the dialog
+5. **Unpublish** removes the endpoint
+
+### Docker service
+
+On the agent's **Versions** tab, **Docker service** downloads a zip of the published workflow APIs you select. The file name describes what it contains. After the download, copy the run steps: set `SERVICE_API_KEY` in `runtime.env` (callers send it as a bearer token), build and run, then open `http://localhost:8080/docs` and authorize with that key.
 
 ## Run a workflow
 

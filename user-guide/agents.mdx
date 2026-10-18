@@ -247,7 +247,16 @@ Viewers of a shared agent can connect to the live URL. Design and mutation tools
 
 ## Connect to a client
 
-On **Setup**, open **MCP Client** and pick the external product. Two clients added recently:
+On **Setup**, open **MCP Client** and pick the external product.
+
+**Microsoft Copilot Studio**
+
+1. Choose **Microsoft Copilot Studio**
+2. Open the agent and enable generative orchestration under **Settings → Generative AI**
+3. Go to **Build → Tools**, then **Add → Model Context Protocol (MCP)**
+4. Enter a name and description, and paste the MCP server URL
+5. Choose **OAuth 2.0** (dynamic discovery) or **API key**, then connect
+6. Test the discovered tools and resources, then publish the agent
 
 **AWS Kiro**
 
@@ -289,6 +298,7 @@ The Versions table lists each published snapshot. Open a row for details, or use
 
 - **Compare with live** — side-by-side diff of instructions and attachments (older on the left, newer on the right)
 - **Download .zip** — export that published snapshot as an agent bundle (see [Export and import](#export-and-import-a-zip-bundle))
+- **Docker service** — download a zip of that version's published workflow APIs (see [Publish as an API](/user-guide/workflows#publish-as-an-api))
 - **Restore into draft** — copy that version into draft (overwrites unpublished edits)
 - **Switch live here** — point live at an earlier version without rewriting draft
 
