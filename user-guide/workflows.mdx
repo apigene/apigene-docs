@@ -159,8 +159,20 @@ Common `apigene.*` node types:
 | `generative_ui` | Render a generative UI result from the workflow |
 | `approve` | Pause for human decision |
 | `output` | Terminal node that defines the public `result` |
+| `workflow` | Run another saved workflow on this agent and wait for its `result` |
 
 Workflows should end in an **output** node so runners get a clear final result.
+
+### Sub-workflow
+
+`apigene.workflow` runs another saved workflow on the **same agent** and waits.
+
+- **Workflow id** — the saved workflow to call. It can be an expression.
+- **Inputs** — values passed into that workflow. They override its stored defaults. The next step reads the called workflow's public `result` as `$json`.
+- **Success** (`main[0]`) runs when the call succeeds. **Failure** (`main[1]`) runs when `onError` is `continue` and the call fails.
+- The called workflow has to be on this agent. A cycle, a chain longer than 5 workflows, or a missing id fails the step.
+- A called workflow that would pause for a person or for login fails the step. The parent does not pause with it.
+- To run it once per item, put the node on a map **loop** port.
 
 ### Map (loop over items)
 
