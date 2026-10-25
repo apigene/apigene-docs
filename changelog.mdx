@@ -6,6 +6,93 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="October 25, 2026" description="v5.24.49" tags={["Workflows"]}>
+  ## Approve a paused workflow API
+
+  A published workflow that stops for approval can be checked and continued by the caller, and from **Test**.
+
+  ### What's new
+  - **Test** — A run that is waiting shows the approval title, message, and preview. **Approve** or **Reject**. A reason is optional. **Edits** is a JSON object merged into the run when you approve
+  - **Run status** — Callers can read a run by its id and see the status, result, and approval payload while it is waiting
+  - **Resume** — Callers continue that run with approve or reject, including a reason and edits
+</Update>
+
+<Update label="October 25, 2026" description="v5.24.48" tags={["Workflows"]}>
+  ## Workflow service and code-step fixes
+
+  ### Improvements
+  - **Docker service** — The downloaded service is built for linux/amd64, the platform the runtime image is published for, so the image starts
+  - **Request body** — A call to the standalone service sends the same JSON body as **Test** in Copilot
+  - **API description** — A published workflow API description can be up to 1000 characters
+  - **Code** — A Python date or datetime in `result` comes back as an ISO-8601 string. A failure names the script line. Raising `Exception`, `ValueError`, or `TypeError` fails the step
+  - **Expressions** — Workflow help is split into sections, and each rule has a worked example
+  - **Workflow list** — The agent table shows each workflow id. A cut-off name or id shows the full value on hover
+</Update>
+
+<Update label="October 24, 2026" description="v5.24.47" tags={["Workflows"]}>
+  ## Call another workflow
+
+  A workflow can run another saved workflow on the same agent and continue with its result.
+
+  ### What's new
+  - **Sub-workflow** — Pick a saved workflow on this agent. The step waits for it and passes its result forward. The called workflow has to finish in that step. One that stops for approval fails the step
+
+  ### Improvements
+  - **Add step** — Every step type is in one searchable menu, sorted by name
+  - **Action parameters** — On an Action step, add, rename, and remove parameters the same way as Input fields
+</Update>
+
+<Update label="October 24, 2026" description="v5.24.45" tags={["Workflows"]}>
+  ## Date & time, crypto, data table, and expressions
+
+  ### What's new
+  - **Date & time** — Format a UTC timestamp, or add, subtract, and diff days, hours, and minutes
+  - **Crypto** — Hash or HMAC with md5, sha256, sha384, or sha512, as hex or base64. Or generate a uuid, hex, base64, or ascii string
+  - **Data table** — Insert, get, upsert, or delete rows for later steps in the same process. The first insert creates the table. Rows are cleared when the process restarts, and a dry run does not write
+  - **Expressions** — A field that is only `={{ }}` keeps the result's type. Read `$json`, this run's inputs, another step by id or by its name, and the current UTC time. Helpers include `if`, `find`, and `filterBy`
+  - **If and code** — An If step accepts a list of conditions. A JavaScript code step can return its value. A connection can use the step's display name
+</Update>
+
+<Update label="October 22, 2026" description="v5.24.44" tags={["Workflows", "Agents"]}>
+  ## Code step and version compare
+
+  ### What's new
+  - **Code** — A workflow can run a Python or JavaScript script. Assign `result`, and that JSON value is the next step's data. The editor highlights the language, shows syntax errors, offers a starter snippet, and keeps the last run's output. Python provides json, math, re, date, datetime, timedelta, and print. JavaScript provides the language and `console.log`. Scripts cannot import packages. The timeout is 1 to 30 seconds, and the default is 5
+  - **Compare versions** — Version compare is a collapsible diff. It includes edits inside workflows, skills, templates, and contexts. **Save HTML** downloads the comparison
+
+  ### Improvements
+  - Example values are generated for tool inputs on every model
+</Update>
+
+<Update label="October 21, 2026" description="v5.24.41" tags={["Agents", "MCP"]}>
+  ## HTML app templates
+
+  A generative UI template can be a full HTML document.
+
+  ### What's new
+  - **HTML app** — Author the document in a full-height code pane and preview it at desktop and mobile width. New templates start as an HTML app
+  - **Tool calls** — A tool call from the app re-renders the page with the tool result
+</Update>
+
+<Update label="October 20, 2026" description="v5.24.39" tags={["Workflows", "Agents"]}>
+  ## Sign in from the downloaded workflow service
+
+  ### What's new
+  - **MCP OAuth** — A workflow service downloaded from **Versions** can complete the MCP OAuth 2.1 sign-in on its own
+
+  ### Improvements
+  - **Tool results** — JSON text returned by an MCP tool is parsed into data for the next step
+  - **runtime.env** — The example env is filled in, so a local call runs immediately, and the download steps are easier to follow
+  - **Design Agent · Extend** — Opening Extend selects the agent you named
+</Update>
+
+<Update label="October 19, 2026" description="v5.24.38" tags={["Agents", "Copilot"]}>
+  ## Try an agent from its card
+
+  ### What's new
+  - **Try Now** — On a connected agent card, **Try Now** opens that agent in chat, ready to use
+</Update>
+
 <Update label="October 18, 2026" description="v5.24.37" tags={["Security"]}>
   ## Security updates
 
