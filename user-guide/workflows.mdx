@@ -54,12 +54,21 @@ On a workflow, open **API** (**Configure OpenAPI**) to publish it as an authenti
 1. Set the description, HTTP method, and path. The URL uses the agent slug
 2. POST and PUT send inputs as a JSON body. GET and DELETE send them as query parameters
 3. View or download the OpenAPI document
-4. **Test** runs the endpoint from the dialog
+4. **Test** runs the endpoint from the dialog. If the run pauses for approval, the panel shows the approval and lets you approve or reject
 5. **Unpublish** removes the endpoint
+
+When the workflow contains an **approve** node, the OpenAPI document also includes:
+
+- `POST /api/workflow-apis/{agent}/{slug}/runs/{run_id}/resume` with `decision` (`approve` or `reject`), optional `edits`, and optional `reason`
+- `GET /api/workflow-apis/{agent}/{slug}/runs/{run_id}` to read the run without deciding
+
+Call the workflow. While `status` is `waiting_human`, read `approval` and `run_id`, then POST a decision. The response uses the same fields as the first call. Another approve node later in the workflow returns `waiting_human` again. Any caller who can invoke the API can resume that run.
 
 ### Docker service
 
 On the agent's **Versions** tab, **Docker service** downloads a zip of the published workflow APIs you select. The file name describes what it contains. After the download, copy the run steps: set `SERVICE_API_KEY` in `runtime.env` (callers send it as a bearer token), build and run, then open `http://localhost:8080/docs` and authorize with that key.
+
+If a selected workflow has an approve node, the zip includes that workflow's resume and status routes. Set `WORKFLOW_RUN_STORE_PATH` (the example uses `/data/workflow-runs.json`) and mount a volume on that file so an approval still resumes after a restart.
 
 ## Run a workflow
 
@@ -101,7 +110,7 @@ Workflows can include an **approve** node. When the run reaches it, status becom
 - Optionally edit preview fields before approving
 - The run continues via resume (same user who started the run)
 
-From MCP clients, call `resume_workflow` with the `run_id` and `decision`.
+From MCP clients, call `resume_workflow` with the `run_id` and `decision`. That call stays limited to the user who started the run. A published workflow API uses the resume route under [Publish as an API](#publish-as-an-api), and any caller who can invoke that API can resume its runs.
 
 ## Create and update workflows
 
