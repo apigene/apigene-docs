@@ -90,6 +90,8 @@
               "api-reference/spec/spec-get-agentic-metadata-common-parameteres",
               "api-reference/spec/spec-scopes",
               "api-reference/spec/spec-clone",
+              "api-reference/spec/spec-export",
+              "api-reference/spec/spec-import",
               "api-reference/spec/spec-create-agentic-metadata",
               "api-reference/spec/spec-insights",
               "api-reference/spec/spec-operation-examples",

@@ -670,6 +670,74 @@
         }
       }
     },
+    "/api/spec/{api_name}/export": {
+      "get": {
+        "tags": ["Spec"],
+        "summary": "Export provisioned spec",
+        "description": "Download an installed application as a provisioned bundle. The file contains the OpenAPI document plus the summary, agentic metadata, and spec-config fields needed to install it without an LLM. Credentials are omitted. Returns 409 when the summary or agentic metadata is missing.",
+        "operationId": "spec_export",
+        "security": [{"BearerAuth": []}],
+        "parameters": [
+          {
+            "name": "api_name",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string", "title": "Api Name"}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Provisioned spec bundle",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/SpecBundle"}
+              }
+            }
+          },
+          "404": {"description": "Spec not found"},
+          "409": {"description": "Spec is not provisioned"}
+        }
+      }
+    },
+    "/api/spec/import": {
+      "post": {
+        "tags": ["Spec"],
+        "summary": "Import provisioned spec",
+        "description": "Install a provisioned spec bundle. Rebuilds the spec document and spec config without calling an LLM. The imported spec is tenant-local and security schemes are created empty. Optional api_title renames info.title before install. Returns 409 when that title already exists.",
+        "operationId": "spec_import",
+        "security": [{"BearerAuth": []}],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["file"],
+                "properties": {
+                  "file": {"type": "string", "format": "binary", "description": "apigene.spec.bundle JSON file"},
+                  "api_title": {"type": "string", "description": "Optional title. Replaces info.title before install."}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Imported spec",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {"api_name": {"type": "string"}}
+                }
+              }
+            }
+          },
+          "400": {"description": "Invalid bundle"},
+          "409": {"description": "A spec with this title already exists"}
+        }
+      }
+    },
     "/api/specs": {
       "get": {
         "tags": [
@@ -14914,7 +14982,30 @@
         ],
         "title": "SkillValidationResponse"
       },
-      "SpecClonePayload": {
+          "SpecBundle": {
+      "type": "object",
+      "required": ["format", "format_version", "spec", "provisioning"],
+      "properties": {
+        "format": {"type": "string", "enum": ["apigene.spec.bundle"]},
+        "format_version": {"type": "integer", "enum": [1]},
+        "spec": {"type": "object", "description": "Installed OpenAPI document"},
+        "provisioning": {
+          "type": "object",
+          "properties": {
+            "llm_summary": {"type": "object"},
+            "llm_use_cases_content": {},
+            "llm_app_categories": {},
+            "examples": {"type": "array"},
+            "domain_url": {"type": "string"},
+            "agentic_metadata": {"type": "array", "items": {"type": "object"}},
+            "server_url": {"type": "string"},
+            "operations_state": {"type": "object"},
+            "common_parameters": {"type": "object"}
+          }
+        }
+      }
+    },
+    "SpecClonePayload": {
         "properties": {
           "clone_api_title": {
             "type": "string",
