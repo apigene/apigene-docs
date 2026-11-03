@@ -36,7 +36,7 @@ Open a workflow to see the graph:
 
 If you have edit access, click **Edit** to change the graph in place:
 
-1. Add steps from the palette: **Action**, **Condition**, **Approval**, **Set values**, **Result**, and **AI step**. **Classify** steps are authored from Copilot or MCP and can be inspected on the graph
+1. Add steps from the palette, including **Action**, **Condition**, **Approval**, **Wait**, **Set values**, **Result**, and **AI step**. **Classify** steps are authored from Copilot or MCP and can be inspected on the graph
 2. Drag from a handle to connect steps. **Backspace** or **Delete** removes the selected step or link
 3. Edit the workflow name and description in the header, and inspect or update the selected node in the side panel
 4. Click **Save** to compile and store the draft
@@ -69,6 +69,16 @@ Call the workflow. While `status` is `waiting_human`, read `approval` and `run_i
 On the agent's **Versions** tab, **Docker service** downloads a zip of the published workflow APIs you select. The file name describes what it contains. After the download, copy the run steps: set `SERVICE_API_KEY` in `runtime.env` (callers send it as a bearer token), build and run, then open `http://localhost:8080/docs` and authorize with that key.
 
 If a selected workflow has an approve node, the zip includes that workflow's resume and status routes. Set `WORKFLOW_RUN_STORE_PATH` (the example uses `/data/workflow-runs.json`) and mount a volume on that file so an approval still resumes after a restart.
+
+The download dialog includes an optional Temporal setup. Leave those lines blank and the graph runs in this container. A restart drops a run that is still going.
+
+| Mode | What you set | What survives a restart |
+|------|----------------|-------------------------|
+| In this process | Nothing extra | An approval pause, when its file is on a volume. A run that is still going is dropped |
+| Local disk | `WORKFLOW_DURABILITY=local`, and a volume on `WORKFLOW_RUN_DIR` (the example is `/data/runs`). One container per volume | The run, from the last checkpoint |
+| Temporal | `TEMPORAL_ADDRESS`, plus a second process from the same image: `python -m apigene_workflow.worker` | The run, from the last finished step, including when the host is lost and Temporal itself keeps the history |
+
+Setting local disk and a Temporal address together fails startup. For Temporal Cloud, also set the namespace, `TEMPORAL_API_KEY` (the Temporal key, not `SERVICE_API_KEY`), and a task queue used only by this service. With that key the connection uses TLS.
 
 ## Run a workflow
 
@@ -167,10 +177,22 @@ Common `apigene.*` node types:
 | `classify` | Ask TypeSafe Jev typed questions about the current data |
 | `generative_ui` | Render a generative UI result from the workflow |
 | `approve` | Pause for human decision |
+| `wait` | Pause for 0 to 60 seconds, then continue with the same data. Dry runs do not wait |
 | `output` | Terminal node that defines the public `result` |
 | `workflow` | Run another saved workflow on this agent and wait for its `result` |
 
 Workflows should end in an **output** node so runners get a clear final result.
+
+### On error
+
+Each step has **Advanced → On error**:
+
+| Choice | What happens |
+|--------|----------------|
+| **Stop the run** (default) | The run is marked failed |
+| **Continue on the error output** | The error goes to an extra failure output, and a later step can handle it |
+
+Authentication failures (`waiting_auth`) always stop. Sign in, then run again.
 
 ### Sub-workflow
 

@@ -50,6 +50,7 @@ Choose from multiple AI model providers configured in [Settings](/user-guide/set
 - **xAI** — Grok 4.7, Grok 4, Grok 3
 - **Amazon Bedrock** — AWS-hosted models (IAM credentials)
 - **Microsoft Foundry** — Azure OpenAI deployments
+- **OpenAI-compatible** — a gateway you add under Settings, with the model ids that endpoint serves
 
 The model selector supports search and collapsible provider groups when you have many models configured.
 
@@ -133,7 +134,7 @@ Upload files to enhance your conversations:
 
 Copilot analyzes and uses the file content in responses.
 
-**Supported formats:** images (`image/*`), PDF (`.pdf`), plain text and code files (`text/*`), and other readable text-based files. Binary files that cannot be read as text prompt you to describe what you need instead.
+**Supported formats:** images (`image/*`), PDF (`.pdf`), plain text and code files (`text/*`), and other readable text-based files. A `.zip` is unpacked: the text and images inside are attached, and the zip itself is not sent. A zip larger than 25 MB is refused. Binary files that cannot be read as text prompt you to describe what you need instead.
 
 <Note>
 File attachments are available in **Chat** mode. Agent Builder focuses on agent configuration rather than file analysis.

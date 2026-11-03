@@ -112,6 +112,7 @@ Configure AI model preferences and access.
 - OpenRouter configuration
 - Amazon Bedrock (IAM access key, secret, region)
 - Microsoft Foundry (Azure OpenAI — service principal or API key, deployments)
+- OpenAI-compatible (a gateway that speaks the OpenAI chat API: base URL, API key, and model ids)
 - TypeSafe Jev (API key for workflow **Classify** steps only — not a chat model)
 - Exa (web search / content tools)
 
@@ -372,6 +373,15 @@ Enable AI models by adding provider API keys:
 3. Configure authentication (service principal or API key) and add deployments
 4. Each deployment maps to a model name shown in Copilot
 
+**OpenAI-compatible**
+1. Navigate to Settings > Organization > Model Settings
+2. Choose **OpenAI-compatible** and add a provider
+3. Enter a display name, a provider id (a lowercase slug), the base URL (the `/v1` root, for example `https://llm.example.com/v1`), and an API key
+4. Add at least one model id. Clear **Supports tools** when that model cannot take tool calls
+5. Save — the models appear in the Copilot picker under the display name
+
+The provider id cannot match a built-in provider name. A saved key is shown as the last 4 characters.
+
 **Extra HTTP headers**
 1. Open the provider card under Settings → Organization → Model Settings
 2. Expand **Extra headers**
@@ -491,14 +501,14 @@ Configure the matching environment variables in your deployment. Contact your ad
 
 ### OnPrem license (Self-Hosted)
 
-Self-hosted installs start on a trial. When Apigene provides a signed license token:
+An OnPrem install runs for **30 days** without a license file. The license covers the **whole installation**, not one organization. An organization admin applies it under **Settings → Organization → OnPrem License**:
 
-1. Settings → Organization
-2. Copy your **organization ID** if Apigene asks for it when issuing the license
-3. Paste the token under **Apply license token**
-4. Click **Apply license**
+1. Choose the `.license` file from OpenLegacy
+2. Upload it
 
-A valid token ends the trial for that organization. You can paste a new token later to renew or replace the current license. API equivalent: [`POST /api/org/apply_license`](/api-reference/org/org-apply-license).
+A valid file ends the trial. The screen shows who it is licensed to, when it was issued, and when it expires. Uploading another file replaces the current license. An expired or invalid file is shown on the same screen, and the installation stays locked until a valid file is applied.
+
+The install must have `LICENSE_PUBLIC_KEY` set before an upload is accepted. API equivalent: [`POST /api/org/apply_license`](/api-reference/org/org-apply-license).
 
 ### Configuring Application Defaults
 

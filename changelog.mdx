@@ -6,6 +6,80 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="November 3, 2026" description="v5.25.4" tags={["Self-hosted", "Workflows", "MCP"]}>
+  ## Upload an OnPrem license file
+
+  A self-hosted install takes an OpenLegacy license file for the whole installation, instead of a pasted token for one organization.
+
+  ### What's new
+  - **OnPrem license** — An organization admin uploads a `.license` file under **Settings → Organization → OnPrem License**. One file covers the installation and replaces the current license. The screen shows who it is licensed to and when it expires
+  - **Trial** — With no file applied, the installation runs for 30 days. An expired or invalid license is shown on the same screen
+  - **Downloaded workflow service** — Set `WORKFLOW_DURABILITY=local` to keep each run in its own file on a mounted volume, so a restart continues from the last checkpoint. Leave it unset to run in this process. Do not set it together with `TEMPORAL_ADDRESS`
+
+  ### Improvements
+  - An agent API stays in the MCP app list when its spec has no LLM summary
+</Update>
+
+<Update label="November 1, 2026" description="v5.25.1" tags={["Settings", "Models"]}>
+  ## Bring your own OpenAI-compatible model
+
+  Point Copilot at a gateway that speaks the OpenAI chat API.
+
+  ### What's new
+  - **OpenAI-compatible** — Under **Settings → Organization → Model Settings**, add a provider with a display name, a base URL (the `/v1` root), an API key, and the model ids it serves. Mark a model that does not accept tools. The API key is stored like the other provider keys and shown as the last 4 characters
+</Update>
+
+<Update label="November 1, 2026" description="v5.25.0" tags={["Applications", "Copilot"]}>
+  ## Install a prepared spec without an AI key
+
+  ### What's new
+  - **Provisioned OpenAPI bundle** — A spec file that already includes its summary and agentic metadata installs without an organization model key. The form names the file and asks for the application name
+  - **Zip in chat** — Drop or paste a `.zip` in Chat. Copilot unpacks the text and images inside and attaches those files. A zip larger than 25 MB is refused
+
+  ### Improvements
+  - Agent editor tabs use the full page width, so every tab fits without scrolling
+</Update>
+
+<Update label="October 30, 2026" description="v5.24.56" tags={["Workflows"]}>
+  ## Run a downloaded workflow service on Temporal
+
+  ### What's new
+  - **Temporal** — The **Docker service** download includes an optional Temporal setup. Leave the lines blank to run the graph in the service container. For Temporal Cloud, set the address, namespace, API key, and a task queue used only by this service, then start a second process from the same image
+</Update>
+
+<Update label="October 29, 2026" description="v5.24.54" tags={["Workflows"]}>
+  ## Continue after a failed step
+
+  ### What's new
+  - **On error** — Each step's **Advanced** settings choose **Stop the run** or **Continue on the error output**. Continue sends the error to a failure output so a later step can handle it
+
+  ### Improvements
+  - A generative UI template opened fullscreen covers the chat composer
+  - A failed save in the workflow step editor stays in the dialog
+</Update>
+
+<Update label="October 29, 2026" description="v5.24.53" tags={["Workflows"]}>
+  ## Pause a workflow for up to 60 seconds
+
+  ### What's new
+  - **Wait** — Add a Wait step that pauses the run for 0 to 60 seconds, then continues with the same data. Dry runs do not wait
+
+  ### Improvements
+  - An approval step shows its preview and field keys
+  - The graph zoom control is a floating minus, percent, and plus
+</Update>
+
+<Update label="October 28, 2026" description="v5.24.51" tags={["Workflows"]}>
+  ## Pick workflow steps from the agent
+
+  ### What's new
+  - **Action** — Pick the application and operation from this agent. Parameters are limited to what that action accepts
+  - **Call workflow** — The step lists the called workflow's inputs, and its output follows that workflow's Result
+  - **Pick a path** — Add and remove cases, each with its own outlet, and rename a case in place
+  - **Condition, Filter, and Switch** — Add and remove conditions on the rule
+  - **Show UI** — The closed template picker shows the template id
+</Update>
+
 <Update label="October 25, 2026" description="v5.24.49" tags={["Workflows"]}>
   ## Approve a paused workflow API
 

@@ -135,7 +135,8 @@ When you install an OpenAPI-based application, Apigene:
 
 1. **Checks LLM configuration**
    - Installing or reindexing an application requires at least one model provider configured for the organization
-   - If no provider is configured, complete [Settings → AI Models](/user-guide/settings) first, then retry
+   - A spec file that already includes its summary and agentic metadata installs without that key. The form says so and asks for the application name
+   - If no provider is configured and the file is not one of those bundles, complete [Settings → AI Models](/user-guide/settings) first, then retry
 
 2. **Validates the specification** (or converts Postman or WSDL → OpenAPI first)
 
