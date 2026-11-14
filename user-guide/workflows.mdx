@@ -32,7 +32,8 @@ Open a workflow to see the graph:
 - Click a node to inspect parameters and, after a traced run, the resolved step input and output. The inspector shows how long that node ran
 - View and edit use the same **Input**, **Logic**, and **Output** panel
 - Pan, zoom, and search steps. Toggle the **mini map** on or off (your preference is remembered)
-- Open **Help** on the graph or a run for node types, expressions, and limits
+- **Layout** switches the graph between **Row**, **Wrapped**, and a **Steps** list
+- Open **Help** on the graph or a run for node types, expressions, metrics, and limits
 
 If you have edit access, click **Edit** to change the graph in place:
 
@@ -178,10 +179,29 @@ Common `apigene.*` node types:
 | `generative_ui` | Render a generative UI result from the workflow |
 | `approve` | Pause for human decision |
 | `wait` | Pause for 0 to 60 seconds, then continue with the same data. Dry runs do not wait |
+| `code` | Run Python or JavaScript, or store Groovy source |
 | `output` | Terminal node that defines the public `result` |
 | `workflow` | Run another saved workflow on this agent and wait for its `result` |
 
 Workflows should end in an **output** node so runners get a clear final result.
+
+### Code
+
+A **Code** step runs Python or JavaScript. Assign `result`, and that JSON value is the next step's data. The timeout is 1 to 30 seconds, and the default is 5.
+
+Python can import `re`, `json`, `math`, and `datetime`, including `date`, `datetime`, and `timedelta`. `strftime` and `strptime` work. Any other import fails the step. `open`, `eval`, `exec`, `getattr`, `compile`, and `globals` are not available. A Python date or datetime in `result` comes back as an ISO-8601 string.
+
+JavaScript provides the language and `console.log`.
+
+**Groovy** is stored and highlighted. A run does not execute it. The step result is the source (`language` and `code`), so a later step can pass the script on.
+
+### Metrics
+
+On a **Result** step, expand **Metrics** to chart numbers from the result over time. Each metric is a path into the JSON, such as `kpis.closing_rate`. Choose number, percent, count, or currency, a line or bar, and an optional target. Percent means the value is already in percent (`14.5`, not `0.145`). One metric can be the headline. A list of objects can be split into one series per item.
+
+**Period read from** points at a month (`2026-10`), an ISO week (`2026-W44`), or a day (`2026-10-31`) in the result. Each period keeps the latest successful run. Leave it empty and every successful run is a point at the time it ran. Failed runs are ignored.
+
+Charts appear under **Monitor → Insights → Workflows**. Open a workflow for its metric charts and the runs in the selected dates. Metrics need **Full recording** under [Workflow Recording](/user-guide/settings#workflow-recording-organization). An agent export keeps the metrics with the workflow.
 
 ### On error
 

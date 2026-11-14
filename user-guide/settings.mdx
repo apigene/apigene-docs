@@ -499,6 +499,10 @@ Apigene Copilot supports multiple auth backends via `NEXT_PUBLIC_AUTH_PROVIDER`:
 
 Configure the matching environment variables in your deployment. Contact your administrator for sign-in URLs and client setup.
 
+With Keycloak, sign-up is off. A user with no organization is signed out, with an explanation of why. Sign-out ends the Keycloak session.
+
+On a self-hosted install, `/docs` (Swagger) is served by the installation.
+
 ### OnPrem license (Self-Hosted)
 
 An OnPrem install runs for **30 days** without a license file. The license covers the **whole installation**, not one organization. An organization admin applies it under **Settings → Organization → OnPrem License**:

@@ -235,7 +235,7 @@ Execute a single action with MCP App UI rendering so results can be shown in a v
 - `reasoning` (string, optional): Why this action was chosen
 - `template_id` (string, optional): Only include when the user explicitly requests a specific template; otherwise omit so the default template applies
 
-**Returns:** Action result; when a template applies, the response includes data suitable for the UI resource (see [MCP Gateway Resources](/user-guide/mcp-gateway/mcp-gateway-resources)).
+**Returns:** Action result, plus the screen to render. A connected MCP app's own HTML is included with the original tool result. Otherwise, when a template applies, the response includes data suitable for the UI resource (see [MCP Gateway Resources](/user-guide/mcp-gateway/mcp-gateway-resources)).
 
 **Note:** Unlike `run_action`, this tool does not accept `response_projection`.
 

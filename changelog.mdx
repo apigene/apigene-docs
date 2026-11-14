@@ -6,6 +6,79 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="November 14, 2026" description="v5.26.10" tags={["Workflows", "Monitor"]}>
+  ## Follow workflow results over time
+
+  A workflow can name the numbers in its result. Each successful run adds a point, and Monitor draws the trend.
+
+  ### What's new
+  - **Metrics** — On a Result step, expand **Metrics**. Each metric is a path into the JSON result, such as `kpis.closing_rate`. Choose number, percent, count, or currency, a line or bar, and an optional target. Percent means the value is already in percent (`14.5`, not `0.145`). One metric can be the headline. A list of objects can be split into one series per item, such as a rate by model
+  - **Monitor → Workflows** — Workflows are cards. The card shows the headline metric. Open a workflow for its charts and the runs that produced them. The Insights date range filters the list and the charts
+  - **Period** — Put a month (`2026-10`), an ISO week (`2026-W44`), or a day (`2026-10-31`) in the result and point **Period read from** at it. Each period keeps the latest successful run. Leave it empty and every successful run is a point at the time it ran
+  - **Names** — The workflow list and Design → Extend show the agent's display name
+
+  ### Improvements
+  - **Python** — A Code step can import `re`, `json`, `math`, and `datetime`, and can format dates with `strftime` and `strptime`. Any other import fails the step
+  - **Bundles** — An agent export keeps the workflow's metrics
+</Update>
+
+<Update label="November 12, 2026" description="v5.26.7" tags={["MCP"]}>
+  ## Show an MCP app's own screen
+
+  ### What's new
+  - **Hosted app** — When an action belongs to an MCP app that ships its own screen, that screen opens with the action result. The same screen renders for Copilot and for other MCP hosts
+</Update>
+
+<Update label="November 12, 2026" description="v5.26.5" tags={["Agents"]}>
+  ## A fixed agent name, and a Microsoft 365 widget host
+
+  ### What's new
+  - **Agent name** — After you create an agent, the name stays fixed, because live calls use it. Change the display name instead
+  - **Microsoft 365 Copilot** — On **Setup**, paste the widget host URL the generator prints. The gateway allows that origin only for this agent
+</Update>
+
+<Update label="November 10, 2026" description="v5.26.3" tags={["Workflows"]}>
+  ## Keep Groovy in a code step
+
+  ### What's new
+  - **Groovy** — A Code step can store Groovy. The editor highlights it. A run does not execute the script. The result is the source, so a later step can pass it on
+</Update>
+
+<Update label="November 9, 2026" description="v5.26.2" tags={["Copilot", "Self-hosted"]}>
+  ## Public chat on a phone, and API docs without a CDN
+
+  ### Improvements
+  - **Public chat** — The page keeps its width when the iOS keyboard opens
+  - **Link previews** — A shared link shows the product icon
+  - **On-prem docs** — `/docs` is served by the installation, so Swagger opens without the public CDN
+</Update>
+
+<Update label="November 8, 2026" description="v5.26.1" tags={["Agents"]}>
+  ## Share an agent as a public app
+
+  ### What's new
+  - **Deploy** — On the agent **Deploy** tab, turn the app on and share the link. Anyone with the link can open it. Each browser is remembered as its own visitor
+  - **Reply language** — Match the visitor's message, or keep every reply in one language
+</Update>
+
+<Update label="November 7, 2026" description="v5.25.8" tags={["Actions"]}>
+  ## Read an action response as a table
+
+  ### What's new
+  - **Views** — On an action, **Views** opens when the response contains more than one record, and shows that list as a table
+</Update>
+
+<Update label="November 4, 2026" description="v5.25.7" tags={["Workflows", "Self-hosted"]}>
+  ## Read a long workflow, and how long each step took
+
+  ### What's new
+  - **Layout** — A workflow graph can be a **Row**, **Wrapped**, or a **Steps** list
+  - **Timeline** — Open a run's timeline to see how long each step took, beside the graph. Zoom in, zoom out, or fit the run
+
+  ### Improvements
+  - **Keycloak** — A user with no organization is signed out and told why, instead of being sent back to sign-in. Sign-up is off. Sign-out ends the Keycloak session
+</Update>
+
 <Update label="November 3, 2026" description="v5.25.4" tags={["Self-hosted", "Workflows", "MCP"]}>
   ## Upload an OnPrem license file
 

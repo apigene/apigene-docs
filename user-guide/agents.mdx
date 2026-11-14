@@ -75,6 +75,7 @@ For most users, start in Agent Builder and refine in the editor afterward.
 - Use lowercase kebab-case: letters, numbers, and hyphens only (for example `github-bot`, `support-agent`)
 - Spaces and underscores are converted to hyphens as you type
 - Maximum 64 characters; keep it short so MCP URLs stay readable
+- After you create the agent, the name stays fixed, because live calls use it. Change the display name instead
 
 **Display Name** (Optional)
 - Friendly label shown in chat, agent cards, and pickers (up to 64 characters)
@@ -198,6 +199,7 @@ After creating an agent, the editor is organized into a sticky, full-width tab b
 | **Workflows** | List, create, visually edit, run, and simulate agent workflows |
 | **Versions** | Draft vs live, publish, compare, version history, and `.zip` export (available after first save) |
 | **Setup** | Live and design MCP URLs, per-tool toggles, managed setup export |
+| **Deploy** | Public app link, website widget, appearance, and reply language |
 
 ## Skills
 
@@ -274,6 +276,19 @@ On **Setup**, open **MCP Client** and pick the external product.
 6. Run `agentcore deploy`, then `agentcore invoke`
 
 The project name and harness name together must be at most 40 characters. If deploy reports a name that is too long, shorten `--name`.
+
+**Microsoft 365 Copilot**
+
+1. Choose **Microsoft 365 Copilot** and copy the MCP server URL
+2. Paste the **Widget host URL** the generator prints. It is an `https` origin with no path. The gateway allows that origin only for this agent
+
+## Deploy a public app
+
+On the agent **Deploy** tab, turn **Enabled** on and save. Anyone with the **App link** can open the app. Until it is enabled, only you can open it. Each browser is remembered as its own visitor.
+
+**Behavior → Reply language** is **Match the visitor** (follow the language of their message) or one fixed language for every reply.
+
+**Install** also has a website widget snippet. **Access → Allowed websites** lists the origins that may embed the widget. The full-page link works from anywhere.
 
 ## Draft, live, and version history
 
@@ -352,7 +367,7 @@ The bundle includes:
 
 - Agent name, display name, description, icon, visibility, and instructions
 - Attached skills, contexts, OpenAPI applications, and native MCP servers
-- Workflows and generative UI templates
+- Workflows, including declared metrics, and generative UI templates
 - Per-tool enable/disable settings
 
 **Export**
