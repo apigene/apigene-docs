@@ -123,6 +123,24 @@ Workflows can include an **approve** node. When the run reaches it, status becom
 
 From MCP clients, call `resume_workflow` with the `run_id` and `decision`. That call stays limited to the user who started the run. A published workflow API uses the resume route under [Publish as an API](#publish-as-an-api), and any caller who can invoke that API can resume its runs.
 
+Leave **policy** empty and the stage stays that single decision. `decidedBy` is a string, and a dry run approves without calling a webhook.
+
+Set **policy** when more than one person must vote. One approve node is one stage. Chain nodes for several levels.
+
+| `mode` | What finishes the stage |
+|--------|-------------------------|
+| `any` | The first approve follows the approve path. The first reject follows the reject path. Only that vote's edits are kept. |
+| `all` | Every approver must approve. Any reject ends the stage. Edits are ignored. |
+| `quorum` | `count` distinct approves are required. Any reject ends the stage. Edits are ignored. |
+
+Each approver is a `channel` and an `id`. `user` is the sign-in subject. `email` is an email address. `slack`, or any other short channel name, is an id your own app understands. Apigene does not send Slack or email. The `id` may be an expression. The same person on two channels is two votes. At most 8 approvers.
+
+When a policy is set, a signed-in person can vote only as `user` or `email`. Every other channel votes with a token. `decidedBy` is `{channel, id}`, and `decisions` lists the votes. Vote tokens never appear on the run result.
+
+Notifications go to the **approval webhook** on the agent Setup tab. One webhook covers every workflow of that agent that has an approval step. Apigene POSTs a signed `approval.requested`, `approval.updated`, or `approval.completed` event. Each event includes `workflowId` and `agentId`. `approval.requested` includes one `voteToken` per approver. The HTTP response is ignored and cannot approve the run. Your app routes the notification and later calls `POST /api/workflow-approvals/votes` with `Authorization: Bearer <voteToken>`.
+
+An exported workflow service does the same when `APPROVAL_WEBHOOK_URL` and `APPROVAL_WEBHOOK_SECRET` are set. An approve node with no policy still resumes with `{"decision":"approve"}` and the service API key.
+
 ## Create and update workflows
 
 Ask Copilot (with the agent selected) or Design Agent **Extend** to create a workflow, or call MCP `create_workflow` from Cursor, Claude, or other clients connected to the design MCP URL. The id is derived from the name (for example `Account update` → `account-update`). Open the new graph on the agent's **Workflows** tab, click **Edit**, add steps, then **Save**.
