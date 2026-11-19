@@ -514,6 +514,8 @@ A valid file ends the trial. The screen shows who it is licensed to, when it was
 
 The install must have `LICENSE_PUBLIC_KEY` set before an upload is accepted. API equivalent: [`POST /api/org/apply_license`](/api-reference/org/org-apply-license).
 
+Exporting a [workflow Docker service](/user-guide/workflows#docker-service) needs that active license. The download is refused during the trial and when the license is expired or invalid. The exported image carries the license.
+
 ### Configuring Application Defaults
 
 Set default behaviors for application usage:

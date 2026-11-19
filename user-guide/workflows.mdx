@@ -69,6 +69,12 @@ Call the workflow. While `status` is `waiting_human`, read `approval` and `run_i
 
 On the agent's **Versions** tab, **Docker service** downloads a zip of the published workflow APIs you select. The file name describes what it contains. After the download, copy the run steps: set `SERVICE_API_KEY` in `runtime.env` (callers send it as a bearer token), build and run, then open `http://localhost:8080/docs` and authorize with that key.
 
+The image carries this installation's OpenLegacy license. Workflows run while that license is valid. After it expires, starting a workflow, resuming a run, and voting on an approval return 403 and name the reason. The download is refused until an active license is uploaded under **Settings → Organization → OnPrem License**. A trial, an expired license, or an invalid license cannot be exported.
+
+To renew, upload the new license and export the service again. To apply a renewed license without exporting again, mount the license file and restart. A mounted file overrides the license in the image. The bundle README has the mount command. Add it to every container of the service, including the Temporal worker.
+
+The build uses the workflow runtime image from this installation, so a host with no internet uses the image that came with the install.
+
 If a selected workflow has an approve node, the zip includes that workflow's resume and status routes. Set `WORKFLOW_RUN_STORE_PATH` (the example uses `/data/workflow-runs.json`) and mount a volume on that file so an approval still resumes after a restart.
 
 The download dialog includes an optional Temporal setup. Leave those lines blank and the graph runs in this container. A restart drops a run that is still going.

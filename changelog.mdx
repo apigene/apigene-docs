@@ -6,6 +6,34 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="November 18, 2026" description="v5.26.13" tags={["Workflows", "Self-hosted"]}>
+  ## The downloaded workflow service carries the license
+
+  A Docker service download includes this installation's OpenLegacy license. Workflows run while that license is valid.
+
+  ### What's new
+  - **License in the image** — After the license expires, starting a workflow, resuming a run, and voting on an approval return 403 and name the reason. The service logs the license status when it starts
+  - **Export** — The download is refused until an active license is uploaded under **Settings → Organization → OnPrem License**. A trial, an expired license, or an invalid license cannot be exported
+  - **Renew** — Upload the new license and export the service again. To apply a renewed license without exporting again, mount the license file and restart. A mounted file overrides the license in the image. The download steps say this, and the bundle README has the mount. Add it to every container, including the Temporal worker
+
+  ### Improvements
+  - The build uses the workflow runtime image from this installation, so a host with no internet uses the image that came with the install
+</Update>
+
+<Update label="November 14, 2026" description="v5.26.11" tags={["Workflows"]}>
+  ## Several people can approve one step
+
+  An Approve step can wait for more than one vote. Leave the policy empty and it stays a single decision by the person who started the run.
+
+  ### What's new
+  - **Policy** — Choose **any**, **all**, or a **quorum**. Each approver is a channel and an id, and there are at most 8. A signed-in person votes as `user` or `email`. Any other channel votes with a token. Apigene does not send Slack or email
+  - **Approval webhook** — On the agent **Setup** tab, one webhook covers every workflow on that agent. Apigene POSTs a signed `approval.requested`, `approval.updated`, or `approval.completed` event. `approval.requested` includes one vote token per approver. Your app calls `POST /api/workflow-approvals/votes` with that token. The webhook response cannot approve the run
+  - **Exported service** — Set `APPROVAL_WEBHOOK_URL` and `APPROVAL_WEBHOOK_SECRET` and the downloaded service sends the same events. An approve step with no policy still resumes with the service API key
+
+  ### Improvements
+  - On **Monitor → Workflows**, a workflow's metric charts stay on the page when the date range has no points yet
+</Update>
+
 <Update label="November 14, 2026" description="v5.26.10" tags={["Workflows", "Monitor"]}>
   ## Follow workflow results over time
 
