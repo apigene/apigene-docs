@@ -6,6 +6,58 @@ rss: true
 
 End-user facing changes across Copilot, Agents, Workflows, and MCP Gateway since Apigene 5.0. Internal, infra, and CI-only releases are omitted.
 
+<Update label="November 22, 2026" description="v5.26.17" tags={["Copilot"]}>
+  ## A tool card says Run Action
+
+  ### What's new
+  - **Tool preview** — An action card is labeled **Run Action**. It no longer shows the raw tool id, such as `sales-agent_run_action`
+</Update>
+
+<Update label="November 21, 2026" description="v5.26.16" tags={["Copilot"]}>
+  ## Newer models in the catalog
+
+  ### What's new
+  - **OpenAI** — GPT-6.2 Astra and GPT-6.2 Sol
+  - **Anthropic** — Claude Fable 5.2
+  - **Google** — Gemini 4 Carbon, Neon, Hydrogen, and Argon
+</Update>
+
+<Update label="November 20, 2026" description="v5.26.15" tags={["Workflows", "Self-hosted"]}>
+  ## Chart exported workflow metrics in Grafana
+
+  A downloaded workflow service keeps the numbers a workflow declares and serves them for your own Grafana.
+
+  ### What's new
+  - **Gauge** — Each declared metric is the gauge `workflow_metric_value` (OpenTelemetry name `workflow.metric.value`). The value is the newest succeeded run in the history file in which that metric could be read. Labels are the workflow slug, the metric key, the unit, and the split series when the metric has one
+  - **History** — `GET /workflow-metrics/{slug}` with the service API key returns one row per metric, series, and point. Optional `from` and `to` limit the dates. Mount a volume on `WORKFLOW_METRICS_STORE_PATH` (the example is `/data/workflow-metrics.jsonl`) on the HTTP container, in every mode, including Temporal. The worker needs no volume. The file is not pruned
+  - **Temporal** — The HTTP container reads finished runs from Temporal about once a minute (`WORKFLOW_METRICS_SWEEP_SECONDS`, default `60`)
+  - **Dashboard** — The zip includes `observability/workflow-metrics-dashboard.json`, one panel per declared metric. Import it and choose an Infinity data source for this service. The bundle README has the URL, the bearer header, and the row columns
+
+  ### Improvements
+  - A Grafana alert that compares the gauge returns no series while the value is on the good side. Set the rule's no-data state to OK, or put the threshold in a Grafana threshold expression, so a healthy metric does not raise a no-data alert
+</Update>
+
+<Update label="November 20, 2026" description="v5.26.15" tags={["Agents", "MCP"]}>
+  ## Connect an agent to IBM watsonx Orchestrate
+
+  ### What's new
+  - **MCP Client** — On **Setup**, choose **IBM watsonx Orchestrate**. Generate an API token with a long duration, add an API Key connection in Orchestrate (header `apigene-api-key`), then add this agent's MCP URL as a remote MCP server. Import `get_instructions`, `list_available_apps`, `search_actions`, `list_actions`, and `run_action`, and paste the instructions from the panel into the Orchestrate agent. Imported tools do not refresh on their own: import them again after this agent's tools change
+  - **Design Agent** — Asking to connect watsonx Orchestrate selects that client
+
+  ### Improvements
+  - **App name** — On action tools, `app_name` is an application returned by `list_available_apps` or `get_instructions`. It is not the agent name
+  - **Sessions** — A call for a session the gateway no longer has, after a restart, another replica, or an idle timeout, returns 404. The client opens a new session
+</Update>
+
+<Update label="November 20, 2026" description="v5.26.14" tags={["Workflows", "Self-hosted"]}>
+  ## Clone a workflow, and copy its API as curl
+
+  ### What's new
+  - **Clone** — On the workflow list or the graph, **Clone** copies the graph under a new name, including declared metrics. The published API stays on the original
+  - **curl** — In **API → Test**, **curl** copies the same call the panel sends. Set `APIGENE_API_KEY` to an API key from **Settings → Organization**, then run it in a terminal
+  - **Traces** — On a downloaded service with `OTEL_EXPORTER_OTLP_ENDPOINT` set, each node span stays open while the node runs. Outbound calls and the approval webhook carry `traceparent`, so a service that uses OpenTelemetry continues that trace under the node. With export off, those headers are not sent
+</Update>
+
 <Update label="November 18, 2026" description="v5.26.13" tags={["Workflows", "Self-hosted"]}>
   ## The downloaded workflow service carries the license
 

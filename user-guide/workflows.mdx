@@ -22,7 +22,9 @@ Use workflows when you need a **deterministic** sequence — with branching, par
 2. Select an agent
 3. Open the **Workflows** tab
 
-From there you can list workflows, open the graph, **Edit** it visually, run, simulate, and delete. Create or update graphs through **Copilot** / **Design Agent** (with that agent selected) or **MCP Gateway** tools.
+From there you can list workflows, open the graph, **Edit** it visually, **Clone** it, run, simulate, and delete. Create or update graphs through **Copilot** / **Design Agent** (with that agent selected) or **MCP Gateway** tools.
+
+**Clone**, on the list or the graph menu, copies the graph under a new name, including declared metrics. The published API stays on the original.
 
 ## View and edit the graph
 
@@ -55,7 +57,7 @@ On a workflow, open **API** (**Configure OpenAPI**) to publish it as an authenti
 1. Set the description, HTTP method, and path. The URL uses the agent slug
 2. POST and PUT send inputs as a JSON body. GET and DELETE send them as query parameters
 3. View or download the OpenAPI document
-4. **Test** runs the endpoint from the dialog. If the run pauses for approval, the panel shows the approval and lets you approve or reject
+4. **Test** runs the endpoint from the dialog. **curl** copies that same call. Set `APIGENE_API_KEY` to an API key from **Settings → Organization**, then run the command in a terminal. If the run pauses for approval, the panel shows the approval and lets you approve or reject
 5. **Unpublish** removes the endpoint
 
 When the workflow contains an **approve** node, the OpenAPI document also includes:
@@ -86,6 +88,18 @@ The download dialog includes an optional Temporal setup. Leave those lines blank
 | Temporal | `TEMPORAL_ADDRESS`, plus a second process from the same image: `python -m apigene_workflow.worker` | The run, from the last finished step, including when the host is lost and Temporal itself keeps the history |
 
 Setting local disk and a Temporal address together fails startup. For Temporal Cloud, also set the namespace, `TEMPORAL_API_KEY` (the Temporal key, not `SERVICE_API_KEY`), and a task queue used only by this service. With that key the connection uses TLS.
+
+#### Business metrics
+
+When a selected workflow declares metrics, the service records each succeeded run and reports the newest readable value as the gauge `workflow_metric_value`. Mount a volume on `WORKFLOW_METRICS_STORE_PATH` (the example is `/data/workflow-metrics.jsonl`) on the HTTP container in every mode, including Temporal. The worker does not need that volume. The file is not pruned.
+
+`GET /workflow-metrics/{slug}` with `Authorization: Bearer <SERVICE_API_KEY>` returns the history. `from` and `to` are optional dates. In Temporal mode the HTTP container reads finished runs about once a minute (`WORKFLOW_METRICS_SWEEP_SECONDS`, default `60`).
+
+The zip includes `observability/workflow-metrics-dashboard.json`, one panel per declared metric. Import it into Grafana and choose an Infinity data source for this service. The bundle README has the data source URL, the bearer header, the row columns, and how to alert on the gauge without a false no-data alert.
+
+#### Traces
+
+Set `OTEL_EXPORTER_OTLP_ENDPOINT` to send traces to your collector. Each node span stays open while the node runs. Outbound calls and the approval webhook carry W3C `traceparent`, and `tracestate` when one is present, so a service that uses OpenTelemetry continues the same trace under that node. Leave the endpoint unset and those headers are not sent. The bundle README lists the other `OTEL_*` settings.
 
 ## Run a workflow
 
@@ -225,7 +239,7 @@ On a **Result** step, expand **Metrics** to chart numbers from the result over t
 
 **Period read from** points at a month (`2026-10`), an ISO week (`2026-W44`), or a day (`2026-10-31`) in the result. Each period keeps the latest successful run. Leave it empty and every successful run is a point at the time it ran. Failed runs are ignored.
 
-Charts appear under **Monitor → Insights → Workflows**. Open a workflow for its metric charts and the runs in the selected dates. Metrics need **Full recording** under [Workflow Recording](/user-guide/settings#workflow-recording-organization). An agent export keeps the metrics with the workflow.
+Charts appear under **Monitor → Insights → Workflows**. Open a workflow for its metric charts and the runs in the selected dates. Metrics need **Full recording** under [Workflow Recording](/user-guide/settings#workflow-recording-organization). An agent export keeps the metrics with the workflow. A [downloaded workflow service](#docker-service) reports the same declarations to your own Grafana.
 
 ### On error
 

@@ -277,6 +277,17 @@ On **Setup**, open **MCP Client** and pick the external product.
 
 The project name and harness name together must be at most 40 characters. If deploy reports a name that is too long, shorten `--name`.
 
+**IBM watsonx Orchestrate**
+
+1. Choose **IBM watsonx Orchestrate** and generate an API token. Pick a long duration: when the token expires, the Orchestrate connection stops until you update it
+2. In watsonx Orchestrate, open **Connections → Add new connection**. For both Draft and Live, choose API Key authentication sent as a header. The header name is `apigene-api-key`, and the value is the token
+3. Create or open an agent, then **Tools → Add tool → MCP server → Add MCP server → Remote MCP server**
+4. Enter a server name, paste this agent's MCP URL, keep Streamable HTTP, select the connection from step 2, and connect
+5. Add `get_instructions`, `list_available_apps`, `search_actions`, `list_actions`, and `run_action`. Imported tools do not refresh on their own: import them again after this agent's tools change
+6. Paste the agent instructions from the panel into the Orchestrate agent's **Instructions** field, then test in the Preview panel
+
+The same server can be registered once for the instance under **AI Gateway → MCP servers**. Design Agent selects this client when you ask to connect watsonx Orchestrate.
+
 **Microsoft 365 Copilot**
 
 1. Choose **Microsoft 365 Copilot** and copy the MCP server URL

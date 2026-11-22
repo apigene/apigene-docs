@@ -8,6 +8,8 @@ icon: 'wrench'
 
 Tools enable you to discover, search, and execute actions across your Apigene applications. Agent mode adds context tools, [Agent Skills](https://github.com/agentskills/agentskills)-compatible skill listing/retrieval/creation, and [Agent Workflows](/user-guide/workflows) (`run_workflow`, `resume_workflow`, and CRUD). When MCP App UI is enabled, additional tools render results in UI widgets. All tools follow the standard MCP tool calling protocol.
 
+On action tools, `app_name` is an application on the agent, as returned by `list_available_apps` or `get_instructions`. It is not the agent name.
+
 ## Tools Reference
 
 ### get_instructions
